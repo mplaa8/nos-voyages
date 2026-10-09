@@ -1,6 +1,6 @@
 # ORDRE-002 — Touches du jour J : lettre d'ouverture, statistiques, carte cadeau
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait
 **Échéance** : samedi 10 octobre 2026 (gel du code le lundi 12 au soir, anniversaire le mercredi 14)
 
 ## Objectif
@@ -47,11 +47,32 @@ Un nouveau fichier **`carte-cadeau.html`** à la racine (non lié depuis l'app, 
 6. Aucune erreur dans la console sur l'ensemble.
 
 ## Critères de fin
-- [ ] Les 3 touches fonctionnent, rien de l'existant n'est cassé
-- [ ] Tests ci-dessus passés, captures jointes au compte rendu (ou décrites)
-- [ ] `sw.js` en `v3`
-- [ ] `docs/00-etat-du-projet.md` mis à jour
-- [ ] Commit et push sur `main`
-- [ ] Résumé de 5 lignes pour l'architecte, avec la marche à suivre pour imprimer la carte
+- [x] Les 3 touches fonctionnent, rien de l'existant n'est cassé
+- [x] Tests ci-dessus passés, captures jointes au compte rendu (ou décrites)
+- [x] `sw.js` en `v3`
+- [x] `docs/00-etat-du-projet.md` mis à jour
+- [x] Commit et push sur `main`
+- [x] Résumé de 5 lignes pour l'architecte, avec la marche à suivre pour imprimer la carte
 
 ## Compte rendu (à remplir par Claude Code)
+
+**Fait — 9 octobre 2026**
+
+1. **Lettre d'ouverture** : nouvelle section `#letter` sur le même ciel étoilé. Le cœur éclate, puis la lettre apparaît en fondu à 0,9 s et l'accueil est retiré. Carte papier `--paper` avec une pastille rose en guise de cachet, texte en Fraunces italique (≈ 22 px sur iPhone, interligne 1,62, 34 caractères maximum par ligne), signature « Max » à droite en rose. Bouton « Découvrir notre carte » au même style que « Ouvrir mon cadeau » (54 px de haut). Texte et signature modifiables dans `LETTRE`, sous `CONFIG`. Sur un petit écran, la lettre défile naturellement. `prefers-reduced-motion` est respecté par la règle globale existante. Avec `#admin`, ni accueil ni lettre. « 💌 Relire ta lettre » est ajouté en bas de la liste « Nos pays ».
+2. **Statistiques** : « X pays · Y continents découverts ensemble » sous le titre de la liste. Seuls les pays `visited` sont comptés. Le continent vient de `CONTINENT` (Natural Earth), mémorisé par pays et traduit ; Antarctique et océans sont ignorés. Le mot « découvert » s'accorde avec le nombre de continents (« 1 pays · 1 continent découvert ensemble »). Rien n'est affiché si aucun pays n'est visité.
+3. **`carte-cadeau.html`** : 2 cartes A6 paysage sur une feuille A4 avec traits de coupe, aperçu à l'écran et bouton « Imprimer ». QR code en SVG intégré, correction **Q**, avec marge blanche de 4 modules sur une tuile blanche arrondie, vers `https://mplaa8.github.io/nos-voyages/`. `print-color-adjust: exact` est activé. Le fichier est exclu explicitement du cache dans `sw.js`, qui sinon met en cache toutes les pages du site.
+4. `sw.js` passé à `nos-voyages-v3`.
+
+**Tests** (skill webapp-testing, 390 × 844, mode démo, script `tests/test_ordre002_iphone.py`) : les 14 vérifications passent.
+- Parcours accueil → lettre → carte : texte exact, lettre entière visible sans défilement.
+- Statistiques « 3 pays · 2 continents découverts ensemble » (France, Italie, Japon visités ; États-Unis rêvé), cas singulier, cas vide.
+- « Relire ta lettre » aller-retour, et `#admin` sans accueil ni lettre.
+- QR décodé par OpenCV = `https://mplaa8.github.io/nos-voyages/`.
+- Aucune erreur dans la console.
+
+Captures dans `docs/captures/ordre002-*.png`.
+
+**Écarts et remarques**
+- Les pays de test ont été préchargés dans le stockage de démo au lieu d'être cliqués sur la carte : cliquer un pays précis sur la carte (dessinée en canvas) n'est pas fiable en automatique.
+- cdnjs et jsdelivr sont bloqués dans l'environnement de Claude Code : les tests utilisent des copies identiques (Leaflet 1.9.4, supabase-js 2, Natural Earth v5.1.2) récupérées sur npm et GitHub. L'app elle-même n'a pas changé.
+- La lettre garde les apostrophes droites du texte fourni (« t'offrir »). Des apostrophes typographiques (’) seraient plus élégantes : à valider par l'architecte.

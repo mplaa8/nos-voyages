@@ -53,6 +53,7 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 - [x] Projet Supabase créé et configuré
 - [x] Dépôt GitHub créé et code poussé
 - [x] App publiée sur GitHub Pages : https://mplaa8.github.io/nos-voyages/ (ORDRE-001, contenu de test conservé pour l'instant)
+- [x] Touches du jour J (ORDRE-002) : lettre d'ouverture (`LETTRE` dans `index.html`), statistiques pays/continents, `carte-cadeau.html` à imprimer
 - [ ] Carte remplie (pays, photos, souvenirs)
 - [ ] Testée sur iPhone, puis offerte 🎁
 
@@ -68,8 +69,8 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 - Plusieurs voyages dans un même pays, chacun avec ses photos et souvenirs.
 - Points sur la carte pour les villes visitées, pas seulement les pays.
 - Légende ou commentaire sous chaque photo, et choix d'une photo de couverture par pays.
-- Statistiques douces : nombre de pays, de continents, pourcentage du monde découvert.
-- Message ou surprise personnalisée à l'ouverture (lettre, musique, révélation pays par pays).
+- Statistiques douces : pays et continents faits (ORDRE-002) ; pourcentage du monde découvert à voir.
+- ~~Message à l'ouverture~~ (fait : lettre, ORDRE-002) ; musique, révélation pays par pays.
 - Permettre à ma femme d'ajouter elle aussi ses propres souvenirs.
 - Compte à rebours vers le prochain voyage prévu.
 - Sauvegarde/export de toutes nos données (pour ne jamais rien perdre).
@@ -78,4 +79,4 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 ## Points de vigilance
 - Supabase gratuit met en pause un projet inactif depuis environ une semaine. Les données restent ; on le réactive en un clic depuis le tableau de bord.
 - Toute personne qui a le lien peut voir la carte (sans rien modifier) : ne pas partager le lien publiquement.
-- Après une modification du code, incrémenter `CACHE` dans `sw.js` (actuellement `nos-voyages-v2`) pour forcer la mise à jour sur l'iPhone.
+- Après une modification du code, incrémenter `CACHE` dans `sw.js` (actuellement `nos-voyages-v3`) pour forcer la mise à jour sur l'iPhone.

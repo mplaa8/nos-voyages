@@ -1,5 +1,5 @@
 // Service worker : app utilisable rapidement, carte mise en cache
-const CACHE = 'nos-voyages-v2';
+const CACHE = 'nos-voyages-v3';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png'];
 
 self.addEventListener('install', e => {
@@ -13,6 +13,7 @@ self.addEventListener('fetch', e => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.hostname.endsWith('supabase.co')) return;           // données toujours fraîches
+  if (url.pathname.endsWith('/carte-cadeau.html')) return;      // carte à imprimer : jamais en cache
   if (url.origin === location.origin) {                         // l'app : réseau d'abord
     e.respondWith(fetch(req).then(r => { const copy = r.clone(); caches.open(CACHE).then(c => c.put(req, copy)); return r; })
       .catch(() => caches.match(req).then(r => r || caches.match('./index.html'))));

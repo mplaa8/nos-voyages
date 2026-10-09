@@ -133,6 +133,21 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
 #welcome.opening h1,#welcome.opening .sub,#welcome.opening .open-btn{transition:opacity .5s;opacity:0!important}
 @keyframes burst{to{transform:scale(10);opacity:0}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ---------- Lettre ---------- */
+#letter{position:fixed;inset:0;z-index:2100;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;display:flex;flex-direction:column;padding:calc(var(--st) + 28px) 22px calc(var(--sb) + 28px);background:radial-gradient(130% 90% at 50% 35%,#2a2350 0%,#1a1d3a 55%,#11142a 100%);opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s}
+#letter.show{opacity:1;visibility:visible}
+.letter-inner{position:relative;margin:auto;width:100%;max-width:400px;display:flex;flex-direction:column;align-items:center}
+.letter-card{position:relative;width:100%;background:var(--paper);color:var(--ink);border-radius:22px;padding:34px 28px 26px;box-shadow:0 18px 60px rgba(0,0,0,.45),0 0 44px rgba(255,122,138,.16)}
+.letter-card::before{content:'';position:absolute;top:-11px;left:50%;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:var(--glow);box-shadow:0 0 18px rgba(255,122,138,.7)}
+.letter-text{margin:0 auto;max-width:34ch;font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(21px,5.6vw,24px);line-height:1.62;white-space:pre-line}
+.letter-sign{margin:22px 0 0;text-align:right;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(24px,6.4vw,28px);color:var(--glow-d)}
+#letter .open-btn{margin-top:30px;margin-bottom:var(--sb)}
+#letter.show .letter-card{animation:fadeUp 1.1s .25s both}
+#letter.show .open-btn{animation:fadeUp 1.1s 1.1s both}
+#letter:not(.show) .letter-card,#letter:not(.show) .open-btn{animation:none}
+.list-stats{margin:6px 0 0;font-size:15px;color:var(--muted)}
+.reread{display:block;margin:22px auto 0;min-height:44px;padding:10px 16px;border-radius:14px;font-size:15px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -144,6 +159,17 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
   <h1>Joyeux anniversaire mon amour ❤️</h1>
   <p class="sub">Chaque point lumineux de cette carte est un endroit que nous avons découvert ensemble.</p>
   <button class="open-btn" id="openGift">Ouvrir mon cadeau</button>
+</section>
+
+<!-- Lettre (texte modifiable dans LETTRE, en haut du script) -->
+<section id="letter" aria-label="Lettre" aria-hidden="true">
+  <div class="letter-inner">
+    <article class="letter-card">
+      <p class="letter-text" id="letterText"></p>
+      <p class="letter-sign" id="letterSign"></p>
+    </article>
+    <button class="open-btn" id="letterBtn">Découvrir notre carte</button>
+  </div>
 </section>
 
 <!-- Carte -->
@@ -214,11 +240,21 @@ const CONFIG = {
   SUPABASE_ANON_KEY: "sb_publishable_Sf9emQOs8nTQGWOiw-gLOQ_iSEbKPZr" // la clé « anon / public »
 };
 
+/* =========================================================
+   💌  LETTRE — affichée après « Ouvrir mon cadeau »
+   Modifie le texte ou la signature ici (garde les guillemets).
+   ========================================================= */
+const LETTRE = {
+  texte: "Mon amour, en ce jour si spécial, je souhaite t'offrir un cadeau que nous utiliserons jusqu'à notre dernier voyage. Peu importe où nous irons, je sais que je me sentirai à ma place, car je serai à tes côtés.",
+  signature: "Max"
+};
+
 const GEO_URLS = [
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson/ne_50m_admin_0_countries.geojson",
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_50m_admin_0_countries.geojson"
 ];
 const COLORS = { visited:'#ff7a8a', dream:'#f3d27a', none:'#2c3358' };
+const CONTINENTS = { 'Europe':'Europe', 'Asia':'Asie', 'Africa':'Afrique', 'North America':'Amérique du Nord', 'South America':'Amérique du Sud', 'Oceania':'Océanie' };
 
 /* ---------- Petits utilitaires ---------- */
 const $ = id => document.getElementById(id);
@@ -307,7 +343,7 @@ const Store = REMOTE ? RemoteStore : LocalStore;
 /* =========================================================
    ÉTAT
    ========================================================= */
-const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, layers:{}, admin:false, current:null, mode:null, editing:null, busy:false };
+const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, layers:{}, admin:false, current:null, mode:null, editing:null, busy:false };
 
 function ingest(data){
   state.countries = {}; state.memories = {}; state.photos = {};
@@ -435,12 +471,16 @@ function renderSheet(){
 
 function renderList(){
   const rows = Object.values(state.countries).sort((a, b) => (a.status === b.status ? nameOf(a.code).localeCompare(nameOf(b.code), 'fr') : a.status === 'visited' ? -1 : 1));
-  let h = `<div class="head"><span class="flag">🗺️</span><div><h2>Nos pays</h2></div></div>`;
+  const visited = rows.filter(c => c.status === 'visited');
+  const nc = new Set(visited.map(c => state.continent[c.code]).filter(Boolean)).size;
+  const stats = visited.length ? `<p class="list-stats">${visited.length} pays · ${nc} continent${nc>1?'s':''} découvert${nc>1?'s':''} ensemble</p>` : '';
+  let h = `<div class="head"><span class="flag">🗺️</span><div><h2>Nos pays</h2>${stats}</div></div>`;
   if (!rows.length) h += `<p class="empty">Aucun pays pour l’instant. ${state.admin ? 'Touche un pays sur la carte pour l’ajouter.' : ''}</p>`;
   rows.forEach(c => {
     const np = (state.photos[c.code] || []).length, nm = (state.memories[c.code] || []).length;
     h += `<button class="list-item" data-action="goto" data-code="${esc(c.code)}"><span class="flag">${flag(state.iso2[c.code])}</span><span><b>${esc(nameOf(c.code))}${c.status === 'dream' ? ' ✨' : ''}</b><small>${np} photo${np>1?'s':''}, ${nm} souvenir${nm>1?'s':''}</small></span></button>`;
   });
+  h += `<button class="reread" data-action="reread">💌 Relire ta lettre</button>`;
   $('sheetBody').innerHTML = h;
 }
 
@@ -457,6 +497,7 @@ $('sheetBody').addEventListener('click', e => {
   const a = el.dataset.action, code = state.current, id = el.dataset.id;
 
   if (a === 'view') return openLightbox(+el.dataset.i);
+  if (a === 'reread'){ closeSheet(); showLetter(); return; }
   if (a === 'goto'){ const c = el.dataset.code; closeSheet(); flyTo(c); setTimeout(() => openCountry(c), 450); return; }
   if (a === 'edit'){ state.editing = id; renderSheet(); $('editInput')?.focus(); return; }
   if (a === 'cancelEdit'){ state.editing = null; renderSheet(); return; }
@@ -556,8 +597,7 @@ $('logoutBtn').addEventListener('click', async () => { await Store.logout(); set
 /* =========================================================
    ÉCRAN D'ACCUEIL
    ========================================================= */
-(function stars(){
-  const w = $('welcome');
+[$('welcome'), $('letter')].forEach(function stars(w){
   for (let i = 0; i < 70; i++){
     const s = document.createElement('i'); s.className = 'star';
     s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%';
@@ -565,13 +605,18 @@ $('logoutBtn').addEventListener('click', async () => { await Store.logout(); set
     if (Math.random() < .2){ s.style.width = s.style.height = '3px'; }
     w.prepend(s);
   }
-})();
+});
+$('letterText').textContent = LETTRE.texte;
+$('letterSign').textContent = LETTRE.signature;
+function showLetter(){ const l = $('letter'); l.scrollTop = 0; l.classList.add('show'); l.setAttribute('aria-hidden', 'false'); }
+function hideLetter(){ const l = $('letter'); l.classList.remove('show'); l.setAttribute('aria-hidden', 'true'); map.invalidateSize(); }
 function enterApp(){
   const w = $('welcome'); w.classList.add('opening');
-  setTimeout(() => w.classList.add('gone'), 650);
-  setTimeout(() => { w.remove(); map.invalidateSize(); }, 1700);
+  setTimeout(showLetter, 900);
+  setTimeout(() => { w.remove(); map.invalidateSize(); }, 1900);
 }
 $('openGift').addEventListener('click', enterApp);
+$('letterBtn').addEventListener('click', hideLetter);
 
 /* =========================================================
    DÉMARRAGE
@@ -592,6 +637,7 @@ $('openGift').addEventListener('click', enterApp);
         state.layers[code] = layer;
         state.names[code] = p.NAME_FR || p.NAME;
         state.iso2[code] = (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : p.ISO_A2;
+        if (CONTINENTS[p.CONTINENT]) state.continent[code] = CONTINENTS[p.CONTINENT];
         layer.on('click', () => openCountry(code));
       }
     }).addTo(map);
