@@ -5,6 +5,7 @@ Web app (PWA) offerte par l'auteur à sa femme pour son anniversaire : une carte
 - Cahier des charges : `docs/01-cahier-des-charges.md`
 - État, décisions, idées en attente : `docs/00-etat-du-projet.md` (à tenir à jour)
 - Installation pas à pas : `docs/02-guide-installation.md`
+- Skills du projet : webapp-testing (tests et captures au format iPhone avant chaque fin d'ordre) et frontend-design (pour tout ajout visuel).
 
 ## Méthode de travail : architecte et exécutant
 - **L'architecte** (Claude, dans le projet claude.ai « App Roxe ») décide de la conception et rédige des **ordres de travail** dans `docs/ordres/ORDRE-NNN-sujet.md`.
