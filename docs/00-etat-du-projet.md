@@ -50,9 +50,9 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 - [x] Cahier des charges rédigé
 - [x] Version 1 du code écrite et vérifiée
 - [x] Guide d'installation depuis le Mac (`02-guide-installation-mac.md`)
-- [ ] Projet Supabase créé et configuré
-- [ ] Dépôt GitHub créé et code poussé
-- [ ] App publiée sur GitHub Pages
+- [x] Projet Supabase créé et configuré
+- [x] Dépôt GitHub créé et code poussé
+- [x] App publiée sur GitHub Pages : https://mplaa8.github.io/nos-voyages/ (ORDRE-001, contenu de test conservé pour l'instant)
 - [ ] Carte remplie (pays, photos, souvenirs)
 - [ ] Testée sur iPhone, puis offerte 🎁
 
@@ -78,4 +78,4 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 ## Points de vigilance
 - Supabase gratuit met en pause un projet inactif depuis environ une semaine. Les données restent ; on le réactive en un clic depuis le tableau de bord.
 - Toute personne qui a le lien peut voir la carte (sans rien modifier) : ne pas partager le lien publiquement.
-- Après une modification du code, passer `nos-voyages-v1` à `v2` dans `sw.js` pour forcer la mise à jour sur l'iPhone.
+- Après une modification du code, incrémenter `CACHE` dans `sw.js` (actuellement `nos-voyages-v2`) pour forcer la mise à jour sur l'iPhone.

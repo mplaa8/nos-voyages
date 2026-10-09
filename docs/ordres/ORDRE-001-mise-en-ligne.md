@@ -1,6 +1,6 @@
 # ORDRE-001 — Intégrer la version 1, la brancher sur Supabase et la mettre en ligne
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait
 
 ## Objectif
 À la fin de cet ordre, l'app tourne en ligne sur `https://mplaa8.github.io/nos-voyages/`, branchée sur le projet Supabase de l'utilisateur, et le dépôt GitHub contient tout le code et la documentation.
@@ -33,11 +33,25 @@
    - Attends le déploiement, puis vérifie que `https://mplaa8.github.io/nos-voyages/` répond et que la carte se charge (fais-le confirmer à l'utilisateur sur son iPhone si possible).
 
 ## Critères de fin
-- [ ] Dépôt à jour sur `main` (V1 + configuration Supabase)
-- [ ] Connexion admin et enregistrement de données vérifiés
-- [ ] App accessible à `https://mplaa8.github.io/nos-voyages/`
-- [ ] `docs/00-etat-du-projet.md` mis à jour (cases cochées)
-- [ ] Compte rendu rempli ci-dessous, commit et push
+- [x] Dépôt à jour sur `main` (V1 + configuration Supabase)
+- [x] Connexion admin et enregistrement de données vérifiés
+- [x] App accessible à `https://mplaa8.github.io/nos-voyages/`
+- [x] `docs/00-etat-du-projet.md` mis à jour (cases cochées)
+- [x] Compte rendu rempli ci-dessous, commit et push
 
 ## Compte rendu (à remplir par Claude Code)
 *Ce qui a été fait, ce qui reste, problèmes rencontrés, décisions prises en cours de route.*
+
+**Fait — 9 octobre 2026**
+- V1 intégrée à la racine du dépôt (fichiers vérifiés, syntaxe JS de `index.html` et `sw.js` vérifiée avec `node --check`), commit « Version 1 de la Carte de nos voyages ».
+- Supabase : `setup.sql` exécuté, compte admin créé, inscriptions désactivées (confirmé par l'utilisateur).
+- `CONFIG` renseigné avec la Project URL et la clé **publishable** (`sb_publishable_…`) ; aucune clé secrète dans le dépôt. `CACHE` passé à `nos-voyages-v2`. Commit « Branchement Supabase ».
+- GitHub Pages activé par l'utilisateur (Settings → Pages → `main` / root) : l'app est en ligne sur `https://mplaa8.github.io/nos-voyages/`.
+- Test fait **en ligne** par l'utilisateur sur `https://mplaa8.github.io/nos-voyages/#admin` : connexion admin, pays marqué « Visité », photo et souvenir ajoutés, données conservées après rechargement. Contenu de test **conservé** à la demande de l'utilisateur (à supprimer plus tard).
+
+**Écarts et décisions**
+- Étape 4 modifiée à la demande de l'utilisateur : Claude Code tourne dans un environnement cloud, `localhost` n'est pas accessible depuis le Mac → test en ligne après publication plutôt qu'en local.
+- L'environnement de Claude Code ne peut joindre ni Supabase ni cdnjs/jsdelivr (politique réseau) : la connexion Supabase n'a été vérifiée que par le test de l'utilisateur.
+- Claude Code travaille sur une branche de session (`claude/…`) puis pousse sur `main` avec l'accord de l'utilisateur.
+- Étape 5 faite par l'utilisateur (la CLI `gh` n'est pas connectée dans l'environnement).
+- Hors ordre, à la demande de l'utilisateur : skills `webapp-testing` et `frontend-design` ajoutés dans `.claude/skills/`, captures iPhone dans `docs/captures/`.
