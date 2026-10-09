@@ -1,6 +1,6 @@
 # ORDRE-004 — Finitions avant le gel du code
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait
 **Échéance** : dimanche 11 octobre 2026 (gel du code lundi 12 au soir)
 
 ## Contexte
@@ -38,10 +38,36 @@ Incrémente `CACHE` dans `sw.js` (`nos-voyages-v5`).
 7. Les 32 tests existants (ORDRES 002 et 003) passent toujours, aucune erreur console.
 
 ## Critères de fin
-- [ ] Outre-mer séparé, métropole seule allumée, codes existants conservés
-- [ ] Apostrophes typographiques
-- [ ] Cache `v5`
-- [ ] Tests passés, captures dans `docs/captures/`, état du projet à jour
-- [ ] Commit et push sur `main`, résumé de 5 lignes pour l'architecte
+- [x] Outre-mer séparé, métropole seule allumée, codes existants conservés
+- [x] Apostrophes typographiques
+- [x] Cache `v5`
+- [x] Tests passés, captures dans `docs/captures/`, état du projet à jour
+- [x] Commit et push sur `main`, résumé de 5 lignes pour l'architecte
 
 ## Compte rendu (à remplir par Claude Code)
+
+**Fait — 9 octobre 2026**
+
+1. **Outre-mer séparé.** J'ai choisi le **découpage au chargement** (`splitTerritories`, liste `TERRITOIRES` dans `index.html`), appliqué avant que la carte ne soit construite. Le globe et la carte plate reçoivent donc exactement les mêmes entités. Pourquoi pas `ne_50m_admin_0_map_units` : ce fichier découpe aussi d'autres pays (Royaume-Uni en Angleterre, Écosse… ; Belgique en régions), ce qui changerait des codes existants et demanderait de vérifier tout le fichier, tout ça à 3 jours du gel du code.
+   - Chaque polygone est rattaché à un territoire selon le centre de son contour, à l'aide d'une zone géographique par territoire.
+   - Le pays d'origine **garde son code** (`FRA`, `NLD`, `NOR`) et ne conserve que sa partie principale. Aucune donnée Supabase n'est modifiée.
+   - France : métropole + Corse + Oléron (`FRA`) ; **Guyane** (`GUF`, Amérique du Sud), **Guadeloupe** (`GLP`, 3 îles, Amérique du Nord), **Martinique** (`MTQ`, Amérique du Nord), **La Réunion** (`REU`, Afrique), **Mayotte** (`MYT`, Afrique).
+   - Autres cas trouvés et traités de la même façon : **Pays-Bas caribéens** (`BES`, Bonaire, Saint-Eustache, Saba) séparés de `NLD` ; **Svalbard et Jan Mayen** (`SJM`, Europe) séparés de `NOR`.
+   - Drapeaux : codes ISO GF, GP, MQ, RE, YT, BQ, SJ. Sur iPhone, ils s'affichent avec le drapeau du pays de rattachement (français, néerlandais, norvégien).
+   - Les autres territoires d'outre-mer (Saint-Martin, Polynésie, Nouvelle-Calédonie, Aruba, Curaçao…) étaient déjà des entités séparées dans Natural Earth.
+   - **Laissés tels quels** (parties intégrantes du pays ou cas mineurs) : Alaska et Hawaï (`USA`), île de Pâques (`CHL`), île Macquarie (`AUS`), Tokelau rangé sous `NZL`, îles éloignées de la Russie, de l'Indonésie, de Kiribati et des Fidji (qui traversent la ligne de changement de date). Tokelau pourrait être séparé de la même façon si besoin.
+2. **Apostrophes typographiques** dans `LETTRE.texte` : « t’offrir », « jusqu’à ». Aucun autre caractère n'a changé.
+3. `sw.js` passé à `nos-voyages-v5`.
+
+**Tests** (webapp-testing, 390 × 844, mode démo, `tests/test_ordre004_iphone.py`) : **18/18**, sans erreur console.
+- La lettre montre les apostrophes typographiques et ne contient plus d'apostrophe droite.
+- Sur le globe, seule la métropole est rose : aucun pixel rose côté Antilles et Guyane.
+- Le vol vers la France est cadré sur la métropole.
+- Sur le globe **et** sur la carte plate (`?carte=plate`) :
+  - France + Guyane visitées donnent « 2 pays · 2 continents ».
+  - La fiche « Guyane » s'ouvre depuis la liste et en touchant la Guyane sur la carte, et la France garde sa propre fiche.
+  - Passer La Réunion de « Un jour » à « Visité » la rend rose, et les statistiques affichent « 3 pays · 3 continents découverts ensemble ».
+
+Pour viser la Guyane et La Réunion (minuscule à l'échelle du globe), elles ont été placées dans les données de démo puis atteintes par la liste ☰.
+
+Non-régression : ORDRE-002 **14/14** et ORDRE-003 **18/18** (les 32 tests existants), aucune erreur console hormis les deux 404 volontaires du test de secours. Le découpage a aussi été vérifié directement sur le fichier Natural Earth : 242 entités deviennent 249, avec les bonnes coordonnées et les bons continents pour chacune. Captures dans `docs/captures/ordre004-*.png`.

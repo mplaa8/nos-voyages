@@ -245,7 +245,7 @@ const CONFIG = {
    Modifie le texte ou la signature ici (garde les guillemets).
    ========================================================= */
 const LETTRE = {
-  texte: "Mon amour, en ce jour si spécial, je souhaite t'offrir un cadeau que nous utiliserons jusqu'à notre dernier voyage. Peu importe où nous irons, je sais que je me sentirai à ma place, car je serai à tes côtés.",
+  texte: "Mon amour, en ce jour si spécial, je souhaite t’offrir un cadeau que nous utiliserons jusqu’à notre dernier voyage. Peu importe où nous irons, je sais que je me sentirai à ma place, car je serai à tes côtés.",
   signature: "Max"
 };
 
@@ -390,6 +390,41 @@ const resizeMap = () => MapView?.resize();
 function updateCount(){
   const n = Object.values(state.countries).filter(c => c.status === 'visited').length;
   $('count').textContent = n === 0 ? 'Notre aventure commence ici' : n === 1 ? '1 pays découvert ensemble' : `${n} pays découverts ensemble`;
+}
+
+/* Territoires lointains rangés par Natural Earth sous leur pays (ex. FRA contient la Guyane) :
+   séparés au chargement pour qu'avoir visité Paris n'allume pas la Guyane.
+   Le pays garde son code (FRA, NLD, NOR) : les données déjà saisies restent rattachées. */
+const TERRITOIRES = [
+  { pays: 'FRA', code: 'GUF', nom: 'Guyane',             iso2: 'GF', continent: 'South America', dans: (x, y) => x > -56 && x < -50 && y > 1 && y < 7 },
+  { pays: 'FRA', code: 'GLP', nom: 'Guadeloupe',         iso2: 'GP', continent: 'North America', dans: (x, y) => x > -62 && x < -61 && y > 15.7 && y < 16.7 },
+  { pays: 'FRA', code: 'MTQ', nom: 'Martinique',         iso2: 'MQ', continent: 'North America', dans: (x, y) => x > -61.5 && x < -60.5 && y > 14.2 && y < 15.1 },
+  { pays: 'FRA', code: 'REU', nom: 'La Réunion',         iso2: 'RE', continent: 'Africa',        dans: (x, y) => x > 55 && x < 56 && y > -21.6 && y < -20.6 },
+  { pays: 'FRA', code: 'MYT', nom: 'Mayotte',            iso2: 'YT', continent: 'Africa',        dans: (x, y) => x > 44.8 && x < 45.5 && y > -13.2 && y < -12.4 },
+  { pays: 'NLD', code: 'BES', nom: 'Pays-Bas caribéens', iso2: 'BQ', continent: 'North America', dans: (x, y) => x < -60 && y > 11 && y < 19 },
+  { pays: 'NOR', code: 'SJM', nom: 'Svalbard et Jan Mayen', iso2: 'SJ', continent: 'Europe',     dans: (x, y) => y > 74 || x < 0 }
+];
+function splitTerritories(geo){
+  const centre = poly => { let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity; for (const [x, y] of poly[0]){ x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); } return [(x0 + x1) / 2, (y0 + y1) / 2]; };
+  const ajouts = [];
+  for (const f of geo.features){
+    const terr = TERRITOIRES.filter(t => t.pays === f.properties.ADM0_A3);
+    if (!terr.length || f.geometry.type !== 'MultiPolygon') continue;
+    const reste = [];
+    const parts = new Map(terr.map(t => [t, []]));
+    for (const poly of f.geometry.coordinates){
+      const t = terr.find(t => t.dans(...centre(poly)));
+      (t ? parts.get(t) : reste).push(poly);
+    }
+    f.geometry = { type: 'MultiPolygon', coordinates: reste };
+    for (const [t, polys] of parts) if (polys.length) ajouts.push({
+      type: 'Feature',
+      properties: { ...f.properties, ADM0_A3: t.code, NAME: t.nom, NAME_FR: t.nom, ISO_A2: t.iso2, ISO_A2_EH: t.iso2, CONTINENT: t.continent },
+      geometry: { type: 'MultiPolygon', coordinates: polys }
+    });
+  }
+  geo.features.push(...ajouts);
+  return geo;
 }
 
 async function loadGeo(){
@@ -789,7 +824,7 @@ $('letterBtn').addEventListener('click', hideLetter);
   const adminP = Store.isAdmin().then(setAdmin).catch(() => {});
 
   try {
-    const geo = await loadGeo();
+    const geo = splitTerritories(await loadGeo());
     geo.features.forEach(f => {
       const p = f.properties, code = p.ADM0_A3;
       state.names[code] = p.NAME_FR || p.NAME;

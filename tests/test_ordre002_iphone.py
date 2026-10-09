@@ -40,7 +40,7 @@ with sync_playwright() as p:
     pg.click("#openGift"); pg.wait_for_timeout(3600)
     pg.screenshot(path=f"{OUT}/ordre002-2-lettre.png")
     txt = pg.inner_text("#letterText")
-    check("texte de la lettre exact", txt == "Mon amour, en ce jour si spécial, je souhaite t'offrir un cadeau que nous utiliserons jusqu'à notre dernier voyage. Peu importe où nous irons, je sais que je me sentirai à ma place, car je serai à tes côtés.")
+    check("texte de la lettre exact", txt == "Mon amour, en ce jour si spécial, je souhaite t’offrir un cadeau que nous utiliserons jusqu’à notre dernier voyage. Peu importe où nous irons, je sais que je me sentirai à ma place, car je serai à tes côtés.")
     check("signature « Max »", pg.inner_text("#letterSign") == "Max")
     bb = pg.locator(".letter-card").bounding_box(); btn = pg.locator("#letterBtn").bounding_box()
     print("     carte lettre :", bb, " bouton :", btn, " police :", pg.eval_on_selector("#letterText", "e => getComputedStyle(e).fontSize"))
