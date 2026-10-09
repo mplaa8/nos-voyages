@@ -17,6 +17,8 @@ def setup(ctx):
         "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css": (L + "/leaflet-1.9.4/package/dist/leaflet.css", "text/css"),
         "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2": (L + "/supabase-supabase-js-2.117.3/package/dist/umd/supabase.js", "application/javascript"),
     }
+    mocks["https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.js"] = (L + "/maplibre/package/dist/maplibre-gl.js", "application/javascript")
+    mocks["https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.css"] = (L + "/maplibre/package/dist/maplibre-gl.css", "text/css")
     for url, (f, ct) in mocks.items():
         ctx.route(url, (lambda f, ct: lambda r: r.fulfill(path=f, content_type=ct))(f, ct))
     ctx.route("**/ne_50m_admin_0_countries.geojson", lambda r: r.fulfill(path=L + "/ne50.geojson", content_type="application/json", headers={"Access-Control-Allow-Origin": "*"}))
@@ -29,7 +31,7 @@ def page(b, tag, **kw):
 def check(name, cond): print(("OK   " if cond else "ÉCHEC"), name); return cond
 demo = {"countries":[{"code":"FRA","name":"France","status":"visited","places":""},{"code":"ITA","name":"Italie","status":"visited","places":""},{"code":"JPN","name":"Japon","status":"visited","places":""},{"code":"USA","name":"États-Unis","status":"dream","places":""}],"memories":[],"photos":[]}
 with sync_playwright() as p:
-    b = p.chromium.launch(headless=True, executable_path=os.environ["CHROMIUM_PATH"], proxy={"server": os.environ["HTTPS_PROXY"]})
+    b = p.chromium.launch(headless=True, executable_path=os.environ["CHROMIUM_PATH"], proxy={"server": os.environ["HTTPS_PROXY"]}, args=["--use-angle=swiftshader", "--enable-unsafe-swiftshader", "--ignore-gpu-blocklist"])
     # 1. Accueil -> lettre -> carte
     pg = page(b, "parcours")
     pg.add_init_script(f"localStorage.setItem('nos-voyages-demo', {json.dumps(json.dumps(demo))})")
@@ -45,7 +47,7 @@ with sync_playwright() as p:
     check("lettre entière visible sans défilement", bb["y"] >= 0 and bb["y"] + bb["height"] <= 844)
     check("bouton ≥ 44 px", btn["height"] >= 44)
     check("accueil retiré", pg.locator("#welcome").count() == 0)
-    pg.click("#letterBtn"); pg.wait_for_timeout(1200)
+    pg.click("#letterBtn"); pg.wait_for_timeout(1600)
     check("lettre masquée", not pg.locator("#letter").is_visible())
     pg.screenshot(path=f"{OUT}/ordre002-3-carte.png")
     # 2. Stats
@@ -57,8 +59,9 @@ with sync_playwright() as p:
     pg.click("text=💌 Relire ta lettre"); pg.wait_for_timeout(2600)
     check("« Relire ta lettre » rouvre la lettre", pg.locator("#letter.show").count() == 1 and pg.locator("#letterBtn").is_visible())
     pg.screenshot(path=f"{OUT}/ordre002-5-relire.png")
-    pg.click("#letterBtn"); pg.wait_for_timeout(1200)
+    pg.click("#letterBtn"); pg.wait_for_timeout(1600)
     check("retour à la carte", not pg.locator("#letter").is_visible() and pg.locator("#sheet.open").count() == 0)
+    pg.context.close()
     # singulier
     pg2 = page(b, "singulier")
     one = {"countries":[demo["countries"][0]],"memories":[],"photos":[]}
@@ -70,10 +73,12 @@ with sync_playwright() as p:
     pg2.screenshot(path=f"{OUT}/ordre002-6-admin.png")
     pg2.click("#loginCancel"); pg2.click("#listBtn"); pg2.wait_for_timeout(700)
     check("singulier : " + pg2.inner_text(".list-stats"), pg2.inner_text(".list-stats") == "1 pays · 1 continent découvert ensemble")
+    pg2.context.close()
     # aucun pays visité
     pg3 = page(b, "vide"); pg3.goto("http://nos-voyages.test/#admin"); pg3.wait_for_load_state("networkidle"); pg3.wait_for_timeout(1000)
     pg3.click("#loginCancel"); pg3.click("#listBtn"); pg3.wait_for_timeout(500)
     check("aucun pays : pas de statistiques", pg3.locator(".list-stats").count() == 0)
+    pg3.context.close()
     # 5. Carte cadeau
     pc = b.new_context(viewport={"width": 1000, "height": 1300}, device_scale_factor=2); setup(pc); cp = pc.new_page()
     cp.on("console", lambda m: m.type == "error" and errs.append(f"[carte] {m.text}")); cp.on("pageerror", lambda e: errs.append(f"[carte] {e}"))

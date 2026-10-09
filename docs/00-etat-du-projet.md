@@ -22,7 +22,7 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 | Hébergement | GitHub Pages | Gratuit |
 | Stockage du code | Dépôt GitHub `nos-voyages`, travaillé avec Claude Code | Tout l'historique est conservé ; `CLAUDE.md` donne le contexte à chaque session |
 | Données + photos | Supabase (offre gratuite) | Base de données + stockage photos + connexion admin, sans frais |
-| Carte | Leaflet + contours des pays Natural Earth, sans fond de carte | Gratuit, sans clé d'API, rendu épuré |
+| Carte | Globe 3D MapLibre GL (ORDRE-003) + contours Natural Earth, sans fond de carte ; Leaflet en secours | Gratuit, sans clé d'API, rendu épuré |
 | Code | Un seul fichier `index.html`, sans outil de build | Simple à modifier et à republier |
 | Accès admin | 5 touches rapides sur le ❤️ ou adresse terminée par `#admin`, puis e-mail + mot de passe Supabase | Invisible pour ma femme, sécurisé côté serveur |
 | Sécurité | Lecture publique, écriture réservée au compte admin connecté ; inscriptions désactivées | La clé « anon » peut être publique, les règles protègent les données |
@@ -54,6 +54,7 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 - [x] Dépôt GitHub créé et code poussé
 - [x] App publiée sur GitHub Pages : https://mplaa8.github.io/nos-voyages/ (ORDRE-001, contenu de test conservé pour l'instant)
 - [x] Touches du jour J (ORDRE-002) : lettre d'ouverture (`LETTRE` dans `index.html`), statistiques pays/continents, `carte-cadeau.html` à imprimer
+- [x] Globe 3D (ORDRE-003) : MapLibre, rotation lente, carte plate en secours (`?carte=plate`, ou `CARTE_PAR_DEFAUT = 'plate'` pour revenir en arrière) — **décision garder / revenir dimanche 11 après test sur iPhone**
 - [ ] Carte remplie (pays, photos, souvenirs)
 - [ ] Testée sur iPhone, puis offerte 🎁
 
@@ -79,4 +80,4 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 ## Points de vigilance
 - Supabase gratuit met en pause un projet inactif depuis environ une semaine. Les données restent ; on le réactive en un clic depuis le tableau de bord.
 - Toute personne qui a le lien peut voir la carte (sans rien modifier) : ne pas partager le lien publiquement.
-- Après une modification du code, incrémenter `CACHE` dans `sw.js` (actuellement `nos-voyages-v3`) pour forcer la mise à jour sur l'iPhone.
+- Après une modification du code, incrémenter `CACHE` dans `sw.js` (actuellement `nos-voyages-v4`) pour forcer la mise à jour sur l'iPhone.

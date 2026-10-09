@@ -15,7 +15,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{
   --night:#161b33; --night-2:#1f2545; --land:#2c3358; --land-line:#3a4270;
@@ -32,6 +31,7 @@ button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px soli
 textarea,input{font:inherit;font-size:16px;color:var(--ink)}
 
 /* ---------- Carte ---------- */
+#sky{position:fixed;inset:0;background:radial-gradient(130% 90% at 50% 40%,#2a2350 0%,#1a1d3a 55%,#11142a 100%);overflow:hidden}
 #map{position:fixed;inset:0}
 .leaflet-container{background:var(--night);font-family:var(--sans)}
 .map-loading{position:fixed;inset:0;display:grid;place-items:center;color:#c9c5e0;font-size:15px;z-index:400;pointer-events:none}
@@ -173,6 +173,7 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
 </section>
 
 <!-- Carte -->
+<div id="sky" aria-hidden="true"></div>
 <div id="map" aria-label="Carte du monde"></div>
 <div class="map-loading" id="mapLoading">Chargement de la carte…</div>
 
@@ -224,7 +225,6 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (() => {
@@ -248,6 +248,10 @@ const LETTRE = {
   texte: "Mon amour, en ce jour si spécial, je souhaite t'offrir un cadeau que nous utiliserons jusqu'à notre dernier voyage. Peu importe où nous irons, je sais que je me sentirai à ma place, car je serai à tes côtés.",
   signature: "Max"
 };
+
+/* 🌍  CARTE — 'globe' (Terre en 3D) ou 'plate' (carte d'origine).
+   Mettre 'plate' suffit pour revenir à l'ancienne carte. L'adresse ?carte=plate force aussi la carte plate. */
+const CARTE_PAR_DEFAUT = 'globe';
 
 const GEO_URLS = [
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson/ne_50m_admin_0_countries.geojson",
@@ -343,7 +347,7 @@ const Store = REMOTE ? RemoteStore : LocalStore;
 /* =========================================================
    ÉTAT
    ========================================================= */
-const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, layers:{}, admin:false, current:null, mode:null, editing:null, busy:false };
+const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, admin:false, current:null, mode:null, editing:null, busy:false };
 
 function ingest(data){
   state.countries = {}; state.memories = {}; state.photos = {};
@@ -355,47 +359,204 @@ const statusOf = code => state.countries[code]?.status || 'none';
 const nameOf = code => state.names[code] || state.countries[code]?.name || code;
 
 /* =========================================================
-   CARTE
+   CARTE — interface commune MapView = { init(geo), refresh(), flyTo(code), worldView(), resize() }
+   GlobeView (MapLibre, globe 3D) par défaut ; FlatView (Leaflet, carte plate) en secours.
    ========================================================= */
-const map = L.map('map', {
-  zoomControl:false, attributionControl:false, minZoom:1, maxZoom:7,
-  zoomSnap:.25, zoomDelta:.5, preferCanvas:true,
-  renderer: L.canvas({ padding:.5, tolerance:4 }),
-  maxBounds: [[-70,-210],[86,210]], maxBoundsViscosity:.8
-});
-const worldView = () => map.setView([30, 12], innerWidth < 500 ? 1.25 : 2);
-worldView();
-
-function styleFor(code){
-  const s = statusOf(code), sel = code === state.current;
-  return {
-    fillColor: COLORS[s], fillOpacity: 1,
-    color: sel ? '#ffffff' : (s === 'none' ? '#3a4270' : 'rgba(255,255,255,.55)'),
-    weight: sel ? 2.4 : (s === 'none' ? .6 : 1)
-  };
+const LIBS = {
+  maplibre: { js: ['https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.js', 'https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js'],
+              css: 'https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.css' },
+  leaflet:  { js: ['https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js'],
+              css: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css' }
+};
+function loadCss(href){ const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; document.head.append(l); }
+function loadScript(src){
+  return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => { s.remove(); rej(new Error('script ' + src)); }; document.head.append(s); });
 }
-function refreshMap(){ for (const [code, l] of Object.entries(state.layers)) l.setStyle(styleFor(code)); if (state.layers[state.current]) state.layers[state.current].bringToFront(); }
+async function loadLib(lib, globalName){
+  loadCss(lib.css);
+  for (const u of lib.js){ try { await loadScript(u); if (window[globalName]) return window[globalName]; } catch {} }
+  throw new Error(globalName + ' indisponible');
+}
+function webglOK(){
+  try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
+}
+
+let MapView = null;
+const refreshMap = () => MapView?.refresh();
+const flyTo = code => MapView?.flyTo(code);
+const worldView = () => MapView?.worldView();
+const resizeMap = () => MapView?.resize();
 
 function updateCount(){
   const n = Object.values(state.countries).filter(c => c.status === 'visited').length;
   $('count').textContent = n === 0 ? 'Notre aventure commence ici' : n === 1 ? '1 pays découvert ensemble' : `${n} pays découverts ensemble`;
 }
 
-function mainBounds(layer){
-  const ll = layer.getLatLngs();
-  const polys = Array.isArray(ll[0][0]) ? ll : [ll];
-  let best = null, area = -1;
-  for (const p of polys){ const b = L.latLngBounds(p[0]); const a = (b.getNorth() - b.getSouth()) * (b.getEast() - b.getWest()); if (a > area){ area = a; best = b; } }
-  return best;
-}
-function flyTo(code){
-  const l = state.layers[code]; if (!l) return;
-  map.flyToBounds(mainBounds(l), { paddingTopLeft:[24, 100], paddingBottomRight:[24, Math.round(innerHeight * .5)], maxZoom:5, duration:.9 });
-}
-
 async function loadGeo(){
   for (const u of GEO_URLS){ try { const r = await fetch(u); if (r.ok) return await r.json(); } catch {} }
   throw new Error('carte');
+}
+
+/* ---------- Globe 3D (MapLibre) ---------- */
+const GlobeView = (() => {
+  let gl, geoFeatures = {}, painted = new Set(), spinning = false, lastTouch = 0, lastFrame = 0;
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const SPIN = 360 / 120000;                       // un tour en 2 minutes (degrés par ms)
+  const fitZoom = () => Math.log2(Math.min(innerWidth, innerHeight - 140) * .9 * Math.PI / 512);
+  const sheetOpen = () => $('sheet').classList.contains('open');
+
+  function frame(t){
+    const covered = document.getElementById('welcome') || $('letter').classList.contains('show');  // pas de rotation cachée
+    if (spinning && !covered && lastFrame){ const c = gl.getCenter(); c.lng -= Math.min(t - lastFrame, 100) * SPIN; gl.jumpTo({ center: c }); }
+    lastFrame = t; requestAnimationFrame(frame);
+  }
+  function stopSpin(){ spinning = false; lastTouch = Date.now(); }
+  function maybeResume(){
+    if (!reduceMotion && !spinning && !sheetOpen() && Date.now() - lastTouch > 15000 && gl.getZoom() < fitZoom() + .6) spinning = true;
+  }
+
+  // Plus grand polygone du pays (même logique que la carte plate)
+  function mainBounds(code){
+    const g = geoFeatures[code]?.geometry; if (!g) return null;
+    const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+    let best = null, area = -1;
+    for (const p of polys){
+      const b = new maplibregl.LngLatBounds(); p[0].forEach(pt => b.extend(pt));
+      const a = (b.getNorth() - b.getSouth()) * (b.getEast() - b.getWest());
+      if (a > area){ area = a; best = b; }
+    }
+    return best;
+  }
+
+  return {
+    async init(geo){
+      geo.features.forEach(f => geoFeatures[f.properties.ADM0_A3] = f);
+      gl = new maplibregl.Map({
+        container: 'map', attributionControl: false,
+        center: [12, 30], zoom: fitZoom(), minZoom: 0, maxZoom: 6, maxPitch: 0,
+        dragRotate: false, touchPitch: false, pitchWithRotate: false, keyboard: false,
+        style: {
+          version: 8,
+          projection: { type: 'globe' },
+          sky: { 'sky-color': 'rgba(0,0,0,0)', 'horizon-color': 'rgba(0,0,0,0)', 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, .35, 3, .15, 5, 0] },
+          sources: { pays: { type: 'geojson', data: geo, promoteId: 'ADM0_A3' } },
+          layers: [
+            { id: 'nuit', type: 'background', paint: { 'background-color': '#161b33' } },
+            { id: 'pays', type: 'fill', source: 'pays', paint: {
+                'fill-color': ['match', ['coalesce', ['feature-state', 'status'], 'none'], 'visited', COLORS.visited, 'dream', COLORS.dream, COLORS.none] } },
+            { id: 'halo', type: 'line', source: 'pays', paint: {
+                'line-color': COLORS.visited, 'line-width': 7, 'line-blur': 6,
+                'line-opacity': ['case', ['==', ['feature-state', 'status'], 'visited'], .75, 0] } },
+            { id: 'frontieres', type: 'line', source: 'pays', paint: {
+                'line-color': ['case', ['==', ['coalesce', ['feature-state', 'status'], 'none'], 'none'], '#3a4270', 'rgba(255,255,255,.55)'],
+                'line-width': ['case', ['==', ['coalesce', ['feature-state', 'status'], 'none'], 'none'], .6, 1] } },
+            { id: 'selection', type: 'line', source: 'pays', paint: {
+                'line-color': '#ffffff', 'line-width': 2.4,
+                'line-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, 0] } }
+          ]
+        }
+      });
+      gl.touchZoomRotate.disableRotation();
+      await new Promise((res, rej) => {
+        const t = setTimeout(() => rej(new Error('globe : délai dépassé')), 15000);
+        gl.once('load', () => { clearTimeout(t); res(); });
+        gl.once('error', e => { clearTimeout(t); rej(e.error || e); });
+      });
+      gl.on('click', 'pays', e => { stopSpin(); openCountry(e.features[0].id); });
+      gl.on('mouseenter', 'pays', () => gl.getCanvas().style.cursor = 'pointer');
+      gl.on('mouseleave', 'pays', () => gl.getCanvas().style.cursor = '');
+      gl.on('touchstart', stopSpin); gl.on('mousedown', stopSpin); gl.on('wheel', stopSpin);
+      setInterval(maybeResume, 1000);
+      spinning = !reduceMotion;
+      requestAnimationFrame(frame);
+    },
+    refresh(){
+      if (!gl) return;
+      const codes = new Set([...painted, ...Object.keys(state.countries)]);
+      if (state.current) codes.add(state.current);
+      painted = new Set();
+      codes.forEach(code => {
+        const status = statusOf(code), selected = code === state.current;
+        gl.setFeatureState({ source: 'pays', id: code }, { status, selected });
+        if (status !== 'none' || selected) painted.add(code);
+      });
+      if (sheetOpen()) stopSpin();
+    },
+    flyTo(code){
+      const b = mainBounds(code); if (!b) return;
+      stopSpin();
+      gl.fitBounds(b, { padding: { top: 100, left: 24, right: 24, bottom: Math.round(innerHeight * .5) }, maxZoom: 5, duration: 1200 });
+    },
+    worldView(){
+      lastTouch = 0;
+      gl.easeTo({ center: [12, 30], zoom: fitZoom(), duration: 1000 });
+      if (!reduceMotion) gl.once('moveend', () => spinning = true);
+    },
+    resize(){ gl?.resize(); }
+  };
+})();
+
+/* ---------- Carte plate (Leaflet, version d'origine) ---------- */
+const FlatView = (() => {
+  let map;
+  const layers = {};
+  function styleFor(code){
+    const s = statusOf(code), sel = code === state.current;
+    return {
+      fillColor: COLORS[s], fillOpacity: 1,
+      color: sel ? '#ffffff' : (s === 'none' ? '#3a4270' : 'rgba(255,255,255,.55)'),
+      weight: sel ? 2.4 : (s === 'none' ? .6 : 1)
+    };
+  }
+  function mainBounds(layer){
+    const ll = layer.getLatLngs();
+    const polys = Array.isArray(ll[0][0]) ? ll : [ll];
+    let best = null, area = -1;
+    for (const p of polys){ const b = L.latLngBounds(p[0]); const a = (b.getNorth() - b.getSouth()) * (b.getEast() - b.getWest()); if (a > area){ area = a; best = b; } }
+    return best;
+  }
+  const view = () => map.setView([30, 12], innerWidth < 500 ? 1.25 : 2);
+  return {
+    init(geo){
+      map = L.map('map', {
+        zoomControl:false, attributionControl:false, minZoom:1, maxZoom:7,
+        zoomSnap:.25, zoomDelta:.5, preferCanvas:true,
+        renderer: L.canvas({ padding:.5, tolerance:4 }),
+        maxBounds: [[-70,-210],[86,210]], maxBoundsViscosity:.8
+      });
+      view();
+      L.geoJSON(geo, {
+        filter: f => f.properties.ADM0_A3 !== 'ATA',
+        style: f => styleFor(f.properties.ADM0_A3),
+        onEachFeature: (f, layer) => { const code = f.properties.ADM0_A3; layers[code] = layer; layer.on('click', () => openCountry(code)); }
+      }).addTo(map);
+    },
+    refresh(){ for (const [code, l] of Object.entries(layers)) l.setStyle(styleFor(code)); if (layers[state.current]) layers[state.current].bringToFront(); },
+    flyTo(code){
+      const l = layers[code]; if (!l) return;
+      map.flyToBounds(mainBounds(l), { paddingTopLeft:[24, 100], paddingBottomRight:[24, Math.round(innerHeight * .5)], maxZoom:5, duration:.9 });
+    },
+    worldView: () => view(),
+    resize(){ map?.invalidateSize(); }
+  };
+})();
+
+async function startMap(geo){
+  const wantGlobe = CARTE_PAR_DEFAUT === 'globe' && new URLSearchParams(location.search).get('carte') !== 'plate';
+  if (wantGlobe && webglOK()){
+    try {
+      await loadLib(LIBS.maplibre, 'maplibregl');
+      await GlobeView.init(geo);
+      MapView = GlobeView; return;
+    } catch (e){
+      console.warn('Globe indisponible, passage à la carte plate :', e);
+      $('map').replaceWith(Object.assign(document.createElement('div'), { id: 'map' }));
+      $('map').setAttribute('aria-label', 'Carte du monde');
+    }
+  }
+  await loadLib(LIBS.leaflet, 'L');
+  FlatView.init(geo);
+  MapView = FlatView;
 }
 
 /* =========================================================
@@ -597,7 +758,7 @@ $('logoutBtn').addEventListener('click', async () => { await Store.logout(); set
 /* =========================================================
    ÉCRAN D'ACCUEIL
    ========================================================= */
-[$('welcome'), $('letter')].forEach(function stars(w){
+[$('welcome'), $('letter'), $('sky')].forEach(function stars(w){
   for (let i = 0; i < 70; i++){
     const s = document.createElement('i'); s.className = 'star';
     s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%';
@@ -609,11 +770,11 @@ $('logoutBtn').addEventListener('click', async () => { await Store.logout(); set
 $('letterText').textContent = LETTRE.texte;
 $('letterSign').textContent = LETTRE.signature;
 function showLetter(){ const l = $('letter'); l.scrollTop = 0; l.classList.add('show'); l.setAttribute('aria-hidden', 'false'); }
-function hideLetter(){ const l = $('letter'); l.classList.remove('show'); l.setAttribute('aria-hidden', 'true'); map.invalidateSize(); }
+function hideLetter(){ const l = $('letter'); l.classList.remove('show'); l.setAttribute('aria-hidden', 'true'); resizeMap(); }
 function enterApp(){
   const w = $('welcome'); w.classList.add('opening');
   setTimeout(showLetter, 900);
-  setTimeout(() => { w.remove(); map.invalidateSize(); }, 1900);
+  setTimeout(() => { w.remove(); resizeMap(); }, 1900);
 }
 $('openGift').addEventListener('click', enterApp);
 $('letterBtn').addEventListener('click', hideLetter);
@@ -622,27 +783,23 @@ $('letterBtn').addEventListener('click', hideLetter);
    DÉMARRAGE
    ========================================================= */
 (async function init(){
-  if (location.hash === '#admin'){ $('welcome').remove(); history.replaceState(null, '', location.pathname); }
+  if (location.hash === '#admin'){ $('welcome').remove(); history.replaceState(null, '', location.pathname + location.search); }
 
   const dataP = Store.load().then(ingest).catch(e => { console.error(e); toast('Impossible de charger les souvenirs. Vérifie la connexion internet.', 5000); });
   const adminP = Store.isAdmin().then(setAdmin).catch(() => {});
 
   try {
     const geo = await loadGeo();
-    L.geoJSON(geo, {
-      filter: f => f.properties.ADM0_A3 !== 'ATA',
-      style: f => styleFor(f.properties.ADM0_A3),
-      onEachFeature: (f, layer) => {
-        const p = f.properties, code = p.ADM0_A3;
-        state.layers[code] = layer;
-        state.names[code] = p.NAME_FR || p.NAME;
-        state.iso2[code] = (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : p.ISO_A2;
-        if (CONTINENTS[p.CONTINENT]) state.continent[code] = CONTINENTS[p.CONTINENT];
-        layer.on('click', () => openCountry(code));
-      }
-    }).addTo(map);
+    geo.features.forEach(f => {
+      const p = f.properties, code = p.ADM0_A3;
+      state.names[code] = p.NAME_FR || p.NAME;
+      state.iso2[code] = (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : p.ISO_A2;
+      if (CONTINENTS[p.CONTINENT]) state.continent[code] = CONTINENTS[p.CONTINENT];
+    });
+    await startMap(geo);
     $('mapLoading').remove();
-  } catch {
+  } catch (e) {
+    console.warn(e);
     $('mapLoading').textContent = 'La carte n’a pas pu se charger. Vérifie la connexion puis recharge la page.';
   }
 
