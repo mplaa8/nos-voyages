@@ -21,8 +21,8 @@
 3. **Brancher l'app**
    - Renseigne `SUPABASE_URL` et `SUPABASE_ANON_KEY` dans l'objet `CONFIG` de `index.html`.
    - Passe `CACHE` de `nos-voyages-v1` à `nos-voyages-v2` dans `sw.js`.
-4. **Tester en local**
-   - Lance un serveur local (`python3 -m http.server 8000`) et fais ouvrir `http://localhost:8000/#admin` à l'utilisateur.
+4. **Tester en ligne** *(modifié à la demande de l'utilisateur : Claude Code tourne dans le cloud, `localhost` n'est pas accessible depuis le Mac ; le test se fait après l'étape 5, sur `https://mplaa8.github.io/nos-voyages/#admin`)*
+   - ~~Lance un serveur local~~ ~~(`python3 -m http.server 8000`) et fais ouvrir `http://localhost:8000/#admin` à l'utilisateur.~~
    - Il se connecte avec son compte admin, marque un pays « Visité », ajoute une photo et un souvenir, recharge : tout doit être conservé. Vérifie qu'il n'y a pas d'erreur dans la console.
    - Fais-lui supprimer le contenu de test (ou laisse-le s'il veut le garder).
    - Commit « Branchement Supabase » et push.
