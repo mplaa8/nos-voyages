@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Carte de nos voyages ❤️</title>
+<meta name="theme-color" content="#161b33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Nos voyages">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --night:#161b33; --night-2:#1f2545; --land:#2c3358; --land-line:#3a4270;
+  --glow:#ff7a8a; --glow-d:#e2566a; --dream:#f3d27a;
+  --paper:#fff7f5; --ink:#262238; --muted:#7c7590; --line:#efe1e0;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Karla',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:var(--night);color:var(--ink);font-family:var(--sans);overflow:hidden;overscroll-behavior:none}
+button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation;border:0;background:none}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+textarea,input{font:inherit;font-size:16px;color:var(--ink)}
+
+/* ---------- Carte ---------- */
+#map{position:fixed;inset:0}
+.leaflet-container{background:var(--night);font-family:var(--sans)}
+.map-loading{position:fixed;inset:0;display:grid;place-items:center;color:#c9c5e0;font-size:15px;z-index:400;pointer-events:none}
+
+.glass{background:rgba(22,27,51,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);color:#f4f1fb}
+.topbar{position:fixed;z-index:500;top:calc(var(--st) + 10px);left:12px;right:12px;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 14px;border-radius:22px}
+.brand{flex:1;display:flex;align-items:center;gap:12px;min-width:0}
+.brand-heart{font-size:26px;line-height:1;user-select:none;-webkit-user-select:none;padding:4px}
+.brand h1{margin:0;font-family:var(--serif);font-style:italic;font-weight:500;font-size:22px;line-height:1.1}
+.brand p{margin:3px 0 0;font-size:14px;color:#c9c5e0}
+.icon-btn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:19px;background:rgba(255,255,255,.08);color:#f4f1fb}
+.admin-pill{position:fixed;z-index:500;top:calc(var(--st) + 84px);left:50%;transform:translateX(-50%);display:none;align-items:center;gap:10px;padding:6px 6px 6px 14px;border-radius:999px;font-size:14px;white-space:nowrap}
+.admin-pill button{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.12);font-size:13px}
+body.admin .admin-pill{display:flex}
+.legend{position:fixed;z-index:500;left:12px;right:72px;bottom:calc(var(--sb) + 14px);display:flex;flex-wrap:wrap;gap:6px 14px;padding:10px 14px;border-radius:18px;font-size:14px;width:max-content;max-width:calc(100% - 84px)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+.fab{position:fixed;z-index:500;right:12px;bottom:calc(var(--sb) + 12px);width:50px;height:50px;border-radius:18px;font-size:22px;display:grid;place-items:center}
+
+/* ---------- Fiche pays (bottom sheet) ---------- */
+#overlay{position:fixed;inset:0;z-index:900;background:rgba(10,12,28,.45);opacity:0;pointer-events:none;transition:opacity .3s}
+#overlay.show{opacity:1;pointer-events:auto}
+.sheet{position:fixed;z-index:1000;left:0;right:0;bottom:0;max-height:86vh;max-height:86dvh;display:flex;flex-direction:column;background:var(--paper);border-radius:28px 28px 0 0;box-shadow:0 -14px 50px rgba(0,0,0,.35);transform:translateY(105%);transition:transform .4s cubic-bezier(.2,.85,.25,1)}
+.sheet.open{transform:none}
+@media (min-width:700px){.sheet{left:50%;right:auto;width:580px;margin-left:-290px}}
+.sheet-top{position:relative;padding:10px 20px 0}
+.grip{width:42px;height:5px;border-radius:5px;background:#e3d3d3;margin:0 auto}
+.close-btn{position:absolute;right:12px;top:8px;width:44px;height:44px;border-radius:50%;font-size:26px;color:var(--muted);display:grid;place-items:center}
+.sheet-scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:8px 20px calc(var(--sb) + 30px)}
+.head{display:flex;align-items:center;gap:14px;margin:6px 44px 18px 0}
+.flag{font-size:44px;line-height:1}
+.head h2{margin:0;font-family:var(--serif);font-weight:600;font-size:30px;line-height:1.08}
+.badge{display:inline-block;margin-top:6px;padding:4px 10px;border-radius:999px;font-size:13px;font-weight:700}
+.badge.visited{background:#ffe3e7;color:#b8364b}
+.badge.dream{background:#fbf0cc;color:#8a6a12}
+.badge.none{background:#eeeaf5;color:var(--muted)}
+.block{margin-top:22px}
+.block h3{margin:0 0 10px;font-family:var(--serif);font-weight:600;font-size:20px}
+.places{white-space:pre-wrap;line-height:1.55;font-size:17px;margin:0}
+.empty{color:var(--muted);font-size:16px;line-height:1.5;margin:0}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.ph{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;background:#f1e6e6}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .del{position:absolute;top:4px;right:4px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:18px;display:grid;place-items:center}
+.add-photo{aspect-ratio:1;border-radius:12px;border:2px dashed #e4c9cc;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--glow-d);font-size:28px;cursor:pointer}
+.add-photo span{font-size:13px;font-weight:700}
+.mem{padding:14px 16px;border-radius:16px;background:#fff;border:1px solid var(--line);margin-bottom:10px}
+.mem p{margin:0;font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.5;white-space:pre-wrap}
+.mem small{display:block;margin-top:8px;color:var(--muted);font-size:13px}
+.mem .row{margin-top:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{min-height:44px;padding:10px 18px;border-radius:14px;font-weight:700;font-size:15px}
+.btn.primary{background:var(--glow-d);color:#fff}
+.btn.soft{background:#f3e8ea;color:var(--ink)}
+.btn.danger{background:none;color:#b8364b;padding-left:6px;padding-right:6px}
+.btn:disabled{opacity:.5}
+textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:1px solid #e6d6d8;background:#fff;resize:vertical;line-height:1.45;margin-bottom:8px}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#f3e8ea;padding:5px;border-radius:16px}
+.seg button{min-height:44px;border-radius:12px;font-size:14px;font-weight:700;color:var(--muted);line-height:1.2;padding:6px 4px}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(38,34,56,.12)}
+.list-item{width:100%;display:flex;align-items:center;gap:14px;padding:12px 4px;border-bottom:1px solid var(--line);text-align:left}
+.list-item .flag{font-size:30px}
+.list-item b{display:block;font-size:17px}
+.list-item small{color:var(--muted);font-size:14px}
+
+/* ---------- Visionneuse photo ---------- */
+.lightbox{position:fixed;inset:0;z-index:3000;background:rgba(8,9,20,.96);display:none;align-items:center;justify-content:center;touch-action:pan-y}
+.lightbox.show{display:flex}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;user-select:none;-webkit-user-select:none}
+.lb-btn{position:absolute;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:24px;display:grid;place-items:center}
+.lb-close{top:calc(var(--st) + 12px);right:14px}
+.lb-prev{left:10px;top:50%;margin-top:-24px}
+.lb-next{right:10px;top:50%;margin-top:-24px}
+.lb-count{position:absolute;bottom:calc(var(--sb) + 18px);left:0;right:0;text-align:center;color:#c9c5e0;font-size:14px}
+
+/* ---------- Connexion ---------- */
+.modal{position:fixed;inset:0;z-index:2500;background:rgba(10,12,28,.6);display:none;align-items:center;justify-content:center;padding:24px}
+.modal.show{display:flex}
+.modal-card{width:100%;max-width:360px;background:var(--paper);border-radius:24px;padding:24px}
+.modal-card h2{margin:0 0 6px;font-family:var(--serif);font-size:24px}
+.modal-card p{margin:0 0 16px;color:var(--muted);line-height:1.45}
+.modal-card input{width:100%;min-height:48px;padding:10px 14px;border-radius:14px;border:1px solid #e6d6d8;background:#fff;margin-bottom:10px}
+.error{color:#b8364b;font-size:14px;min-height:20px;margin:0 0 6px}
+
+.toast{position:fixed;z-index:4000;left:50%;bottom:calc(var(--sb) + 84px);transform:translate(-50%,20px);opacity:0;transition:.3s;padding:12px 18px;border-radius:14px;background:#262238;color:#fff;font-size:15px;max-width:90vw;text-align:center;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Écran d'accueil ---------- */
+#welcome{position:fixed;inset:0;z-index:2000;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:calc(var(--st) + 24px) 28px calc(var(--sb) + 24px);background:radial-gradient(130% 90% at 50% 35%,#2a2350 0%,#1a1d3a 55%,#11142a 100%);color:#fbf3f6;overflow:hidden;transition:opacity 1s ease,visibility 1s}
+#welcome.gone{opacity:0;visibility:hidden}
+.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;animation:twinkle 3.5s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.15}50%{opacity:.9}}
+.big-heart{width:118px;height:118px;filter:drop-shadow(0 0 28px rgba(255,122,138,.55));animation:beat 1.7s ease-in-out infinite;position:relative}
+@keyframes beat{0%,100%{transform:scale(1)}14%{transform:scale(1.12)}28%{transform:scale(1)}42%{transform:scale(1.07)}}
+#welcome h1{position:relative;margin:30px 0 14px;font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(36px,11vw,58px);line-height:1.04;letter-spacing:-.01em;opacity:0;animation:fadeUp 1.1s .4s forwards}
+#welcome .sub{position:relative;max-width:30ch;margin:0;font-size:18px;line-height:1.5;color:#d6d0ea;opacity:0;animation:fadeUp 1.1s 1s forwards}
+.open-btn{position:relative;margin-top:38px;min-height:54px;padding:15px 30px;border-radius:999px;background:var(--glow);color:#2a1020;font-weight:700;font-size:17px;box-shadow:0 0 34px rgba(255,122,138,.45);opacity:0;animation:fadeUp 1.1s 1.6s forwards}
+#welcome.opening .big-heart{animation:burst 1s ease-in forwards}
+#welcome.opening h1,#welcome.opening .sub,#welcome.opening .open-btn{transition:opacity .5s;opacity:0!important}
+@keyframes burst{to{transform:scale(10);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<!-- Écran d'accueil -->
+<section id="welcome" aria-label="Accueil">
+  <svg class="big-heart" viewBox="0 0 24 24" aria-hidden="true"><path fill="#ff7a8a" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+  <h1>Joyeux anniversaire mon amour ❤️</h1>
+  <p class="sub">Chaque point lumineux de cette carte est un endroit que nous avons découvert ensemble.</p>
+  <button class="open-btn" id="openGift">Ouvrir mon cadeau</button>
+</section>
+
+<!-- Carte -->
+<div id="map" aria-label="Carte du monde"></div>
+<div class="map-loading" id="mapLoading">Chargement de la carte…</div>
+
+<header class="topbar glass">
+  <div class="brand">
+    <span class="brand-heart" id="brandHeart" aria-hidden="true">❤️</span>
+    <div><h1>Carte de nos voyages</h1><p id="count">…</p></div>
+  </div>
+  <button class="icon-btn" id="listBtn" aria-label="Voir la liste de nos pays">☰</button>
+</header>
+<div class="admin-pill glass">Mode édition <button id="logoutBtn">Quitter</button></div>
+
+<div class="legend glass" aria-label="Légende">
+  <span><i class="dot" style="background:var(--glow);box-shadow:0 0 8px var(--glow)"></i>Ensemble</span>
+  <span><i class="dot" style="background:var(--dream)"></i>Un jour…</span>
+  <span><i class="dot" style="background:var(--land);border:1px solid #5a628f"></i>À découvrir</span>
+</div>
+<button class="fab glass" id="worldBtn" aria-label="Revoir le monde entier">🌍</button>
+
+<!-- Fiche -->
+<div id="overlay"></div>
+<section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="sheet-top"><div class="grip"></div><button class="close-btn" id="closeSheet" aria-label="Fermer">×</button></div>
+  <div class="sheet-scroll" id="sheetBody"></div>
+</section>
+
+<!-- Visionneuse -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-close" data-lb="close" aria-label="Fermer">×</button>
+  <button class="lb-btn lb-prev" data-lb="prev" aria-label="Photo précédente">‹</button>
+  <button class="lb-btn lb-next" data-lb="next" aria-label="Photo suivante">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<!-- Connexion -->
+<div class="modal" id="loginModal" role="dialog" aria-modal="true">
+  <form class="modal-card" id="loginForm">
+    <h2>Mode édition</h2>
+    <p id="loginHint">Connecte-toi pour ajouter des pays, des photos et des souvenirs.</p>
+    <div id="loginFields">
+      <input type="email" id="loginEmail" placeholder="E-mail" autocomplete="username">
+      <input type="password" id="loginPw" placeholder="Mot de passe" autocomplete="current-password">
+    </div>
+    <p class="error" id="loginErr"></p>
+    <div class="row"><button type="submit" class="btn primary">Se connecter</button><button type="button" class="btn soft" id="loginCancel">Annuler</button></div>
+  </form>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+'use strict';
+
+/* =========================================================
+   ⚙️  CONFIGURATION — à remplir avec ton projet Supabase
+   Laisse vide pour tester en « mode démo » (données
+   enregistrées uniquement sur l'appareil utilisé).
+   ========================================================= */
+const CONFIG = {
+  SUPABASE_URL: "",       // ex : "https://abcdefgh.supabase.co"
+  SUPABASE_ANON_KEY: ""   // la clé « anon / public »
+};
+
+const GEO_URLS = [
+  "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson/ne_50m_admin_0_countries.geojson",
+  "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_50m_admin_0_countries.geojson"
+];
+const COLORS = { visited:'#ff7a8a', dream:'#f3d27a', none:'#2c3358' };
+
+/* ---------- Petits utilitaires ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2));
+const flag = iso => /^[A-Z]{2}$/.test(iso || '') ? String.fromCodePoint(...[...iso].map(c => 127397 + c.charCodeAt(0))) : '🌍';
+const fmtDate = d => d ? new Date(d).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }) : '';
+let toastT;
+function toast(msg, ms = 2600){ const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), ms); }
+
+async function compressImage(file, max, quality = 0.82){
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = url; });
+    const s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    return await new Promise(r => c.toBlob(r, 'image/jpeg', quality));
+  } finally { URL.revokeObjectURL(url); }
+}
+const blobToDataURL = b => new Promise(r => { const f = new FileReader(); f.onload = () => r(f.result); f.readAsDataURL(b); });
+
+/* =========================================================
+   STOCKAGE — Supabase (gratuit) ou mode démo local
+   ========================================================= */
+const REMOTE = !!(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY && window.supabase);
+const db = REMOTE ? window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY) : null;
+const ok = r => { if (r.error) throw r.error; return r.data; };
+const publicUrl = path => db.storage.from('photos').getPublicUrl(path).data.publicUrl;
+
+const RemoteStore = {
+  async load(){
+    const [c, m, p] = await Promise.all([
+      db.from('countries').select('*'),
+      db.from('memories').select('*').order('created_at'),
+      db.from('photos').select('*').order('created_at')
+    ]);
+    return { countries: ok(c), memories: ok(m), photos: ok(p).map(x => ({ ...x, url: publicUrl(x.path) })) };
+  },
+  async saveCountry(row){
+    return ok(await db.from('countries').upsert({ code: row.code, name: row.name, status: row.status, places: row.places || '', updated_at: new Date().toISOString() }).select().single());
+  },
+  async deleteCountry(code){
+    const paths = (state.photos[code] || []).map(p => p.path);
+    if (paths.length) await db.storage.from('photos').remove(paths);
+    ok(await db.from('countries').delete().eq('code', code));
+  },
+  async addMemory(code, content){ return ok(await db.from('memories').insert({ country_code: code, content }).select().single()); },
+  async updateMemory(id, content){ return ok(await db.from('memories').update({ content }).eq('id', id).select().single()); },
+  async deleteMemory(id){ ok(await db.from('memories').delete().eq('id', id)); },
+  async addPhoto(code, file){
+    const blob = await compressImage(file, 1800);
+    const path = `${code}/${uid()}.jpg`;
+    ok(await db.storage.from('photos').upload(path, blob, { contentType: 'image/jpeg' }));
+    const row = ok(await db.from('photos').insert({ country_code: code, path }).select().single());
+    return { ...row, url: publicUrl(path) };
+  },
+  async deletePhoto(p){
+    ok(await db.storage.from('photos').remove([p.path]));
+    ok(await db.from('photos').delete().eq('id', p.id));
+  },
+  async isAdmin(){ const { data } = await db.auth.getSession(); return !!data.session; },
+  async login(email, password){ ok(await db.auth.signInWithPassword({ email, password })); },
+  async logout(){ await db.auth.signOut(); }
+};
+
+const KEY = 'nos-voyages-demo';
+const LocalStore = {
+  _get(){ try { return JSON.parse(localStorage.getItem(KEY)) || { countries:[], memories:[], photos:[] }; } catch { return { countries:[], memories:[], photos:[] }; } },
+  _set(d){ try { localStorage.setItem(KEY, JSON.stringify(d)); } catch { throw new Error("Espace de démo plein : configure Supabase pour stocker plus de photos."); } },
+  async load(){ return this._get(); },
+  async saveCountry(row){ const d = this._get(); const i = d.countries.findIndex(c => c.code === row.code); const r = { ...(d.countries[i] || {}), ...row }; if (i < 0) d.countries.push(r); else d.countries[i] = r; this._set(d); return r; },
+  async deleteCountry(code){ const d = this._get(); d.countries = d.countries.filter(c => c.code !== code); d.memories = d.memories.filter(m => m.country_code !== code); d.photos = d.photos.filter(p => p.country_code !== code); this._set(d); },
+  async addMemory(code, content){ const d = this._get(); const r = { id: uid(), country_code: code, content, created_at: new Date().toISOString() }; d.memories.push(r); this._set(d); return r; },
+  async updateMemory(id, content){ const d = this._get(); const r = d.memories.find(m => m.id === id); r.content = content; this._set(d); return r; },
+  async deleteMemory(id){ const d = this._get(); d.memories = d.memories.filter(m => m.id !== id); this._set(d); },
+  async addPhoto(code, file){ const url = await blobToDataURL(await compressImage(file, 900, 0.7)); const d = this._get(); const r = { id: uid(), country_code: code, url, created_at: new Date().toISOString() }; d.photos.push(r); this._set(d); return r; },
+  async deletePhoto(p){ const d = this._get(); d.photos = d.photos.filter(x => x.id !== p.id); this._set(d); },
+  async isAdmin(){ return localStorage.getItem(KEY + '-admin') === '1'; },
+  async login(){ localStorage.setItem(KEY + '-admin', '1'); },
+  async logout(){ localStorage.removeItem(KEY + '-admin'); }
+};
+const Store = REMOTE ? RemoteStore : LocalStore;
+
+/* =========================================================
+   ÉTAT
+   ========================================================= */
+const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, layers:{}, admin:false, current:null, mode:null, editing:null, busy:false };
+
+function ingest(data){
+  state.countries = {}; state.memories = {}; state.photos = {};
+  data.countries.forEach(c => state.countries[c.code] = c);
+  data.memories.forEach(m => (state.memories[m.country_code] ??= []).push(m));
+  data.photos.forEach(p => (state.photos[p.country_code] ??= []).push(p));
+}
+const statusOf = code => state.countries[code]?.status || 'none';
+const nameOf = code => state.names[code] || state.countries[code]?.name || code;
+
+/* =========================================================
+   CARTE
+   ========================================================= */
+const map = L.map('map', {
+  zoomControl:false, attributionControl:false, minZoom:1, maxZoom:7,
+  zoomSnap:.25, zoomDelta:.5, preferCanvas:true,
+  renderer: L.canvas({ padding:.5, tolerance:4 }),
+  maxBounds: [[-70,-210],[86,210]], maxBoundsViscosity:.8
+});
+const worldView = () => map.setView([30, 12], innerWidth < 500 ? 1.25 : 2);
+worldView();
+
+function styleFor(code){
+  const s = statusOf(code), sel = code === state.current;
+  return {
+    fillColor: COLORS[s], fillOpacity: 1,
+    color: sel ? '#ffffff' : (s === 'none' ? '#3a4270' : 'rgba(255,255,255,.55)'),
+    weight: sel ? 2.4 : (s === 'none' ? .6 : 1)
+  };
+}
+function refreshMap(){ for (const [code, l] of Object.entries(state.layers)) l.setStyle(styleFor(code)); if (state.layers[state.current]) state.layers[state.current].bringToFront(); }
+
+function updateCount(){
+  const n = Object.values(state.countries).filter(c => c.status === 'visited').length;
+  $('count').textContent = n === 0 ? 'Notre aventure commence ici' : n === 1 ? '1 pays découvert ensemble' : `${n} pays découverts ensemble`;
+}
+
+function mainBounds(layer){
+  const ll = layer.getLatLngs();
+  const polys = Array.isArray(ll[0][0]) ? ll : [ll];
+  let best = null, area = -1;
+  for (const p of polys){ const b = L.latLngBounds(p[0]); const a = (b.getNorth() - b.getSouth()) * (b.getEast() - b.getWest()); if (a > area){ area = a; best = b; } }
+  return best;
+}
+function flyTo(code){
+  const l = state.layers[code]; if (!l) return;
+  map.flyToBounds(mainBounds(l), { paddingTopLeft:[24, 100], paddingBottomRight:[24, Math.round(innerHeight * .5)], maxZoom:5, duration:.9 });
+}
+
+async function loadGeo(){
+  for (const u of GEO_URLS){ try { const r = await fetch(u); if (r.ok) return await r.json(); } catch {} }
+  throw new Error('carte');
+}
+
+/* =========================================================
+   FICHE PAYS
+   ========================================================= */
+function openSheet(){ $('sheet').classList.add('open'); $('sheet').setAttribute('aria-hidden','false'); $('overlay').classList.add('show'); }
+function closeSheet(){
+  $('sheet').classList.remove('open'); $('sheet').setAttribute('aria-hidden','true'); $('overlay').classList.remove('show');
+  state.current = null; state.mode = null; state.editing = null; refreshMap();
+}
+function openCountry(code){
+  state.current = code; state.mode = 'country'; state.editing = null;
+  refreshMap(); renderSheet(); $('sheetBody').scrollTop = 0; openSheet();
+}
+
+function renderSheet(){
+  if (state.mode === 'list') return renderList();
+  const code = state.current, c = state.countries[code], s = statusOf(code), A = state.admin;
+  const photos = state.photos[code] || [], mems = state.memories[code] || [];
+  const badge = { visited:'Visité ensemble ❤️', dream:'Notre prochain rêve ✨', none:'Encore à découvrir' }[s];
+  let h = `<div class="head"><span class="flag">${flag(state.iso2[code])}</span><div><h2>${esc(nameOf(code))}</h2><span class="badge ${s}">${badge}</span></div></div>`;
+
+  if (A){
+    h += `<div class="seg" role="group" aria-label="Statut du pays">
+      <button data-action="status" data-v="visited" class="${s==='visited'?'on':''}">❤️ Visité</button>
+      <button data-action="status" data-v="dream" class="${s==='dream'?'on':''}">✨ Un jour</button>
+      <button data-action="status" data-v="none" class="${s==='none'?'on':''}">Pas encore</button></div>`;
+  }
+
+  if (s === 'none'){
+    h += `<p class="empty block">${A ? 'Choisis « Visité » pour ajouter ce pays à votre carte, ou « Un jour » pour en faire un voyage rêvé.' : 'Pas encore exploré ensemble… peut-être notre prochaine aventure ? ✈️'}</p>`;
+    $('sheetBody').innerHTML = h; return;
+  }
+
+  // Villes & lieux
+  if (A){
+    h += `<div class="block"><h3>Villes et lieux</h3><textarea id="placesInput" placeholder="Ex : Lisbonne, Sintra, la plage de Cascais…">${esc(c?.places)}</textarea>
+      <button class="btn soft" data-action="savePlaces">Enregistrer les lieux</button></div>`;
+  } else if (c?.places){
+    h += `<div class="block"><h3>Villes et lieux</h3><p class="places">${esc(c.places)}</p></div>`;
+  }
+
+  // Photos
+  if (photos.length || A){
+    h += `<div class="block"><h3>Photos</h3><div class="gallery">`;
+    photos.forEach((p, i) => {
+      h += `<div class="ph"><img src="${esc(p.url)}" alt="Photo ${i+1} — ${esc(nameOf(code))}" loading="lazy" data-action="view" data-i="${i}">${A ? `<button class="del" data-action="delPhoto" data-id="${esc(p.id)}" aria-label="Supprimer la photo">×</button>` : ''}</div>`;
+    });
+    if (A) h += `<label class="add-photo">＋<span>Ajouter</span><input type="file" accept="image/*" multiple hidden data-action="addPhotos"></label>`;
+    h += `</div></div>`;
+  }
+
+  // Souvenirs
+  const memTitle = s === 'dream' ? 'Nos envies' : 'Nos souvenirs';
+  if (mems.length || A){
+    h += `<div class="block"><h3>${memTitle}</h3>`;
+    mems.forEach(m => {
+      if (A && state.editing === m.id){
+        h += `<div class="mem"><textarea id="editInput">${esc(m.content)}</textarea><div class="row"><button class="btn primary" data-action="saveEdit" data-id="${esc(m.id)}">Enregistrer</button><button class="btn soft" data-action="cancelEdit">Annuler</button></div></div>`;
+      } else {
+        h += `<div class="mem"><p>${esc(m.content)}</p><small>${fmtDate(m.created_at)}</small>${A ? `<div class="row"><button class="btn soft" data-action="edit" data-id="${esc(m.id)}">Modifier</button><button class="btn danger" data-action="delMem" data-id="${esc(m.id)}">Supprimer</button></div>` : ''}</div>`;
+      }
+    });
+    if (A) h += `<textarea id="newMem" placeholder="${s==='dream' ? 'Ce qu’on rêve d’y faire…' : 'Un souvenir, une anecdote, ce qu’on a aimé…'}"></textarea><button class="btn primary" data-action="addMem">Ajouter ce souvenir</button>`;
+    h += `</div>`;
+  }
+
+  if (!A && !photos.length && !mems.length && !c?.places){
+    h += `<p class="empty block">Les souvenirs de ce voyage arrivent bientôt…</p>`;
+  }
+  $('sheetBody').innerHTML = h;
+}
+
+function renderList(){
+  const rows = Object.values(state.countries).sort((a, b) => (a.status === b.status ? nameOf(a.code).localeCompare(nameOf(b.code), 'fr') : a.status === 'visited' ? -1 : 1));
+  let h = `<div class="head"><span class="flag">🗺️</span><div><h2>Nos pays</h2></div></div>`;
+  if (!rows.length) h += `<p class="empty">Aucun pays pour l’instant. ${state.admin ? 'Touche un pays sur la carte pour l’ajouter.' : ''}</p>`;
+  rows.forEach(c => {
+    const np = (state.photos[c.code] || []).length, nm = (state.memories[c.code] || []).length;
+    h += `<button class="list-item" data-action="goto" data-code="${esc(c.code)}"><span class="flag">${flag(state.iso2[c.code])}</span><span><b>${esc(nameOf(c.code))}${c.status === 'dream' ? ' ✨' : ''}</b><small>${np} photo${np>1?'s':''}, ${nm} souvenir${nm>1?'s':''}</small></span></button>`;
+  });
+  $('sheetBody').innerHTML = h;
+}
+
+/* ---------- Actions ---------- */
+async function run(fn, okMsg){
+  if (state.busy) return; state.busy = true;
+  try { await fn(); if (okMsg) toast(okMsg); }
+  catch (e){ console.error(e); toast(e?.message ? `Erreur : ${e.message}` : 'Une erreur est survenue, réessaie.'); }
+  finally { state.busy = false; renderSheet(); refreshMap(); updateCount(); }
+}
+
+$('sheetBody').addEventListener('click', e => {
+  const el = e.target.closest('[data-action]'); if (!el) return;
+  const a = el.dataset.action, code = state.current, id = el.dataset.id;
+
+  if (a === 'view') return openLightbox(+el.dataset.i);
+  if (a === 'goto'){ const c = el.dataset.code; closeSheet(); flyTo(c); setTimeout(() => openCountry(c), 450); return; }
+  if (a === 'edit'){ state.editing = id; renderSheet(); $('editInput')?.focus(); return; }
+  if (a === 'cancelEdit'){ state.editing = null; renderSheet(); return; }
+
+  if (a === 'status'){
+    const v = el.dataset.v, c = state.countries[code];
+    if (v === 'none'){
+      if (!c) return;
+      const hasContent = (state.photos[code] || []).length || (state.memories[code] || []).length || c.places;
+      if (hasContent && !confirm(`Retirer ${nameOf(code)} de la carte supprimera aussi ses photos et souvenirs. Continuer ?`)) return;
+      return run(async () => { await Store.deleteCountry(code); delete state.countries[code]; delete state.photos[code]; delete state.memories[code]; }, 'Pays retiré de la carte');
+    }
+    return run(async () => { state.countries[code] = await Store.saveCountry({ ...(c || {}), code, name: nameOf(code), status: v }); }, v === 'visited' ? 'Ajouté à notre carte ❤️' : 'Ajouté à nos rêves ✨');
+  }
+  if (a === 'savePlaces'){
+    const places = $('placesInput').value.trim();
+    return run(async () => { state.countries[code] = await Store.saveCountry({ ...state.countries[code], places }); }, 'Lieux enregistrés');
+  }
+  if (a === 'addMem'){
+    const txt = $('newMem').value.trim(); if (!txt) return toast('Écris d’abord ton souvenir');
+    return run(async () => { (state.memories[code] ??= []).push(await Store.addMemory(code, txt)); }, 'Souvenir ajouté');
+  }
+  if (a === 'saveEdit'){
+    const txt = $('editInput').value.trim(); if (!txt) return toast('Le souvenir est vide');
+    return run(async () => { const r = await Store.updateMemory(id, txt); const list = state.memories[code]; list[list.findIndex(m => m.id === id)] = r; state.editing = null; }, 'Souvenir modifié');
+  }
+  if (a === 'delMem'){
+    if (!confirm('Supprimer ce souvenir ?')) return;
+    return run(async () => { await Store.deleteMemory(id); state.memories[code] = state.memories[code].filter(m => m.id !== id); }, 'Souvenir supprimé');
+  }
+  if (a === 'delPhoto'){
+    if (!confirm('Supprimer cette photo ?')) return;
+    const p = state.photos[code].find(x => x.id === id);
+    return run(async () => { await Store.deletePhoto(p); state.photos[code] = state.photos[code].filter(x => x.id !== id); }, 'Photo supprimée');
+  }
+});
+
+$('sheetBody').addEventListener('change', e => {
+  if (e.target.dataset.action !== 'addPhotos') return;
+  const files = [...e.target.files], code = state.current; if (!files.length) return;
+  run(async () => {
+    for (let i = 0; i < files.length; i++){
+      toast(`Envoi de la photo ${i + 1} sur ${files.length}…`, 60000);
+      (state.photos[code] ??= []).push(await Store.addPhoto(code, files[i]));
+    }
+  }, files.length > 1 ? `${files.length} photos ajoutées` : 'Photo ajoutée');
+});
+
+$('overlay').addEventListener('click', closeSheet);
+$('closeSheet').addEventListener('click', closeSheet);
+$('listBtn').addEventListener('click', () => { state.mode = 'list'; state.current = null; refreshMap(); renderSheet(); openSheet(); });
+$('worldBtn').addEventListener('click', worldView);
+
+/* =========================================================
+   VISIONNEUSE PHOTO (balayer pour changer)
+   ========================================================= */
+let lbIndex = 0;
+const lbPhotos = () => state.photos[state.current] || [];
+function showLb(){ const p = lbPhotos(); if (!p.length) return closeLb(); lbIndex = (lbIndex + p.length) % p.length; $('lbImg').src = p[lbIndex].url; $('lbCount').textContent = `${lbIndex + 1} / ${p.length}`; }
+function openLightbox(i){ lbIndex = i; showLb(); $('lightbox').classList.add('show'); }
+function closeLb(){ $('lightbox').classList.remove('show'); }
+$('lightbox').addEventListener('click', e => {
+  const b = e.target.closest('[data-lb]'); if (!b) return;
+  if (b.dataset.lb === 'close') closeLb(); else { lbIndex += b.dataset.lb === 'next' ? 1 : -1; showLb(); }
+});
+let tx = null;
+$('lightbox').addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive:true });
+$('lightbox').addEventListener('touchend', e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50){ lbIndex += dx < 0 ? 1 : -1; showLb(); } tx = null; });
+document.addEventListener('keydown', e => { if (!$('lightbox').classList.contains('show')) return; if (e.key === 'Escape') closeLb(); if (e.key === 'ArrowRight'){ lbIndex++; showLb(); } if (e.key === 'ArrowLeft'){ lbIndex--; showLb(); } });
+
+/* =========================================================
+   MODE ÉDITION (5 touches rapides sur le ❤️ ou adresse#admin)
+   ========================================================= */
+function setAdmin(v){ state.admin = v; document.body.classList.toggle('admin', v); if (state.mode) renderSheet(); }
+function openLogin(){
+  $('loginErr').textContent = '';
+  $('loginFields').style.display = REMOTE ? '' : 'none';
+  $('loginHint').textContent = REMOTE ? 'Connecte-toi pour ajouter des pays, des photos et des souvenirs.' : 'Mode démo : les modifications restent sur cet appareil.';
+  $('loginModal').classList.add('show');
+}
+let taps = 0, tapT;
+$('brandHeart').addEventListener('click', () => {
+  taps++; clearTimeout(tapT); tapT = setTimeout(() => taps = 0, 1500);
+  if (taps >= 5){ taps = 0; state.admin ? toast('Le mode édition est déjà actif') : openLogin(); }
+});
+$('loginCancel').addEventListener('click', () => $('loginModal').classList.remove('show'));
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  try {
+    await Store.login($('loginEmail').value.trim(), $('loginPw').value);
+    $('loginModal').classList.remove('show'); $('loginPw').value = '';
+    setAdmin(true); toast('Mode édition activé — touche un pays pour le modifier');
+  } catch { $('loginErr').textContent = 'E-mail ou mot de passe incorrect.'; }
+});
+$('logoutBtn').addEventListener('click', async () => { await Store.logout(); setAdmin(false); toast('Mode édition désactivé'); });
+
+/* =========================================================
+   ÉCRAN D'ACCUEIL
+   ========================================================= */
+(function stars(){
+  const w = $('welcome');
+  for (let i = 0; i < 70; i++){
+    const s = document.createElement('i'); s.className = 'star';
+    s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 3.5) + 's';
+    if (Math.random() < .2){ s.style.width = s.style.height = '3px'; }
+    w.prepend(s);
+  }
+})();
+function enterApp(){
+  const w = $('welcome'); w.classList.add('opening');
+  setTimeout(() => w.classList.add('gone'), 650);
+  setTimeout(() => { w.remove(); map.invalidateSize(); }, 1700);
+}
+$('openGift').addEventListener('click', enterApp);
+
+/* =========================================================
+   DÉMARRAGE
+   ========================================================= */
+(async function init(){
+  if (location.hash === '#admin'){ $('welcome').remove(); history.replaceState(null, '', location.pathname); }
+
+  const dataP = Store.load().then(ingest).catch(e => { console.error(e); toast('Impossible de charger les souvenirs. Vérifie la connexion internet.', 5000); });
+  const adminP = Store.isAdmin().then(setAdmin).catch(() => {});
+
+  try {
+    const geo = await loadGeo();
+    L.geoJSON(geo, {
+      filter: f => f.properties.ADM0_A3 !== 'ATA',
+      style: f => styleFor(f.properties.ADM0_A3),
+      onEachFeature: (f, layer) => {
+        const p = f.properties, code = p.ADM0_A3;
+        state.layers[code] = layer;
+        state.names[code] = p.NAME_FR || p.NAME;
+        state.iso2[code] = (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : p.ISO_A2;
+        layer.on('click', () => openCountry(code));
+      }
+    }).addTo(map);
+    $('mapLoading').remove();
+  } catch {
+    $('mapLoading').textContent = 'La carte n’a pas pu se charger. Vérifie la connexion puis recharge la page.';
+  }
+
+  await Promise.all([dataP, adminP]);
+  refreshMap(); updateCount();
+  if (!document.getElementById('welcome') && !state.admin) openLogin();
+})();
+
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>
