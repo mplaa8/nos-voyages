@@ -61,3 +61,31 @@ Migration douce : le contenu actuel de chaque pays devient automatiquement un pr
 3. **Mode « voyage en cours »** et « On est ici », pour l'utiliser vraiment au prochain voyage.
 4. **Notre histoire** (frise), puis **Il y a un an aujourd'hui**.
 5. **Prochaine destination** : compte à rebours et tirage au sort sur le globe.
+
+---
+
+## Nouvelles idées nées du palmarès et des deux téléphones (11 octobre 2026)
+*Elles réutilisent ce qui existe déjà : deux comptes, le temps réel, le mécanisme de « correspondance » et son animation, le globe.*
+
+### Coups de cœur de l'architecte
+- **Destinations en commun (le « Tinder » des voyages)** 🔧 : chacun passe en revue des pays du monde et répond ❤️ « j'ai envie » ou ✖️ « bof », sans voir les réponses de l'autre. Quand vous dites ❤️ tous les deux, animation « Destination en commun 💞 » et le pays devient doré (« Un jour… »). Réutilise exactement la mécanique du « même moment ».
+- **Le tirage du prochain voyage** ⚡ : un bouton fait tourner le globe, qui ralentit et s'arrête sur une de vos destinations en commun. Parfait pour un dîner en amoureux.
+- **« Devine où c'était »** 🔧 : un petit jeu à deux. L'app montre une photo (recadrée ou floutée), l'autre touche le pays sur le globe. Points, série de 5 photos, revanche. Le globe devient un terrain de jeu.
+- **Mots doux cachés** 🔧 : glisser un petit mot secret sur une photo (une enveloppe 💌 en coin). L'autre le découvre en ouvrant la photo, avec une petite animation d'ouverture d'enveloppe.
+- **« Je pense à toi »** ⚡ : toucher longuement le ❤️ de l'app envoie une pensée. Si l'app de l'autre est ouverte, des cœurs s'envolent en direct ; sinon, à la prochaine ouverture : « Max a pensé à toi 3 fois aujourd'hui ❤️ ». Temps réel déjà en place.
+
+### Autour du palmarès
+- **Notre accord parfait** ⚡ : « Vous avez choisi le même moment préféré dans 7 pays sur 9 », avec une jauge douce dans « Nos pays ».
+- **Les Oscars de nos voyages** 🔧 : une fois par an (le 14 octobre ?), on vote parmi les gagnants de chaque pays pour élire la plus belle vue, la plus belle assiette et le moment le plus drôle **de toutes nos années**. Cérémonie animée avec révélation une par une.
+- **Plus de catégories, à la carte** ⚡ : « Plus belle chambre », « Meilleur cocktail », « Plus grosse galère », « Plus belle rencontre »… ajoutables depuis l'app.
+
+### Souvenirs vivants
+- **Message vocal caché** 🔧 : enregistrer quelques secondes (un rire, le bruit des vagues, « je t'aime ») attachées à une photo.
+- **Avant / après** ⚡ : quand vous retournez au même endroit des années plus tard, afficher les deux photos côte à côte.
+- **Notre année en voyages** 🔧 (déjà dans la banque) : prend tout son sens avec le palmarès, en fin d'année, façon récap.
+
+## Recommandation de l'architecte (mise à jour)
+1. **Fondations d'abord**, encore plus importantes maintenant que **deux téléphones** ajoutent des photos : empêcher la mise en veille de Supabase et sauvegarde automatique.
+2. **Destinations en commun + tirage du prochain voyage** : le plus fort émotionnellement, et rapide grâce à la mécanique existante.
+3. **La notion de Voyage**, puis **mode « voyage en cours »**, pour bien vivre le prochain départ.
+4. **« Devine où c'était »** et **mots doux cachés**, pour faire vivre l'app entre deux voyages.
