@@ -41,7 +41,7 @@ Tout problème trouvé : le décrire à Claude Code (ou à l'architecte) avec un
 
 ## Critères de fin
 - [x] Audit et tests OK
-- [x] Tag `v1.0-anniversaire` poussé, procédure de retour arrière documentée
+- [ ] Tag `v1.0-anniversaire` poussé (créé par l'utilisateur sur GitHub, voir ci-dessous) ; procédure de retour arrière documentée ✅
 - [ ] Check-list de l'utilisateur entièrement cochée
 - [ ] Compte rendu rempli, statut « fait », commit et push
 
@@ -70,6 +70,6 @@ Tout problème trouvé : le décrire à Claude Code (ou à l'architecte) avec un
 
 Seules erreurs console, attendues : les deux 404 volontaires du test de secours, et le 400 renvoyé par le serveur à un mauvais code. Un contrôle (« lettre masquée ») était fragile, à cause d'une attente fixe sous rendu logiciel : il attend maintenant que la lettre soit masquée. **Aucun changement de l'app.** La migration SQL n'a pas été relancée ici : elle a été testée 42/42 dans l'ORDRE-006, et l'utilisateur a validé `verification-droits.sql` sur son vrai Supabase (4 ✅).
 
-**Version de référence** : le tag `v1.0-anniversaire` est posé sur ce commit et poussé. La procédure de retour arrière est dans `docs/02-guide-installation.md` : en langage simple pour l'utilisateur, avec les commandes pour Claude Code. Elle passe par `git restore`, sans réécrire l'historique, puis demande d'incrémenter `CACHE` au-delà du dernier numéro, sans quoi les iPhone garderaient la version plus récente en cache.
+**Version de référence** : le tag `v1.0-anniversaire` a été créé localement, mais **son envoi est refusé par l'accès GitHub de la session Claude Code** : les branches passent, pas les tags. Il est donc à créer par l'utilisateur sur GitHub (Releases → Draft a new release → tag `v1.0-anniversaire`, cible `main`), et le dernier commit de `main` est la version validée. La procédure de retour arrière est dans `docs/02-guide-installation.md` : en langage simple pour l'utilisateur, avec les commandes pour Claude Code. Elle passe par `git restore`, sans réécrire l'historique, puis demande d'incrémenter `CACHE` au-delà du dernier numéro, sans quoi les iPhone garderaient la version plus récente en cache.
 
 **Partie B** : check-list transmise à l'utilisateur, à cocher sur son iPhone.
