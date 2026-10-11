@@ -41,7 +41,7 @@ Tout problème trouvé : le décrire à Claude Code (ou à l'architecte) avec un
 
 ## Critères de fin
 - [x] Audit et tests OK
-- [ ] Tag `v1.0-anniversaire` poussé (créé par l'utilisateur sur GitHub, voir ci-dessous) ; procédure de retour arrière documentée ✅
+- [x] Tag `v1.0-anniversaire` poussé (créé par l'utilisateur sur GitHub, release « Version du jour J », commit `2226711`) ; procédure de retour arrière documentée
 - [ ] Check-list de l'utilisateur entièrement cochée
 - [ ] Compte rendu rempli, statut « fait », commit et push
 
@@ -73,3 +73,5 @@ Seules erreurs console, attendues : les deux 404 volontaires du test de secours,
 **Version de référence** : le tag `v1.0-anniversaire` a été créé localement, mais **son envoi est refusé par l'accès GitHub de la session Claude Code** : les branches passent, pas les tags. Il est donc à créer par l'utilisateur sur GitHub (Releases → Draft a new release → tag `v1.0-anniversaire`, cible `main`), et le dernier commit de `main` est la version validée. La procédure de retour arrière est dans `docs/02-guide-installation.md` : en langage simple pour l'utilisateur, avec les commandes pour Claude Code. Elle passe par `git restore`, sans réécrire l'historique, puis demande d'incrémenter `CACHE` au-delà du dernier numéro, sans quoi les iPhone garderaient la version plus récente en cache.
 
 **Partie B** : check-list transmise à l'utilisateur, à cocher sur son iPhone.
+
+**Mise à jour** : tag `v1.0-anniversaire` créé par l'utilisateur via une release GitHub « Version du jour J » sur le commit `2226711` (vérifié depuis Claude Code avec `git ls-remote --tags`).
