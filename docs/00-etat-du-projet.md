@@ -56,6 +56,7 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 - [x] Touches du jour J (ORDRE-002) : lettre d'ouverture (`LETTRE` dans `index.html`), statistiques pays/continents, `carte-cadeau.html` à imprimer
 - [x] Globe 3D (ORDRE-003) : MapLibre, rotation lente, carte plate en secours (`?carte=plate`, ou `CARTE_PAR_DEFAUT = 'plate'` pour revenir en arrière) — **décision garder / revenir dimanche 11 après test sur iPhone**
 - [x] Finitions (ORDRE-004) : outre-mer séparé (Guyane, Guadeloupe, Martinique, La Réunion, Mayotte, Pays-Bas caribéens, Svalbard), apostrophes typographiques dans la lettre
+- [x] Petits pays et îles touchables et visibles, recherche de pays dans « Nos pays » (ORDRE-005)
 - [ ] Carte remplie (pays, photos, souvenirs)
 - [ ] Testée sur iPhone, puis offerte 🎁
 
@@ -81,4 +82,4 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 ## Points de vigilance
 - Supabase gratuit met en pause un projet inactif depuis environ une semaine. Les données restent ; on le réactive en un clic depuis le tableau de bord.
 - Toute personne qui a le lien peut voir la carte (sans rien modifier) : ne pas partager le lien publiquement.
-- Après une modification du code, incrémenter `CACHE` dans `sw.js` (actuellement `nos-voyages-v5`) pour forcer la mise à jour sur l'iPhone.
+- Après une modification du code, incrémenter `CACHE` dans `sw.js` (actuellement `nos-voyages-v6`) pour forcer la mise à jour sur l'iPhone.

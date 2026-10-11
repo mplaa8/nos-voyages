@@ -1,6 +1,6 @@
 # ORDRE-005 — Rendre les petits pays et les îles touchables (Maldives en tête)
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait
 **Échéance** : lundi 12 octobre 2026, avant le gel du code du soir · **Nature** : correction de bug (prioritaire)
 
 ## Constat (retour de l'utilisateur sur iPhone)
@@ -61,10 +61,52 @@ Pour un petit pays, `flyTo` cadre sur l'ensemble de sa géométrie (pas seulemen
 9. Les tests des ORDRES 002, 003 et 004 passent toujours, aucune erreur console (hors 404 volontaires du test de secours).
 
 ## Critères de fin
-- [ ] Maldives et petits pays touchables et visibles, sur le globe et la carte plate
-- [ ] Recherche de pays dans la liste
-- [ ] Aucune régression sur les grands pays
-- [ ] Cache `v6`, captures dans `docs/captures/`, état du projet à jour
-- [ ] Commit et push sur `main`, résumé de 5 lignes pour l'architecte
+- [x] Maldives et petits pays touchables et visibles, sur le globe et la carte plate
+- [x] Recherche de pays dans la liste
+- [x] Aucune régression sur les grands pays
+- [x] Cache `v6`, captures dans `docs/captures/`, état du projet à jour
+- [x] Commit et push sur `main`, résumé de 5 lignes pour l'architecte
 
 ## Compte rendu (à remplir par Claude Code)
+
+**Fait — 11 octobre 2026**
+
+**A. Repères des petits pays.** `analyseGeo` (après `splitTerritories`) calcule pour chaque entité sa surface en degrés² corrigés de la latitude (× cos lat), son point d'ancrage et ses cadrages.
+- Ancrage : centre de l'ensemble de la géométrie si elle est compacte (moins de 20° d'étendue, cas des Maldives : le point tombe au milieu des atolls), sinon centre du plus grand polygone (Kiribati, Fidji, qui traversent la ligne de changement de date).
+- **Seuil : 1,25 degré²**, soit environ 15 000 km². Le Luxembourg (0,21) est inclus, la Belgique (2,48) exclue.
+- **88 entités retenues** : Åland, Andorre, Anguilla, Antigua-et-Barbuda, Aruba, Bahamas, Bahreïn, Barbade, Bermudes, Brunei, Cap-Vert, Chypre, Chypre du Nord, Cité du Vatican, Comores, Curaçao, Dominique, États fédérés de Micronésie, Gambie, Géorgie du Sud-et-les Îles Sandwich du Sud, glacier de Siachen, Grenade, Guadeloupe, Guam, Guernesey, Hong Kong, île de Man, île Norfolk, îles Ashmore-et-Cartier, îles Caïmans, îles Cook, îles Féroé, îles Heard-et-MacDonald, îles Malouines, îles Mariannes du Nord, îles Marshall, îles Pitcairn, îles Turques-et-Caïques, îles Vierges britanniques, îles Vierges des États-Unis, Jamaïque, Jersey, Kiribati, Kosovo, La Réunion, Liban, Liechtenstein, Luxembourg, Macao, Maldives, Malte, Martinique, Maurice, Mayotte, Monaco, Monténégro, Montserrat, Nauru, Niue, Palaos, Palestine, Pays-Bas caribéens, Polynésie française, Porto Rico, Qatar, Saint-Barthélemy, Saint-Christophe-et-Niévès, Saint-Marin, Saint-Martin, Sint Maarten, Saint-Pierre-et-Miquelon, Saint-Vincent-et-les-Grenadines, Sainte-Hélène, Sainte-Lucie, Samoa, Samoa américaines, Sao Tomé-et-Principe, Seychelles, Singapour, Terres australes et antarctiques françaises, Territoire britannique de l'océan Indien, Territoires extérieurs australiens de l'océan Indien, Timor oriental, Tonga, Trinité-et-Tobago, Tuvalu, Vanuatu, Wallis-et-Futuna.
+- **Globe** : source de points `petits` (`promoteId: 'code'`) et trois couches : `petits-halo` (halo rose flou, seulement si visité), `petits-pays` (point de 5 px si visité, 4,5 px si rêvé, 2,5 px discret si « à découvrir », contour blanc si sélectionné) et `petits-pays-zone` (rayon 22 px, transparent). **Face cachée** : vérifié sur capture, MapLibre masque bien les points derrière le globe ; Singapour, de dos dans la vue d'ensemble, n'est ni dessiné ni touchable.
+- **Carte plate** : mêmes points en `circleMarker` au-dessus des polygones.
+- **Synchronisation** : les états (visité, rêvé, sélection) passent par le même `refresh` que les pays.
+
+**B. Touche tolérante** (`pickCountry`, commune au globe et à la carte plate) dans l'ordre demandé : zone d'un petit pays (le plus proche), puis pays exactement sous le doigt, puis pays le plus proche dans ±16 px (recherche par anneaux de 4 en 4 px), sinon rien.
+- **Précision ajoutée à la règle 1**, après test : si le doigt est posé sur la terre d'un grand pays, ce grand pays l'emporte. Seul le point coloré d'un petit pays visité ou rêvé passe devant, s'il est touché à moins de 8 px. Sans cette règle, en vue d'ensemble, toucher le centre de l'Italie ouvrait le **Vatican** et celui de la Belgique le **Luxembourg**, ce qui enfreint « jamais un voisin ». En mer, la zone de 44 px s'applique toujours (Maldives, Malte, Seychelles…). Un petit pays « à découvrir » enclavé (Vatican, Saint-Marin) reste accessible en zoomant ou par la recherche.
+- Un glissement n'ouvre rien : MapLibre et Leaflet n'émettent pas de `click` à la fin d'un glissement.
+- Sur la carte plate, les polygones ne sont plus cliquables eux-mêmes. La détection passe par un test « point dans le polygone » sur les données, avec la même fonction de choix.
+
+**C. Recherche** en haut de « Nos pays » : champ « Rechercher un pays… » (16 px, 48 px de haut, loupe discrète, effacement natif d'iOS).
+- Recherche parmi les 249 entités, sans tenir compte des accents ni des majuscules ; les noms qui commencent par la saisie passent d'abord ; 40 résultats au maximum.
+- Chaque résultat montre le drapeau, le nom et le statut. Le toucher fait voler la carte jusqu'au pays et ouvre sa fiche.
+- Champ vide : la liste habituelle revient. Aucun résultat : un message l'indique.
+- Natural Earth appelle « Saint-Martin » les parties française **et** néerlandaise de l'île : la partie néerlandaise s'affiche désormais « Sint Maarten » (`NOMS` dans le code).
+
+**D. Vol vers un petit pays** : cadrage sur toute la géométrie (tout l'archipel des Maldives), zoom maximum 6,5. Le zoom maximum du globe passe de 6 à 7 pour que ce cadrage soit possible.
+
+**Correction en passant (bug de l'ORDRE-003)** : sur la carte plate, le fond était **gris clair** au lieu de bleu nuit, parce que `leaflet.css`, chargé après l'app, écrasait notre règle. La règle est maintenant plus forte (`#map.leaflet-container`).
+
+`sw.js` passé à `nos-voyages-v6`.
+
+**Tests** (webapp-testing, 390 × 844, mode démo, `tests/test_ordre005_iphone.py`) : **41/41**, aucune erreur console. Sur le globe **et** sur la carte plate :
+- Recherche : « maldives », « reunion » et « Côte » (Côte d'Ivoire) donnent les bons résultats. Message si aucun résultat, liste habituelle si le champ est vidé, champ en 16 px et 48 px de haut. Toucher un résultat fait voler la carte et ouvre la fiche.
+- Vue d'ensemble : toucher le point doré des Maldives (et de Malte) ouvre leur fiche.
+- En mode édition, marquer les Maldives « visitées » depuis la recherche les rend roses : atolls au zoom, point rose visible et touchable en vue d'ensemble.
+- Toucher à 12 px d'un atoll ouvre les Maldives.
+- Malte et Singapour : toucher le point ou à environ 17 px ouvre la fiche.
+
+Sur le globe uniquement :
+- Toucher le centre de la France, de l'Italie et de la Belgique ouvre le bon pays, au zoom du pays comme en vue d'ensemble.
+- Toucher en plein océan n'ouvre rien, et un glissement non plus.
+
+Non-régression : ORDRE-002 14/14, ORDRE-003 18/18, ORDRE-004 18/18, aucune erreur console hormis les deux 404 volontaires du test de secours. Captures dans `docs/captures/ordre005-*.png`.
+
+**Non testé ici** : le vrai doigt sur iPhone. Les touchers sont simulés par des clics de souris, mais MapLibre et Leaflet traitent les deux de la même façon.

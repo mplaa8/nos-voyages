@@ -33,7 +33,7 @@ textarea,input{font:inherit;font-size:16px;color:var(--ink)}
 /* ---------- Carte ---------- */
 #sky{position:fixed;inset:0;background:radial-gradient(130% 90% at 50% 40%,#2a2350 0%,#1a1d3a 55%,#11142a 100%);overflow:hidden}
 #map{position:fixed;inset:0}
-.leaflet-container{background:var(--night);font-family:var(--sans)}
+#map.leaflet-container{background:var(--night);font-family:var(--sans)}  /* #map : plus fort que leaflet.css, chargé après */
 .map-loading{position:fixed;inset:0;display:grid;place-items:center;color:#c9c5e0;font-size:15px;z-index:400;pointer-events:none}
 
 .glass{background:rgba(22,27,51,.74);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);color:#f4f1fb}
@@ -147,6 +147,8 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
 #letter.show .open-btn{animation:fadeUp 1.1s 1.1s both}
 #letter:not(.show) .letter-card,#letter:not(.show) .open-btn{animation:none}
 .list-stats{margin:6px 0 0;font-size:15px;color:var(--muted)}
+.search{display:block;width:100%;min-height:48px;margin:0 0 6px;padding:12px 14px 12px 44px;border-radius:14px;border:1px solid #e6d6d8;-webkit-appearance:none;appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c7590' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='6.5'/%3E%3Cpath d='M16 16l4.5 4.5'/%3E%3C/svg%3E") no-repeat 14px 50%/19px}
+.search::placeholder{color:var(--muted)}
 .reread{display:block;margin:22px auto 0;min-height:44px;padding:10px 16px;border-radius:14px;font-size:15px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
@@ -258,6 +260,7 @@ const GEO_URLS = [
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_50m_admin_0_countries.geojson"
 ];
 const COLORS = { visited:'#ff7a8a', dream:'#f3d27a', none:'#2c3358' };
+const NOMS = { SXM: 'Sint Maarten' };   // Natural Earth nomme aussi la partie néerlandaise « Saint-Martin »
 const CONTINENTS = { 'Europe':'Europe', 'Asia':'Asie', 'Africa':'Afrique', 'North America':'Amérique du Nord', 'South America':'Amérique du Sud', 'Oceania':'Océanie' };
 
 /* ---------- Petits utilitaires ---------- */
@@ -427,6 +430,62 @@ function splitTerritories(geo){
   return geo;
 }
 
+/* Formes des pays : surface, point d'ancrage, cadrages. Les « petits pays » (sous SEUIL_PETIT degrés²,
+   corrigés de la latitude : Luxembourg compris, Belgique exclue) reçoivent un point visible et une zone de touche. */
+const SEUIL_PETIT = 1.25;
+const shapes = {};          // code -> { small, anchor:[lng,lat], all:[[w,s],[e,n]], main:[[w,s],[e,n]], polys:[{bb, rings}] }
+const SMALL = [];
+function analyseGeo(geo){
+  const ringArea = r => { let a = 0; for (let i = 0, j = r.length - 1; i < r.length; j = i++) a += (r[j][0] - r[i][0]) * (r[j][1] + r[i][1]); return Math.abs(a) / 2; };
+  const bbox = r => { let w = 180, so = 90, e = -180, n = -90; for (const [x, y] of r){ w = Math.min(w, x); e = Math.max(e, x); so = Math.min(so, y); n = Math.max(n, y); } return [[w, so], [e, n]]; };
+  for (const f of geo.features){
+    const code = f.properties.ADM0_A3, g = f.geometry;
+    const polys = (g.type === 'Polygon' ? [g.coordinates] : g.coordinates).map(rings => ({ rings, bb: bbox(rings[0]) }));
+    let area = 0, main = null, mainA = -1;
+    const all = [[180, 90], [-180, -90]];
+    for (const p of polys){
+      const [[w, so], [e, n]] = p.bb, a = (e - w) * (n - so);
+      area += ringArea(p.rings[0]) * Math.cos((so + n) / 2 * Math.PI / 180);
+      if (a > mainA){ mainA = a; main = p.bb; }
+      all[0][0] = Math.min(all[0][0], w); all[0][1] = Math.min(all[0][1], so); all[1][0] = Math.max(all[1][0], e); all[1][1] = Math.max(all[1][1], n);
+    }
+    // Archipel compact (Maldives) : centre de l'ensemble ; très étalé (Kiribati, Fidji…) : centre du plus grand polygone
+    const compact = all[1][0] - all[0][0] < 20 && all[1][1] - all[0][1] < 20;
+    const box = compact ? all : main;
+    shapes[code] = { small: code !== 'ATA' && area < SEUIL_PETIT, anchor: [(box[0][0] + box[1][0]) / 2, (box[0][1] + box[1][1]) / 2], all: compact ? all : main, main, polys };
+    if (shapes[code].small) SMALL.push(code);
+  }
+}
+const smallPoints = () => ({ type: 'FeatureCollection', features: SMALL.map(code => ({ type: 'Feature', properties: { code }, geometry: { type: 'Point', coordinates: shapes[code].anchor } })) });
+// Pays sous un point géographique (test point-dans-polygone, trous compris)
+function countryAt(lng, lat){
+  lng = ((lng + 540) % 360) - 180;
+  const inRing = r => { let c = false; for (let i = 0, j = r.length - 1; i < r.length; j = i++){ const [xi, yi] = r[i], [xj, yj] = r[j]; if ((yi > lat) !== (yj > lat) && lng < (xj - xi) * (lat - yi) / (yj - yi) + xi) c = !c; } return c; };
+  for (const [code, sh] of Object.entries(shapes)){
+    for (const p of sh.polys){
+      const [[w, so], [e, n]] = p.bb;
+      if (lng < w || lng > e || lat < so || lat > n) continue;
+      if (inRing(p.rings[0]) && !p.rings.slice(1).some(inRing)) return code;
+    }
+  }
+  return null;
+}
+/* Choix tolérant du pays touché (globe et carte plate), dans l'ordre :
+   1. petit pays dont la zone de 44 px contient le doigt (le plus proche). Si le doigt est posé sur la terre d'un
+      grand pays, celui-ci l'emporte, sauf sur le point coloré (≤ 8 px) d'un petit pays visité ou rêvé :
+      sinon, vue de loin, le Vatican avalerait l'Italie et le Luxembourg la Belgique ;
+   2. le pays exactement sous le doigt ;  3. le pays le plus proche à ±16 px ;  4. rien (océan). */
+const ZONE_PX = 22, POINT_PX = 8, BOX_PX = 16;
+function pickCountry(x, y, smallNear, exactAt){
+  const near = smallNear(x, y).filter(c => c.d <= ZONE_PX).sort((a, b) => a.d - b.d)[0];
+  const exact = exactAt(x, y);
+  if (near && (!exact || shapes[exact]?.small || (near.d <= POINT_PX && statusOf(near.code) !== 'none'))) return near.code;
+  if (exact) return exact;
+  for (let r = 4; r <= BOX_PX; r += 4)
+    for (let k = 0; k < 16; k++){ const c = exactAt(x + r * Math.cos(k * Math.PI / 8), y + r * Math.sin(k * Math.PI / 8)); if (c) return c; }
+  return null;
+}
+
 async function loadGeo(){
   for (const u of GEO_URLS){ try { const r = await fetch(u); if (r.ok) return await r.json(); } catch {} }
   throw new Error('carte');
@@ -434,7 +493,7 @@ async function loadGeo(){
 
 /* ---------- Globe 3D (MapLibre) ---------- */
 const GlobeView = (() => {
-  let gl, geoFeatures = {}, painted = new Set(), spinning = false, lastTouch = 0, lastFrame = 0;
+  let gl, painted = new Set(), spinning = false, lastTouch = 0, lastFrame = 0;
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const SPIN = 360 / 120000;                       // un tour en 2 minutes (degrés par ms)
   const fitZoom = () => Math.log2(Math.min(innerWidth, innerHeight - 140) * .9 * Math.PI / 512);
@@ -450,31 +509,23 @@ const GlobeView = (() => {
     if (!reduceMotion && !spinning && !sheetOpen() && Date.now() - lastTouch > 15000 && gl.getZoom() < fitZoom() + .6) spinning = true;
   }
 
-  // Plus grand polygone du pays (même logique que la carte plate)
-  function mainBounds(code){
-    const g = geoFeatures[code]?.geometry; if (!g) return null;
-    const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
-    let best = null, area = -1;
-    for (const p of polys){
-      const b = new maplibregl.LngLatBounds(); p[0].forEach(pt => b.extend(pt));
-      const a = (b.getNorth() - b.getSouth()) * (b.getEast() - b.getWest());
-      if (a > area){ area = a; best = b; }
-    }
-    return best;
-  }
+  const statusOrNone = ['coalesce', ['feature-state', 'status'], 'none'];
+  const smallNear = (x, y) => gl.queryRenderedFeatures([x, y], { layers: ['petits-pays-zone'] })   // face visible seulement
+    .map(f => { const p = gl.project(shapes[f.id].anchor); return { code: f.id, d: Math.hypot(p.x - x, p.y - y) }; });
+  const exactAt = (x, y) => gl.queryRenderedFeatures([x, y], { layers: ['pays'] })[0]?.id ?? null;
 
   return {
     async init(geo){
-      geo.features.forEach(f => geoFeatures[f.properties.ADM0_A3] = f);
       gl = new maplibregl.Map({
         container: 'map', attributionControl: false,
-        center: [12, 30], zoom: fitZoom(), minZoom: 0, maxZoom: 6, maxPitch: 0,
+        center: [12, 30], zoom: fitZoom(), minZoom: 0, maxZoom: 7, maxPitch: 0,
         dragRotate: false, touchPitch: false, pitchWithRotate: false, keyboard: false,
         style: {
           version: 8,
           projection: { type: 'globe' },
           sky: { 'sky-color': 'rgba(0,0,0,0)', 'horizon-color': 'rgba(0,0,0,0)', 'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, .35, 3, .15, 5, 0] },
-          sources: { pays: { type: 'geojson', data: geo, promoteId: 'ADM0_A3' } },
+          sources: { pays: { type: 'geojson', data: geo, promoteId: 'ADM0_A3' },
+                     petits: { type: 'geojson', data: smallPoints(), promoteId: 'code' } },
           layers: [
             { id: 'nuit', type: 'background', paint: { 'background-color': '#161b33' } },
             { id: 'pays', type: 'fill', source: 'pays', paint: {
@@ -487,7 +538,17 @@ const GlobeView = (() => {
                 'line-width': ['case', ['==', ['coalesce', ['feature-state', 'status'], 'none'], 'none'], .6, 1] } },
             { id: 'selection', type: 'line', source: 'pays', paint: {
                 'line-color': '#ffffff', 'line-width': 2.4,
-                'line-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, 0] } }
+                'line-opacity': ['case', ['boolean', ['feature-state', 'selected'], false], 1, 0] } },
+            // Petits pays : halo rose si visité, point visible, et zone de touche transparente de 44 px
+            { id: 'petits-halo', type: 'circle', source: 'petits', paint: {
+                'circle-radius': 11, 'circle-color': COLORS.visited, 'circle-blur': 1,
+                'circle-opacity': ['case', ['==', ['feature-state', 'status'], 'visited'], .6, 0] } },
+            { id: 'petits-pays', type: 'circle', source: 'petits', paint: {
+                'circle-radius': ['match', statusOrNone, 'visited', 5, 'dream', 4.5, 2.5],
+                'circle-color': ['match', statusOrNone, 'visited', COLORS.visited, 'dream', COLORS.dream, COLORS.none],
+                'circle-stroke-color': ['case', ['boolean', ['feature-state', 'selected'], false], '#ffffff', ['==', statusOrNone, 'none'], '#5a628f', 'rgba(255,255,255,.6)'],
+                'circle-stroke-width': ['case', ['boolean', ['feature-state', 'selected'], false], 2, .8] } },
+            { id: 'petits-pays-zone', type: 'circle', source: 'petits', paint: { 'circle-radius': ZONE_PX, 'circle-opacity': 0 } }
           ]
         }
       });
@@ -497,9 +558,9 @@ const GlobeView = (() => {
         gl.once('load', () => { clearTimeout(t); res(); });
         gl.once('error', e => { clearTimeout(t); rej(e.error || e); });
       });
-      gl.on('click', 'pays', e => { stopSpin(); openCountry(e.features[0].id); });
-      gl.on('mouseenter', 'pays', () => gl.getCanvas().style.cursor = 'pointer');
-      gl.on('mouseleave', 'pays', () => gl.getCanvas().style.cursor = '');
+      // « click » n'est pas émis à la fin d'un glissement : faire tourner le globe n'ouvre rien
+      gl.on('click', e => { stopSpin(); const code = pickCountry(e.point.x, e.point.y, smallNear, exactAt); if (code) openCountry(code); });
+      gl.on('mousemove', e => gl.getCanvas().style.cursor = exactAt(e.point.x, e.point.y) || smallNear(e.point.x, e.point.y).length ? 'pointer' : '');
       gl.on('touchstart', stopSpin); gl.on('mousedown', stopSpin); gl.on('wheel', stopSpin);
       setInterval(maybeResume, 1000);
       spinning = !reduceMotion;
@@ -513,14 +574,16 @@ const GlobeView = (() => {
       codes.forEach(code => {
         const status = statusOf(code), selected = code === state.current;
         gl.setFeatureState({ source: 'pays', id: code }, { status, selected });
+        if (shapes[code]?.small) gl.setFeatureState({ source: 'petits', id: code }, { status, selected });
         if (status !== 'none' || selected) painted.add(code);
       });
       if (sheetOpen()) stopSpin();
     },
     flyTo(code){
-      const b = mainBounds(code); if (!b) return;
+      const sh = shapes[code]; if (!sh) return;
       stopSpin();
-      gl.fitBounds(b, { padding: { top: 100, left: 24, right: 24, bottom: Math.round(innerHeight * .5) }, maxZoom: 5, duration: 1200 });
+      // Petit pays : tout l'archipel (Maldives), plus zoomé ; sinon le plus grand polygone
+      gl.fitBounds(sh.small ? sh.all : sh.main, { padding: { top: 100, left: 24, right: 24, bottom: Math.round(innerHeight * .5) }, maxZoom: sh.small ? 6.5 : 5, duration: 1200 });
     },
     worldView(){
       lastTouch = 0;
@@ -534,7 +597,7 @@ const GlobeView = (() => {
 /* ---------- Carte plate (Leaflet, version d'origine) ---------- */
 const FlatView = (() => {
   let map;
-  const layers = {};
+  const layers = {}, dots = {};
   function styleFor(code){
     const s = statusOf(code), sel = code === state.current;
     return {
@@ -543,13 +606,15 @@ const FlatView = (() => {
       weight: sel ? 2.4 : (s === 'none' ? .6 : 1)
     };
   }
-  function mainBounds(layer){
-    const ll = layer.getLatLngs();
-    const polys = Array.isArray(ll[0][0]) ? ll : [ll];
-    let best = null, area = -1;
-    for (const p of polys){ const b = L.latLngBounds(p[0]); const a = (b.getNorth() - b.getSouth()) * (b.getEast() - b.getWest()); if (a > area){ area = a; best = b; } }
-    return best;
+  function dotStyle(code){
+    const s = statusOf(code), sel = code === state.current;
+    return { radius: s === 'visited' ? 5 : s === 'dream' ? 4.5 : 2.5, fillColor: COLORS[s], fillOpacity: 1,
+             color: sel ? '#ffffff' : s === 'visited' ? COLORS.visited : s === 'none' ? '#5a628f' : 'rgba(255,255,255,.6)',
+             weight: sel ? 2 : s === 'visited' ? 5 : .8, opacity: s === 'visited' && !sel ? .4 : 1 };
   }
+  const ll = ([lng, lat]) => [lat, lng];
+  const smallNear = (x, y) => SMALL.map(code => { const p = map.latLngToContainerPoint(ll(shapes[code].anchor)); return { code, d: Math.hypot(p.x - x, p.y - y) }; });
+  const exactAt = (x, y) => { const p = map.containerPointToLatLng([x, y]); return countryAt(p.lng, p.lat); };
   const view = () => map.setView([30, 12], innerWidth < 500 ? 1.25 : 2);
   return {
     init(geo){
@@ -563,13 +628,20 @@ const FlatView = (() => {
       L.geoJSON(geo, {
         filter: f => f.properties.ADM0_A3 !== 'ATA',
         style: f => styleFor(f.properties.ADM0_A3),
-        onEachFeature: (f, layer) => { const code = f.properties.ADM0_A3; layers[code] = layer; layer.on('click', () => openCountry(code)); }
+        interactive: false,
+        onEachFeature: (f, layer) => { layers[f.properties.ADM0_A3] = layer; }
       }).addTo(map);
+      SMALL.forEach(code => dots[code] = L.circleMarker(ll(shapes[code].anchor), { ...dotStyle(code), interactive: false }).addTo(map));
+      map.on('click', e => { const code = pickCountry(e.containerPoint.x, e.containerPoint.y, smallNear, exactAt); if (code) openCountry(code); });
     },
-    refresh(){ for (const [code, l] of Object.entries(layers)) l.setStyle(styleFor(code)); if (layers[state.current]) layers[state.current].bringToFront(); },
+    refresh(){
+      for (const [code, l] of Object.entries(layers)) l.setStyle(styleFor(code));
+      if (layers[state.current]) layers[state.current].bringToFront();
+      for (const [code, d] of Object.entries(dots)){ d.setStyle(dotStyle(code)); d.bringToFront(); }
+    },
     flyTo(code){
-      const l = layers[code]; if (!l) return;
-      map.flyToBounds(mainBounds(l), { paddingTopLeft:[24, 100], paddingBottomRight:[24, Math.round(innerHeight * .5)], maxZoom:5, duration:.9 });
+      const sh = shapes[code]; if (!sh) return;
+      map.flyToBounds((sh.small ? sh.all : sh.main).map(ll), { paddingTopLeft:[24, 100], paddingBottomRight:[24, Math.round(innerHeight * .5)], maxZoom: sh.small ? 6.5 : 5, duration:.9 });
     },
     worldView: () => view(),
     resize(){ map?.invalidateSize(); }
@@ -665,19 +737,34 @@ function renderSheet(){
   $('sheetBody').innerHTML = h;
 }
 
+const BADGES = { visited:'Visité ensemble ❤️', dream:'Notre prochain rêve ✨', none:'Encore à découvrir' };
+const norm = t => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[’']/g, ' ').trim();
+
+// Recherche parmi tous les pays et territoires de la carte (sans accents ni majuscules)
+function searchHtml(query){
+  const q = norm(query);
+  const found = Object.keys(state.names).map(code => ({ code, n: norm(nameOf(code)) })).filter(x => x.n.includes(q))
+    .sort((a, b) => (b.n.startsWith(q) - a.n.startsWith(q)) || nameOf(a.code).localeCompare(nameOf(b.code), 'fr')).slice(0, 40);
+  if (!found.length) return `<p class="empty">Aucun pays ne correspond à « ${esc(query.trim())} ».</p>`;
+  return found.map(({ code }) => `<button class="list-item" data-action="goto" data-code="${esc(code)}"><span class="flag">${flag(state.iso2[code])}</span><span><b>${esc(nameOf(code))}</b><small>${BADGES[statusOf(code)]}</small></span></button>`).join('');
+}
+
 function renderList(){
   const rows = Object.values(state.countries).sort((a, b) => (a.status === b.status ? nameOf(a.code).localeCompare(nameOf(b.code), 'fr') : a.status === 'visited' ? -1 : 1));
   const visited = rows.filter(c => c.status === 'visited');
   const nc = new Set(visited.map(c => state.continent[c.code]).filter(Boolean)).size;
   const stats = visited.length ? `<p class="list-stats">${visited.length} pays · ${nc} continent${nc>1?'s':''} découvert${nc>1?'s':''} ensemble</p>` : '';
-  let h = `<div class="head"><span class="flag">🗺️</span><div><h2>Nos pays</h2>${stats}</div></div>`;
-  if (!rows.length) h += `<p class="empty">Aucun pays pour l’instant. ${state.admin ? 'Touche un pays sur la carte pour l’ajouter.' : ''}</p>`;
+  let list = '';
+  if (!rows.length) list += `<p class="empty">Aucun pays pour l’instant. ${state.admin ? 'Touche un pays sur la carte ou cherche-le ci-dessus pour l’ajouter.' : ''}</p>`;
   rows.forEach(c => {
     const np = (state.photos[c.code] || []).length, nm = (state.memories[c.code] || []).length;
-    h += `<button class="list-item" data-action="goto" data-code="${esc(c.code)}"><span class="flag">${flag(state.iso2[c.code])}</span><span><b>${esc(nameOf(c.code))}${c.status === 'dream' ? ' ✨' : ''}</b><small>${np} photo${np>1?'s':''}, ${nm} souvenir${nm>1?'s':''}</small></span></button>`;
+    list += `<button class="list-item" data-action="goto" data-code="${esc(c.code)}"><span class="flag">${flag(state.iso2[c.code])}</span><span><b>${esc(nameOf(c.code))}${c.status === 'dream' ? ' ✨' : ''}</b><small>${np} photo${np>1?'s':''}, ${nm} souvenir${nm>1?'s':''}</small></span></button>`;
   });
-  h += `<button class="reread" data-action="reread">💌 Relire ta lettre</button>`;
-  $('sheetBody').innerHTML = h;
+  list += `<button class="reread" data-action="reread">💌 Relire ta lettre</button>`;
+  state.listHtml = list;
+  $('sheetBody').innerHTML = `<div class="head"><span class="flag">🗺️</span><div><h2>Nos pays</h2>${stats}</div></div>
+    <input class="search" id="search" type="search" placeholder="Rechercher un pays…" aria-label="Rechercher un pays" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" value="${esc(state.query || '')}">
+    <div id="listBody">${state.query?.trim() ? searchHtml(state.query) : list}</div>`;
 }
 
 /* ---------- Actions ---------- */
@@ -731,6 +818,13 @@ $('sheetBody').addEventListener('click', e => {
   }
 });
 
+$('sheetBody').addEventListener('input', e => {
+  if (e.target.id !== 'search') return;
+  state.query = e.target.value;
+  $('listBody').innerHTML = state.query.trim() ? searchHtml(state.query) : state.listHtml;
+});
+$('sheetBody').addEventListener('keydown', e => { if (e.target.id === 'search' && e.key === 'Enter') e.target.blur(); });
+
 $('sheetBody').addEventListener('change', e => {
   if (e.target.dataset.action !== 'addPhotos') return;
   const files = [...e.target.files], code = state.current; if (!files.length) return;
@@ -744,7 +838,7 @@ $('sheetBody').addEventListener('change', e => {
 
 $('overlay').addEventListener('click', closeSheet);
 $('closeSheet').addEventListener('click', closeSheet);
-$('listBtn').addEventListener('click', () => { state.mode = 'list'; state.current = null; refreshMap(); renderSheet(); openSheet(); });
+$('listBtn').addEventListener('click', () => { state.query = ''; state.mode = 'list'; state.current = null; refreshMap(); renderSheet(); openSheet(); });
 $('worldBtn').addEventListener('click', worldView);
 
 /* =========================================================
@@ -825,9 +919,10 @@ $('letterBtn').addEventListener('click', hideLetter);
 
   try {
     const geo = splitTerritories(await loadGeo());
+    analyseGeo(geo);
     geo.features.forEach(f => {
       const p = f.properties, code = p.ADM0_A3;
-      state.names[code] = p.NAME_FR || p.NAME;
+      state.names[code] = NOMS[code] || p.NAME_FR || p.NAME;
       state.iso2[code] = (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : p.ISO_A2;
       if (CONTINENTS[p.CONTINENT]) state.continent[code] = CONTINENTS[p.CONTINENT];
     });
