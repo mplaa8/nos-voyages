@@ -1,6 +1,6 @@
 # ORDRE-007 — Recette finale et version du jour J
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code + l'utilisateur · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code + l'utilisateur · **Statut** : partie A faite ; partie B (iPhone) à cocher par l'utilisateur
 **Échéance** : mardi 13 octobre 2026 · **Code gelé depuis** : lundi 12 au soir (après l'ORDRE-006)
 
 ## Objectif
@@ -40,9 +40,36 @@ Fermer complètement l'app, puis ouvrir `https://mplaa8.github.io/nos-voyages/` 
 Tout problème trouvé : le décrire à Claude Code (ou à l'architecte) avec une capture d'écran.
 
 ## Critères de fin
-- [ ] Audit et tests OK
-- [ ] Tag `v1.0-anniversaire` poussé, procédure de retour arrière documentée
+- [x] Audit et tests OK
+- [x] Tag `v1.0-anniversaire` poussé, procédure de retour arrière documentée
 - [ ] Check-list de l'utilisateur entièrement cochée
 - [ ] Compte rendu rempli, statut « fait », commit et push
 
 ## Compte rendu (à remplir par Claude Code)
+
+**Partie A — 12 octobre 2026**
+
+**Audit** (lecture seule, aucune modification de l'app) :
+- **Secrets** : les 24 commits de l'historique ont été parcourus (`git log -p --all`). Aucune clé `service_role` ou secrète, aucun jeton JWT, aucun mot de passe. La seule clé est la clé **publishable**, publique par conception.
+- **E-mails** : aucune adresse réelle dans le contenu des fichiers, sur tout l'historique. L'adresse de Maxime n'apparaît que comme auteur du tout premier commit, créé sur GitHub ; ce sont des métadonnées, pas le contenu. Le reste n'est que des adresses fictives ou d'exemple : `roxane@nos-voyages.fr`, `maxime@exemple.fr` dans les tests, `john@example.com` dans l'exemple du skill. `migration-002-palmares.sql` et `setup.sql` ne contiennent que les marqueurs `EMAIL-DE-…`.
+- **Réglages** :
+  - `CONFIG` pointe vers `https://rmlpgirrwvuoruwixrbo.supabase.co` ;
+  - `CARTE_PAR_DEFAUT = 'globe'` et `PALMARES_ACTIF = true` ;
+  - `ROXANE_EMAIL` est fictif, et l'indice est « Notre date secrète (JJMMAAAA) 💕 » ;
+  - `LETTRE` est exacte (texte avec apostrophes typographiques, ORDRE-004), signée « Max » ;
+  - `sw.js` est en `nos-voyages-v7`.
+- **Débogage** : aucun `console.log`, `console.info` ni `console.debug` dans `index.html`, `sw.js` ou `carte-cadeau.html`. Les données de démo (sélecteur « Je suis », comptes `demo-…`) ne servent que si `CONFIG` est vide. Le sélecteur est masqué avec un vrai Supabase (bug corrigé et testé dans l'ORDRE-006).
+- **Carte cadeau** : le QR, décodé par OpenCV, donne bien `https://mplaa8.github.io/nos-voyages/`.
+
+**Tests** : toute la batterie a été relancée en mode démo, au format iPhone 390 × 844, sur le globe et la carte plate. **152/152** :
+- ORDRE-002 : 14/14 ;
+- ORDRE-003 : 18/18 ;
+- ORDRE-004 : 18/18 ;
+- ORDRE-005 : 41/41 ;
+- ORDRE-006 : 47/47 en démo, et 14/14 pour le code secret face au Supabase simulé.
+
+Seules erreurs console, attendues : les deux 404 volontaires du test de secours, et le 400 renvoyé par le serveur à un mauvais code. Un contrôle (« lettre masquée ») était fragile, à cause d'une attente fixe sous rendu logiciel : il attend maintenant que la lettre soit masquée. **Aucun changement de l'app.** La migration SQL n'a pas été relancée ici : elle a été testée 42/42 dans l'ORDRE-006, et l'utilisateur a validé `verification-droits.sql` sur son vrai Supabase (4 ✅).
+
+**Version de référence** : le tag `v1.0-anniversaire` est posé sur ce commit et poussé. La procédure de retour arrière est dans `docs/02-guide-installation.md` : en langage simple pour l'utilisateur, avec les commandes pour Claude Code. Elle passe par `git restore`, sans réécrire l'historique, puis demande d'incrémenter `CACHE` au-delà du dernier numéro, sans quoi les iPhone garderaient la version plus récente en cache.
+
+**Partie B** : check-list transmise à l'utilisateur, à cocher sur son iPhone.

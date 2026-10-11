@@ -47,7 +47,9 @@ with sync_playwright() as p:
     check("lettre entière visible sans défilement", bb["y"] >= 0 and bb["y"] + bb["height"] <= 844)
     check("bouton ≥ 44 px", btn["height"] >= 44)
     check("accueil retiré", pg.locator("#welcome").count() == 0)
-    pg.click("#letterBtn"); pg.wait_for_timeout(1600)
+    pg.click("#letterBtn")
+    try: pg.wait_for_selector("#letter", state="hidden", timeout=10000)
+    except Exception: pass
     check("lettre masquée", not pg.locator("#letter").is_visible())
     pg.screenshot(path=f"{OUT}/ordre002-3-carte.png")
     # 2. Stats

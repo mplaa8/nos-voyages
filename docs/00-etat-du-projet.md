@@ -58,27 +58,13 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 - [x] Finitions (ORDRE-004) : outre-mer séparé (Guyane, Guadeloupe, Martinique, La Réunion, Mayotte, Pays-Bas caribéens, Svalbard), apostrophes typographiques dans la lettre
 - [x] Petits pays et îles touchables et visibles, recherche de pays dans « Nos pays » (ORDRE-005)
 - [x] Nos deux téléphones et le palmarès (ORDRE-006) : Roxane se connecte par code secret et a les mêmes droits que Maxime ; palmarès 🌅 🍽️ 😂 💗 avec règle du secret et animation « même moment » — **à activer dans Supabase** (`migration-002-palmares.sql`, voir le guide)
+- [x] Recette finale côté code (ORDRE-007) : audit OK, 152 vérifications automatiques OK, version de référence **`v1.0-anniversaire`** (retour arrière : voir le guide)
+- [ ] Recette sur iPhone par Maxime (check-list partie B de l'ORDRE-007)
 - [ ] Carte remplie (pays, photos, souvenirs)
 - [ ] Testée sur iPhone, puis offerte 🎁
 
-## Idées à trier pour la roadmap
-
-**Venant du cahier des charges**
-- Ajouter les futurs voyages à la carte (déjà amorcé avec le statut « Un jour ✨ »).
-- Faire grandir la carte voyage après voyage, au fil des années.
-- Afficher les anecdotes et ce qu'on a aimé dans chaque pays (aujourd'hui : texte libre dans les souvenirs).
-
-**Pistes apparues pendant la construction** (à valider ou écarter)
-- Dates des voyages (année, mois) et frise chronologique de notre histoire.
-- Plusieurs voyages dans un même pays, chacun avec ses photos et souvenirs.
-- Points sur la carte pour les villes visitées, pas seulement les pays.
-- Légende ou commentaire sous chaque photo, et choix d'une photo de couverture par pays.
-- Statistiques douces : pays et continents faits (ORDRE-002) ; pourcentage du monde découvert à voir.
-- ~~Message à l'ouverture~~ (fait : lettre, ORDRE-002) ; musique, révélation pays par pays.
-- ~~Permettre à ma femme d'ajouter elle aussi ses propres souvenirs.~~ (fait : ORDRE-006)
-- Compte à rebours vers le prochain voyage prévu.
-- Sauvegarde/export de toutes nos données (pour ne jamais rien perdre).
-- Mode hors ligne plus complet (consulter photos et souvenirs sans réseau).
+## Idées
+Toutes les idées (anciennes et nouvelles) sont rassemblées et triées dans **`docs/04-banque-idees.md`** ; la suite est planifiée dans `docs/03-roadmap.md`.
 
 ## Points de vigilance
 - Supabase gratuit met en pause un projet inactif depuis environ une semaine. Les données restent ; on le réactive en un clic depuis le tableau de bord.

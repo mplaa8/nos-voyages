@@ -56,6 +56,21 @@ Pour une base installée avant octobre 2026 (sinon, rien à faire : `setup.sql` 
 
 Dans l'app : « Quitter » sort du mode édition sans déconnecter (les choix du palmarès restent possibles) ; « Se déconnecter » se trouve en bas de la liste ☰. Pour masquer le palmarès sans toucher à la base : `PALMARES_ACTIF = false` dans `index.html`.
 
+## En cas de souci : revenir à la version du jour J (`v1.0-anniversaire`)
+La version vérifiée avant l'anniversaire est mise de côté sous le nom **`v1.0-anniversaire`**. Si une évolution future pose problème, on peut y revenir à tout moment.
+
+**Ce que tu fais** : dis simplement à Claude Code « Reviens à la version v1.0-anniversaire ». Une à deux minutes après, le site est revenu à cette version ; ferme complètement l'app sur les iPhone puis rouvre-la. **Les données ne bougent pas** : pays, photos, souvenirs et choix du palmarès sont dans Supabase et restent intacts.
+
+**Pour Claude Code** (sans réécrire l'historique) :
+```
+git fetch origin --tags && git checkout main && git pull origin main
+git restore --source=v1.0-anniversaire --staged --worktree :/
+# puis, dans sw.js, passer CACHE à un numéro PLUS GRAND que le dernier utilisé
+# (sinon les iPhone garderaient en cache la version plus récente)
+git commit -am "Retour à la version v1.0-anniversaire" && git push origin main
+```
+Si une migration SQL a été appliquée après le jour J, vérifier qu'elle reste compatible avec cette version (les migrations ajoutent sans supprimer, mais à contrôler).
+
 ## Mettre à jour l'app plus tard
 Modifier le fichier sur le Mac, puis sur GitHub : **Add file → Upload files** → glisser le fichier modifié → **Commit changes**. Penser à incrémenter le numéro de `CACHE` dans `sw.js` (par ex. `nos-voyages-v7` → `v8`) pour que l'iPhone récupère la nouvelle version.
 
