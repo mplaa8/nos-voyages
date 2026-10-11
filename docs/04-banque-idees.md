@@ -89,3 +89,8 @@ Migration douce : le contenu actuel de chaque pays devient automatiquement un pr
 2. **Destinations en commun + tirage du prochain voyage** : le plus fort émotionnellement, et rapide grâce à la mécanique existante.
 3. **La notion de Voyage**, puis **mode « voyage en cours »**, pour bien vivre le prochain départ.
 4. **« Devine où c'était »** et **mots doux cachés**, pour faire vivre l'app entre deux voyages.
+
+## Décisions du 12 octobre 2026
+- **Retenues** : Destinations en commun (« Tinder des voyages ») + tirage du prochain voyage ; « Devine où c'était » ; mots doux cachés ; Les Oscars de nos voyages ; catégories du palmarès à la carte ; notion de Voyage et mode « voyage en cours » ; fondations (sauvegarde, anti-veille).
+- **En réserve** : « Je pense à toi », notre accord parfait, et le reste de cette banque.
+- Ordre de réalisation : voir `03-roadmap.md` (ORDRES 008 à 012).
