@@ -1,6 +1,6 @@
 # ORDRE-006 — Nos deux téléphones : contenu partagé, palmarès et « même moment »
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait (côté code ; il reste les étapes Supabase de l'utilisateur)
 **Échéance** : lundi 12 octobre 2026, avant le gel du code du soir
 **Prérequis côté utilisateur** : compte de Roxane créé dans Supabase + migration SQL exécutée (voir partie 1)
 **Révision du 11/10, 20 h 55** : Roxane doit aussi pouvoir **ajouter du contenu** (elle a des photos que Maxime n'a pas). Seuls les deux téléphones, Maxime et Roxane, peuvent écrire, **avec exactement les mêmes droits**. Les parties 1 et 2 bis ont été revues en conséquence.
@@ -105,11 +105,72 @@ En haut de la fiche (sous les lieux, avant les photos), si au moins un choix exi
 4. Faire **ses** choix (surtout 💗) dans chaque pays avant le 14.
 
 ## Critères de fin
-- [ ] Migration rejouable, `setup.sql` à jour, aucun vrai e-mail ni mot de passe dans le dépôt
-- [ ] Deux membres qui écrivent avec les mêmes droits ; Roxane se connecte par code secret, ajoute ses photos et souvenirs, et choisit ; les visiteurs ne peuvent rien écrire
-- [ ] 4 catégories, palmarès dans la fiche, règle du secret, animation « même moment » (au choix et à l'ouverture)
-- [ ] Interrupteur `PALMARES_ACTIF`, cache `v7`
-- [ ] Tests passés, captures dans `docs/captures/`, état du projet à jour
-- [ ] Commit et push sur `main`, résumé de 5 lignes + la marche à suivre de l'utilisateur
+- [x] Migration rejouable, `setup.sql` à jour, aucun vrai e-mail ni mot de passe dans le dépôt
+- [x] Deux membres qui écrivent avec les mêmes droits ; Roxane se connecte par code secret, ajoute ses photos et souvenirs, et choisit ; les visiteurs ne peuvent rien écrire
+- [x] 4 catégories, palmarès dans la fiche, règle du secret, animation « même moment » (au choix et à l'ouverture)
+- [x] Interrupteur `PALMARES_ACTIF`, cache `v7`
+- [x] Tests passés, captures dans `docs/captures/`, état du projet à jour
+- [x] Commit et push sur `main`, résumé de 5 lignes + la marche à suivre de l'utilisateur
 
 ## Compte rendu (à remplir par Claude Code)
+
+**Fait — 11 octobre 2026**
+
+**1. Base de données.**
+- `migration-002-palmares.sql` : rejouable, dans l'ordre demandé, en **une seule transaction** (`begin … commit`). Si l'un des deux e-mails n'est pas remplacé ou introuvable, le script s'arrête avec un message clair et **ne change rien** : les anciennes règles restent, et Maxime garde l'édition.
+- `setup.sql` : réécrit pour une installation neuve avec tout le modèle (même garde-fou sur les e-mails).
+- `verification-droits.sql` (nouveau, pour le 8 bis) : à lancer dans le SQL Editor, il affiche un tableau ✅/❌ (un visiteur ne peut rien écrire ; Maxime et Roxane peuvent écrire pays, souvenir et palmarès). Chaque essai est annulé aussitôt.
+- `docs/02-guide-installation.md` mis à jour (installation neuve et mise à jour d'octobre).
+- **Testé sur un vrai PostgreSQL 16 imitant Supabase** (schémas `auth` et `storage`, rôles `anon` et `authenticated`, publication temps réel), script `tests/test_ordre006_sql.py` : **42/42**. Points couverts :
+  - ancienne base, puis migration sans e-mails : refus, rien de modifié, Maxime écrit toujours ;
+  - migration correcte, puis relancée : Success ;
+  - visiteur et compte non membre : aucune écriture (pays, souvenir, photo, stockage, vote) ;
+  - Maxime et Roxane : mêmes droits (Roxane supprime une photo de Maxime et son fichier) ; `author_id` rempli automatiquement ;
+  - palmarès : on ne vote pas à la place de l'autre et on n'efface pas son choix ; changer d'avis remplace l'ancien choix ; supprimer une photo efface ses choix ; un choix vise une photo **ou** un souvenir ;
+  - installation neuve avec `setup.sql`.
+  Le script de vérification a lui aussi été testé : il signale bien une règle cassée ou un membre manquant, et ne laisse aucune trace.
+
+**Connexion de Roxane.**
+- `CONFIG.ROXANE_EMAIL` (`roxane@nos-voyages.fr`, adresse fictive) et `CONFIG.INDICE_CODE`.
+- Fenêtre « Nos souvenirs, à deux » : indice, un seul champ (clavier numérique, 22 px), message doux si le code est faux, aucune mention du mode édition. Elle s'ouvre depuis un bouton du palmarès ou depuis « ➕ Ajouter nos souvenirs » (bas de chaque fiche et de la liste ☰).
+- Après connexion, le geste en attente s'exécute : le choix touché est enregistré, ou le mode édition s'ouvre.
+
+**Rôles.**
+- Les prénoms viennent de `members`. Un compte absent de `members` est refusé (message « Ce compte ne fait pas partie de nos deux téléphones »).
+- Mode édition identique pour les deux. Chaque souvenir écrit est signé « — Roxane » ou « — Maxime » ; les anciens souvenirs n'ont pas de signature.
+- **Choix de conception** : « Quitter » **sort du mode édition sans déconnecter**, pour les deux. Les choix du palmarès restent donc possibles, et « ➕ Ajouter nos souvenirs » rouvre l'édition sans redemander le code : le code protège l'écriture, pas le téléphone qu'elle tient en main. Le mode édition est mémorisé par téléphone. Une vraie déconnexion se fait par « Se déconnecter (prénom) » en bas de la liste ☰.
+- **Filet de sécurité** : tant que la migration n'est pas faite (table `members` absente), l'app garde l'ancien comportement (tout compte connecté peut éditer), et le palmarès reste masqué. La mise en ligne du code ne coupe donc pas l'édition de Maxime.
+- **Mode démo** : sélecteur « Je suis : Maxime / Roxane / Visiteur » (démo seulement).
+
+**2. Choisir.**
+- Visionneuse : barre 🌅 🍽️ 😂 💗 (54 px). Le bouton est en surbrillance quand c'est mon choix ; re-toucher retire le choix.
+- Souvenir : bouton 🏅, qui affiche aussi les récompenses visibles du souvenir et déplie les 4 choix.
+- Toast avec la bonne préposition : « 🌅 Ta plus belle vue au Portugal », « en France », « aux Maldives », « à Malte ».
+
+**3. Palmarès dans la fiche** (sous les lieux, avant les photos ; aucun bloc s'il n'y a aucun choix) :
+- 🌅, 🍽️ et 😂 : vignette ou extrait du souvenir, avec « Maxime », « Roxane » ou « **Vous deux** ».
+- 💗 : deux colonnes « Préféré de … ». **Règle du secret** : le 💗 de l'autre est caché (« 🔒 Choisis le tien pour découvrir celui de Maxime ») tant qu'on n'a pas choisi le sien. Elle vaut aussi pour les **visiteurs**, sinon Roxane, encore visiteuse le jour J, le verrait avant d'avoir choisi. Les emojis 💗 dans la galerie suivent la même règle.
+- Si c'est le même moment : une seule vignette, « Votre moment préféré à tous les deux 💞 ».
+- Toucher une vignette ouvre la photo, ou fait défiler jusqu'au souvenir, qui s'illumine.
+
+**4. Même moment.**
+- Voile nuit, pluie de cœurs (2,6 s), le moment dans un cadre papier, « Vous avez choisi le même moment 💞 » + pays, bouton 🥰, vibration si disponible. Simple fondu si `prefers-reduced-motion`.
+- Se déclenche pour celui qui vient de créer la correspondance, et pour l'autre **à l'ouverture de l'app** (une seule fois : mémorisé par personne dans `localStorage`, avec try/catch).
+- **Temps réel** (bonus) : abonnement Supabase Realtime à `picks`, sans écraser un champ en cours de saisie.
+- Jamais par-dessus l'accueil ou la lettre : l'animation attend l'arrivée sur la carte.
+
+**5.** `PALMARES_ACTIF` sous `CARTE_PAR_DEFAUT` : `false` masque tout le palmarès. L'accès par code de Roxane reste actif : c'est une question de droits, pas de palmarès. `sw.js` passé à `nos-voyages-v7`.
+
+**Corrections et ajustements trouvés par les tests**
+- Le sélecteur de démo restait visible **en production** (le `display:flex` l'emportait sur `hidden`) : corrigé.
+- Le titre « Notre palmarès » n'était pas en Fraunces : corrigé.
+- **Touche tolérante (ORDRE-005) affinée** : en vue d'ensemble, toucher le halo rose de l'Italie visitée, qui déborde en mer près de Rome, ouvrait le Vatican. En mer, un petit pays « à découvrir » ne gagne maintenant que s'il est plus proche que la côte d'un grand pays voisin. Les petits pays visités ou rêvés, et les îles isolées comme les Maldives, ne changent pas.
+
+**Tests** (webapp-testing, 390 × 844), globe **et** carte plate pour le palmarès :
+- `tests/test_ordre006_iphone.py` (démo, Maxime / Roxane) : **47/47**, tests 1 à 5, 7, 8 et 9.
+- `tests/test_ordre006_code_secret.py` (visiteur face à un Supabase simulé : base, connexion, stockage, temps réel) : **14/14**, test 6. Cela couvre la fenêtre du code au-dessus de la photo, le mauvais code avec son message doux, le bon code qui enregistre le choix 💗 en attente avec le jeton de Roxane et déclenche l'animation, puis « ➕ » sans code.
+- Seule erreur console : la réponse « 400 » du serveur à un mauvais code, que le navigateur affiche toujours quand un mot de passe est refusé.
+- Non-régression : ORDRE-002 14/14, 003 18/18, 004 18/18, 005 41/41.
+- Captures : `docs/captures/ordre006-*.png`.
+
+**Non testé ici** : le vrai projet Supabase (inaccessible depuis l'environnement de Claude Code ; remplacé par le PostgreSQL local et le Supabase simulé), l'envoi d'une vraie photo depuis la photothèque d'un iPhone, et le temps réel entre deux vrais téléphones.

@@ -25,8 +25,8 @@ Francophone, travaille depuis un Mac, **n'est pas développeur**. Répondre en f
 - Pas de build, pas de framework : tout le HTML/CSS/JS est dans `index.html` à la racine (servi tel quel par GitHub Pages).
 - `CONFIG` en haut du script : `SUPABASE_URL` + `SUPABASE_ANON_KEY`. La clé anon/publishable est publique par conception ; la sécurité vient des règles RLS de `setup.sql`. **Ne jamais committer** de clé `service_role`/secret ni de mot de passe.
 - Config vide → « mode démo » (localStorage, un seul appareil).
-- Tables Supabase : `countries` (code ADM0_A3, name, status 'visited'|'dream', places), `memories`, `photos` (+ bucket storage public `photos`). Toute évolution du schéma va dans `setup.sql` sous forme de migration rejouable, avec les instructions pour l'appliquer dans le SQL Editor.
-- Mode édition : 5 touches rapides sur le ❤️ ou URL terminée par `#admin`.
+- Tables Supabase : `countries` (code ADM0_A3, name, status 'visited'|'dream', places), `memories` et `photos` (+ `author_id`, bucket storage public `photos`), `members` (les deux membres : Maxime, Roxane), `picks` (palmarès). Lecture publique ; écriture réservée aux membres (`is_member()`), avec les mêmes droits pour les deux. Toute évolution du schéma va dans `setup.sql` **et** dans un fichier `migration-NNN-sujet.sql` rejouable, avec les instructions pour l'appliquer dans le SQL Editor ; `verification-droits.sql` contrôle les droits.
+- Mode édition : 5 touches rapides sur le ❤️ ou URL terminée par `#admin` (Maxime) ; code secret via « ➕ Ajouter nos souvenirs » (Roxane, compte `CONFIG.ROXANE_EMAIL`). « Quitter » sort de l'édition sans déconnecter. `PALMARES_ACTIF = false` masque le palmarès.
 - `sw.js` : **incrémenter `CACHE` (`nos-voyages-vN`) à chaque modification d'un fichier de l'app**, sinon l'iPhone garde l'ancienne version.
 
 ## Avant de dire « c'est fini »

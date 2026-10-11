@@ -150,6 +150,60 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
 .search{display:block;width:100%;min-height:48px;margin:0 0 6px;padding:12px 14px 12px 44px;border-radius:14px;border:1px solid #e6d6d8;-webkit-appearance:none;appearance:none;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c7590' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='6.5'/%3E%3Cpath d='M16 16l4.5 4.5'/%3E%3C/svg%3E") no-repeat 14px 50%/19px}
 .search::placeholder{color:var(--muted)}
 .reread{display:block;margin:22px auto 0;min-height:44px;padding:10px 16px;border-radius:14px;font-size:15px;color:var(--muted)}
+/* ---------- Palmarès ---------- */
+.pal{margin-top:22px;padding:16px 16px 4px;border-radius:20px;background:#fff;border:1px solid var(--line)}
+.pal h3{margin:0 0 2px;font-family:var(--serif);font-weight:600;font-size:20px}
+.pal-row{padding:12px 0 14px;border-top:1px solid var(--line)}
+.pal h3+.pal-row{border-top:0}
+.pal-label{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-family:var(--serif);font-style:italic;font-size:18px}
+.pal-label span{font-style:normal;font-size:22px;line-height:1}
+.pal-items{display:flex;flex-wrap:wrap;gap:12px}
+.pal-item,.pal-col{display:flex;flex-direction:column;gap:6px;align-items:flex-start;min-width:0}
+.pal-item small,.pal-col small{font-size:13px;color:var(--muted)}
+.pal-item small.both{color:var(--glow-d);font-weight:700}
+.pal-thumb{width:72px;height:72px;padding:0;border-radius:12px;overflow:hidden;background:#f1e6e6}
+.pal-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pal-mem{min-height:44px;max-width:150px;padding:8px 10px;border-radius:12px;background:var(--paper);border:1px solid var(--line);text-align:left;font-family:var(--serif);font-style:italic;font-size:15px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pal-cols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pal-lock{width:100%;min-height:72px;padding:10px 12px;border-radius:12px;background:#f6eef0;color:var(--muted);font-size:14px;line-height:1.35;text-align:left}
+.pal-match{display:flex;align-items:center;gap:14px;padding:10px;border-radius:16px;background:#fff0f2;box-shadow:0 0 0 1px rgba(255,122,138,.35),0 0 24px rgba(255,122,138,.22)}
+.pal-match p{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.3;color:#b8364b}
+.ph .award{position:absolute;left:4px;top:4px;padding:1px 6px;border-radius:999px;background:rgba(255,247,245,.92);font-size:13px;line-height:1.5;pointer-events:none}
+.mem-sign{margin:8px 0 0;text-align:right;font-family:var(--serif);font-style:italic;font-size:16px;color:var(--glow-d)}
+.mem-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px}
+.mem .mem-foot small{margin:0}
+.mem-award{min-width:44px;height:44px;padding:0 8px;border-radius:22px;font-size:18px;display:flex;align-items:center;justify-content:center;gap:2px;color:var(--muted)}
+.mem.flash{animation:flash 1.8s}
+@keyframes flash{0%,60%{box-shadow:0 0 0 3px var(--glow)}100%{box-shadow:none}}
+.pick-row{display:flex;gap:10px;margin-top:8px}
+.pick-btn{width:48px;height:48px;border-radius:50%;font-size:22px;display:grid;place-items:center;background:#f3e8ea;transition:transform .15s,box-shadow .15s}
+.pick-btn.on{background:var(--glow);box-shadow:0 0 0 2px #fff,0 0 16px rgba(255,122,138,.75);transform:scale(1.06)}
+.lb-picks{position:absolute;left:0;right:0;bottom:calc(var(--sb) + 18px);display:none;justify-content:center;gap:14px}
+.lightbox.picks .lb-picks{display:flex}
+.lightbox.picks .lb-count{bottom:calc(var(--sb) + 86px)}
+.lb-picks .pick-btn{width:54px;height:54px;background:rgba(255,255,255,.14)}
+.lb-picks .pick-btn.on{background:var(--glow)}
+.join{display:block;margin:22px auto 0;min-height:44px;padding:10px 18px;border-radius:14px;font-size:15px;color:var(--glow-d);font-weight:700}
+.logout-link{display:block;margin:4px auto 0;min-height:44px;padding:10px 16px;font-size:14px;color:var(--muted)}
+#codeModal{z-index:3500}
+.code-hint{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--glow-d)!important}
+#codeInput{text-align:center;font-size:22px;letter-spacing:.25em}
+.match{position:fixed;inset:0;z-index:3600;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(17,20,42,.88);overflow:hidden}
+.match.show{display:flex;animation:fadeIn .5s both}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.match-hearts i{position:absolute;bottom:-40px;font-style:normal;color:var(--glow);text-shadow:0 0 12px rgba(255,122,138,.8);animation:rise 2.6s ease-out forwards}
+@keyframes rise{to{transform:translate(var(--dx),-115vh) rotate(var(--r));opacity:0}}
+.match-card{position:relative;width:100%;max-width:340px;padding:16px 16px 22px;border-radius:22px;background:var(--paper);text-align:center;box-shadow:0 18px 60px rgba(0,0,0,.5),0 0 50px rgba(255,122,138,.3);animation:fadeUp .9s .3s both}
+.match-card img{display:block;width:100%;max-height:42vh;object-fit:cover;border-radius:14px}
+.match-mem{margin:8px 6px 0;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.5}
+.match-title{margin:16px 0 4px;font-family:var(--serif);font-style:italic;font-size:24px;line-height:1.2}
+.match-country{margin:0;color:var(--muted);font-size:15px}
+.match .open-btn{margin-top:18px;padding:10px 34px;font-size:26px;opacity:1;animation:none}
+.demo-who{position:fixed;z-index:1100;left:50%;transform:translateX(-50%);top:calc(var(--st) + 132px);white-space:nowrap;display:flex;align-items:center;gap:2px;padding:0 4px 0 12px;border-radius:999px;font-size:13px}
+.demo-who[hidden]{display:none}
+.demo-who button{min-height:44px;padding:0 10px;border-radius:999px;font-size:13px;color:#c9c5e0}
+.demo-who button.on{background:rgba(255,255,255,.16);color:#fff}
+@media (prefers-reduced-motion:reduce){.match-hearts{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -209,6 +263,35 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
   <button class="lb-btn lb-prev" data-lb="prev" aria-label="Photo précédente">‹</button>
   <button class="lb-btn lb-next" data-lb="next" aria-label="Photo suivante">›</button>
   <div class="lb-count" id="lbCount"></div>
+  <div class="lb-picks" id="lbPicks" role="group" aria-label="Récompenser cette photo"></div>
+</div>
+
+<!-- Code secret (connexion de Roxane) -->
+<div class="modal" id="codeModal" role="dialog" aria-modal="true" aria-labelledby="codeTitle">
+  <form class="modal-card" id="codeForm">
+    <h2 id="codeTitle">Nos souvenirs, à deux</h2>
+    <p>Pour ajouter tes photos et choisir tes moments, entre notre code secret</p>
+    <p class="code-hint" id="codeHint"></p>
+    <input type="password" id="codeInput" inputmode="numeric" autocomplete="current-password" aria-label="Code secret">
+    <p class="error" id="codeErr"></p>
+    <div class="row"><button type="submit" class="btn primary">Entrer</button><button type="button" class="btn soft" id="codeCancel">Plus tard</button></div>
+  </form>
+</div>
+
+<!-- Le même moment -->
+<div class="match" id="match" role="dialog" aria-modal="true" aria-labelledby="matchTitle">
+  <div class="match-hearts" id="matchHearts" aria-hidden="true"></div>
+  <div class="match-card">
+    <div id="matchMoment"></div>
+    <p class="match-title" id="matchTitle">Vous avez choisi le même moment 💞</p>
+    <p class="match-country" id="matchCountry"></p>
+    <button class="open-btn" id="matchBtn" aria-label="Fermer">🥰</button>
+  </div>
+</div>
+
+<!-- Mode démo : qui tient le téléphone ? -->
+<div class="demo-who glass" id="demoWho" hidden>Je suis :
+  <button data-who="demo-maxime">Maxime</button><button data-who="demo-roxane">Roxane</button><button data-who="">Visiteur</button>
 </div>
 
 <!-- Connexion -->
@@ -239,7 +322,11 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
    ========================================================= */
 const CONFIG = {
   SUPABASE_URL: "https://rmlpgirrwvuoruwixrbo.supabase.co", // ex : "https://abcdefgh.supabase.co"
-  SUPABASE_ANON_KEY: "sb_publishable_Sf9emQOs8nTQGWOiw-gLOQ_iSEbKPZr" // la clé « anon / public »
+  SUPABASE_ANON_KEY: "sb_publishable_Sf9emQOs8nTQGWOiw-gLOQ_iSEbKPZr", // la clé « anon / public »
+  // Téléphone de Roxane : elle se connecte avec un simple code secret (= le mot de passe de ce compte).
+  // Adresse fictive : aucun e-mail n'est jamais envoyé (compte créé avec « Auto Confirm User »).
+  ROXANE_EMAIL: "roxane@nos-voyages.fr",
+  INDICE_CODE: "Notre date secrète (JJMMAAAA) 💕"
 };
 
 /* =========================================================
@@ -254,6 +341,10 @@ const LETTRE = {
 /* 🌍  CARTE — 'globe' (Terre en 3D) ou 'plate' (carte d'origine).
    Mettre 'plate' suffit pour revenir à l'ancienne carte. L'adresse ?carte=plate force aussi la carte plate. */
 const CARTE_PAR_DEFAUT = 'globe';
+
+/* 🏅  PALMARÈS — plus belle vue, plus belle assiette, moment le plus drôle, moment préféré (et le « même moment »).
+   Mettre false masque toute la fonctionnalité, sans toucher à la base de données. */
+const PALMARES_ACTIF = true;
 
 const GEO_URLS = [
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson/ne_50m_admin_0_countries.geojson",
@@ -324,33 +415,49 @@ const RemoteStore = {
     ok(await db.storage.from('photos').remove([p.path]));
     ok(await db.from('photos').delete().eq('id', p.id));
   },
-  async isAdmin(){ const { data } = await db.auth.getSession(); return !!data.session; },
+  async userId(){ const { data } = await db.auth.getSession(); return data.session?.user?.id || null; },
   async login(email, password){ ok(await db.auth.signInWithPassword({ email, password })); },
-  async logout(){ await db.auth.signOut(); }
+  async loginCode(code){ ok(await db.auth.signInWithPassword({ email: CONFIG.ROXANE_EMAIL, password: code })); },
+  async logout(){ await db.auth.signOut(); },
+  // Avant la migration 002 ces tables n'existent pas : null = « inconnu », l'app garde l'ancien comportement
+  async loadMembers(){ const r = await db.from('members').select('user_id, prenom'); return r.error ? null : Object.fromEntries(r.data.map(m => [m.user_id, m.prenom])); },
+  async loadPicks(){ const r = await db.from('picks').select('*'); return r.error ? null : r.data; },
+  async setPick(row){ return ok(await db.from('picks').upsert(row, { onConflict: 'user_id,country_code,category' }).select().single()); },
+  async removePick(id){ ok(await db.from('picks').delete().eq('id', id)); }
 };
 
 const KEY = 'nos-voyages-demo';
+const DEMO_MEMBRES = { 'demo-maxime': 'Maxime', 'demo-roxane': 'Roxane' };
+const lsGet = k => { try { return localStorage.getItem(k); } catch { return null; } };
+const lsSet = (k, v) => { try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} };
 const LocalStore = {
-  _get(){ try { return JSON.parse(localStorage.getItem(KEY)) || { countries:[], memories:[], photos:[] }; } catch { return { countries:[], memories:[], photos:[] }; } },
+  _get(){ let d; try { d = JSON.parse(localStorage.getItem(KEY)); } catch {} d ||= {}; d.countries ||= []; d.memories ||= []; d.photos ||= []; d.picks ||= []; return d; },
+  _who(){ const w = lsGet(KEY + '-who'); return w !== null ? w : (lsGet(KEY + '-admin') === '1' ? 'demo-maxime' : ''); },
   _set(d){ try { localStorage.setItem(KEY, JSON.stringify(d)); } catch { throw new Error("Espace de démo plein : configure Supabase pour stocker plus de photos."); } },
   async load(){ return this._get(); },
   async saveCountry(row){ const d = this._get(); const i = d.countries.findIndex(c => c.code === row.code); const r = { ...(d.countries[i] || {}), ...row }; if (i < 0) d.countries.push(r); else d.countries[i] = r; this._set(d); return r; },
-  async deleteCountry(code){ const d = this._get(); d.countries = d.countries.filter(c => c.code !== code); d.memories = d.memories.filter(m => m.country_code !== code); d.photos = d.photos.filter(p => p.country_code !== code); this._set(d); },
-  async addMemory(code, content){ const d = this._get(); const r = { id: uid(), country_code: code, content, created_at: new Date().toISOString() }; d.memories.push(r); this._set(d); return r; },
+  async deleteCountry(code){ const d = this._get(); d.countries = d.countries.filter(c => c.code !== code); d.memories = d.memories.filter(m => m.country_code !== code); d.photos = d.photos.filter(p => p.country_code !== code); d.picks = d.picks.filter(p => p.country_code !== code); this._set(d); },
+  async addMemory(code, content){ const d = this._get(); const r = { id: uid(), country_code: code, content, author_id: this._who() || null, created_at: new Date().toISOString() }; d.memories.push(r); this._set(d); return r; },
   async updateMemory(id, content){ const d = this._get(); const r = d.memories.find(m => m.id === id); r.content = content; this._set(d); return r; },
-  async deleteMemory(id){ const d = this._get(); d.memories = d.memories.filter(m => m.id !== id); this._set(d); },
-  async addPhoto(code, file){ const url = await blobToDataURL(await compressImage(file, 900, 0.7)); const d = this._get(); const r = { id: uid(), country_code: code, url, created_at: new Date().toISOString() }; d.photos.push(r); this._set(d); return r; },
-  async deletePhoto(p){ const d = this._get(); d.photos = d.photos.filter(x => x.id !== p.id); this._set(d); },
-  async isAdmin(){ return localStorage.getItem(KEY + '-admin') === '1'; },
-  async login(){ localStorage.setItem(KEY + '-admin', '1'); },
-  async logout(){ localStorage.removeItem(KEY + '-admin'); }
+  async deleteMemory(id){ const d = this._get(); d.memories = d.memories.filter(m => m.id !== id); d.picks = d.picks.filter(p => p.memory_id !== id); this._set(d); },
+  async addPhoto(code, file){ const url = await blobToDataURL(await compressImage(file, 900, 0.7)); const d = this._get(); const r = { id: uid(), country_code: code, url, author_id: this._who() || null, created_at: new Date().toISOString() }; d.photos.push(r); this._set(d); return r; },
+  async deletePhoto(p){ const d = this._get(); d.photos = d.photos.filter(x => x.id !== p.id); d.picks = d.picks.filter(x => x.photo_id !== p.id); this._set(d); },
+  async userId(){ return this._who() || null; },
+  async login(){ if (!this._who()) lsSet(KEY + '-who', 'demo-maxime'); },
+  async loginCode(code){ if (!code) throw new Error('code'); lsSet(KEY + '-who', 'demo-roxane'); },   // démo : n'importe quel code
+  async logout(){ lsSet(KEY + '-who', ''); },
+  setWho(w){ lsSet(KEY + '-who', w); },
+  async loadMembers(){ return { ...DEMO_MEMBRES }; },
+  async loadPicks(){ return this._get().picks; },
+  async setPick(row){ const d = this._get(); d.picks = d.picks.filter(p => !(p.user_id === row.user_id && p.country_code === row.country_code && p.category === row.category)); const r = { id: uid(), created_at: new Date().toISOString(), ...row }; d.picks.push(r); this._set(d); return r; },
+  async removePick(id){ const d = this._get(); d.picks = d.picks.filter(p => p.id !== id); this._set(d); }
 };
 const Store = REMOTE ? RemoteStore : LocalStore;
 
 /* =========================================================
    ÉTAT
    ========================================================= */
-const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, admin:false, current:null, mode:null, editing:null, busy:false };
+const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, user:null, members:null, picks:[], palmares:false, admin:false, current:null, mode:null, editing:null, busy:false };
 
 function ingest(data){
   state.countries = {}; state.memories = {}; state.photos = {};
@@ -471,19 +578,26 @@ function countryAt(lng, lat){
   return null;
 }
 /* Choix tolérant du pays touché (globe et carte plate), dans l'ordre :
-   1. petit pays dont la zone de 44 px contient le doigt (le plus proche). Si le doigt est posé sur la terre d'un
-      grand pays, celui-ci l'emporte, sauf sur le point coloré (≤ 8 px) d'un petit pays visité ou rêvé :
-      sinon, vue de loin, le Vatican avalerait l'Italie et le Luxembourg la Belgique ;
+   1. petit pays dont la zone de 44 px contient le doigt (le plus proche). Deux garde-fous pour ne jamais ouvrir un voisin :
+      - doigt posé sur la terre d'un grand pays : ce grand pays l'emporte, sauf sur le point coloré (≤ 8 px)
+        d'un petit pays visité ou rêvé (sinon, vue de loin, le Vatican avalerait l'Italie, le Luxembourg la Belgique) ;
+      - doigt en mer près d'une côte (ou sur le halo rose d'un pays visité) : un petit pays « à découvrir » ne gagne
+        que s'il est plus proche que cette côte ;
    2. le pays exactement sous le doigt ;  3. le pays le plus proche à ±16 px ;  4. rien (océan). */
 const ZONE_PX = 22, POINT_PX = 8, BOX_PX = 16;
 function pickCountry(x, y, smallNear, exactAt){
+  const around = max => {   // pays le plus proche par anneaux de 2 px
+    for (let r = 2; r <= max; r += 2)
+      for (let k = 0; k < 16; k++){ const c = exactAt(x + r * Math.cos(k * Math.PI / 8), y + r * Math.sin(k * Math.PI / 8)); if (c) return c; }
+    return null;
+  };
   const near = smallNear(x, y).filter(c => c.d <= ZONE_PX).sort((a, b) => a.d - b.d)[0];
   const exact = exactAt(x, y);
-  if (near && (!exact || shapes[exact]?.small || (near.d <= POINT_PX && statusOf(near.code) !== 'none'))) return near.code;
-  if (exact) return exact;
-  for (let r = 4; r <= BOX_PX; r += 4)
-    for (let k = 0; k < 16; k++){ const c = exactAt(x + r * Math.cos(k * Math.PI / 8), y + r * Math.sin(k * Math.PI / 8)); if (c) return c; }
-  return null;
+  if (near && (!exact || shapes[exact]?.small || (near.d <= POINT_PX && statusOf(near.code) !== 'none'))){
+    if (!exact && statusOf(near.code) === 'none'){ const big = around(Math.min(BOX_PX, near.d)); if (big && !shapes[big]?.small) return big; }
+    return near.code;
+  }
+  return exact || around(BOX_PX);
 }
 
 async function loadGeo(){
@@ -667,6 +781,145 @@ async function startMap(geo){
 }
 
 /* =========================================================
+   MEMBRES & PALMARÈS
+   Deux membres (Maxime, Roxane) écrivent avec les mêmes droits ; les autres regardent.
+   Un « moment » = une photo ou un souvenir écrit.
+   ========================================================= */
+const CATS = [
+  { k:'vue',      e:'🌅', l:'Plus belle vue',       t:'Ta plus belle vue' },
+  { k:'assiette', e:'🍽️', l:'Plus belle assiette',  t:'Ta plus belle assiette' },
+  { k:'drole',    e:'😂', l:'Moment le plus drôle', t:'Ton moment le plus drôle' },
+  { k:'prefere',  e:'💗', l:'Moment préféré',       t:'Ton moment préféré' }
+];
+const CAT = Object.fromEntries(CATS.map(c => [c.k, c]));
+const EDIT = 'nos-voyages-edition';             // '0' : membre connecté mais hors mode édition sur ce téléphone
+const isMember = () => !!state.user?.member;
+const prenomOf = id => state.members?.[id] || 'Quelqu’un';
+const keyOf = p => p.photo_id ? 'p:' + p.photo_id : 'm:' + p.memory_id;
+const momentOf = (code, key) => key[0] === 'p' ? (state.photos[code] || []).find(x => 'p:' + x.id === key) : (state.memories[code] || []).find(x => 'm:' + x.id === key);
+const picksOf = (code, cat) => state.picks.filter(p => p.country_code === code && (!cat || p.category === cat) && momentOf(code, keyOf(p)));
+const myPick = (code, cat) => picksOf(code, cat).find(p => p.user_id === state.user?.id);
+// Règle du secret : le 💗 de l'autre ne se découvre qu'après avoir choisi le sien
+const preferVisible = code => isMember() && !!myPick(code, 'prefere');
+const visiblePicks = code => picksOf(code).filter(p => p.category !== 'prefere' || p.user_id === state.user?.id || preferVisible(code));
+function awardsOf(code, key){ const cats = new Set(visiblePicks(code).filter(p => keyOf(p) === key).map(p => p.category)); return CATS.filter(c => cats.has(c.k)).map(c => c.e).join(''); }
+
+// « au Portugal », « en France », « aux Maldives », « à Malte »
+function dansPays(code){
+  const n = nameOf(code), b = n.toLowerCase();
+  if (/^(îles|iles|états|émirats|pays-bas|terres|territoires)/.test(b) || ['maldives','seychelles','comores','philippines','bahamas','fidji','bermudes','samoa américaines'].includes(b)) return 'aux ' + n;
+  if (/^île /.test(b)) return 'sur l’' + n;
+  if (['malte','singapour','chypre','cuba','monaco','maurice','madagascar','bahreïn','hong kong','macao','taïwan','oman','la réunion','mayotte','saint-marin','sainte-lucie','sainte-hélène','saint-martin','sint maarten','saint-barthélemy','jersey','guernesey','aruba','curaçao','porto rico','anguilla','montserrat','grenade','dominique','tuvalu','nauru','samoa','vanuatu','kiribati','palaos','djibouti','haïti','brunei','guam','niue','tonga','trinité-et-tobago','antigua-et-barbuda','saint-christophe-et-niévès','saint-vincent-et-les-grenadines','sao tomé-et-principe','saint-pierre-et-miquelon','wallis-et-futuna'].includes(b)) return 'à ' + n;
+  if (/^[aeiouéèêîïôâ]/.test(b)) return 'en ' + n;
+  if (/e$/.test(b) && !['mexique','cambodge','mozambique','zimbabwe','belize','suriname'].includes(b)) return 'en ' + n;
+  return 'au ' + n;
+}
+
+async function refreshUser(){
+  const id = await Store.userId().catch(() => null);
+  // members inconnu (base pas encore migrée) : tout compte connecté garde ses droits, comme avant
+  state.user = id ? { id, prenom: state.members?.[id] || '', member: state.members ? !!state.members[id] : true } : null;
+  if (!REMOTE) $('demoWho').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.who === (state.user?.id || '')));
+}
+
+async function togglePick(code, cat, target){
+  if (!isMember()) return askCode({ type: 'pick', code, cat, target });
+  if (state.busy) return; state.busy = true;
+  const c = CAT[cat], key = target.photo_id ? 'p:' + target.photo_id : 'm:' + target.memory_id, mine = myPick(code, cat);
+  try {
+    if (mine && keyOf(mine) === key){
+      await Store.removePick(mine.id); state.picks = state.picks.filter(p => p.id !== mine.id);
+      toast(`${c.e} Choix retiré`);
+    } else {
+      const row = await Store.setPick({ user_id: state.user.id, country_code: code, category: cat, photo_id: target.photo_id || null, memory_id: target.memory_id || null });
+      state.picks = state.picks.filter(p => !(p.user_id === row.user_id && p.country_code === code && p.category === cat)).concat(row);
+      toast(`${c.e} ${c.t} ${dansPays(code)}`);
+    }
+  } catch (e){ console.error(e); toast('Ton choix n’a pas pu être enregistré, réessaie.'); }
+  finally { state.busy = false; }
+  if (state.mode === 'country') renderSheet();
+  renderLbPicks(); checkMatches();
+}
+
+function palmaresHtml(code){
+  if (!state.palmares || !picksOf(code).length) return '';
+  const thumb = key => { const mo = momentOf(code, key); return key[0] === 'p'
+    ? `<button class="pal-thumb" data-action="palPhoto" data-id="${esc(mo.id)}" aria-label="Voir la photo"><img src="${esc(mo.url)}" alt="" loading="lazy"></button>`
+    : `<button class="pal-mem" data-action="palMem" data-id="${esc(mo.id)}">« ${esc(mo.content)} »</button>`; };
+  let h = `<div class="pal"><h3>Notre palmarès</h3>`;
+  for (const c of CATS.filter(c => c.k !== 'prefere')){
+    const groups = {};
+    picksOf(code, c.k).forEach(p => (groups[keyOf(p)] ??= []).push(p.user_id));
+    if (!Object.keys(groups).length) continue;
+    h += `<div class="pal-row"><p class="pal-label"><span>${c.e}</span>${c.l}</p><div class="pal-items">`
+      + Object.entries(groups).map(([k, ids]) => `<div class="pal-item">${thumb(k)}${ids.length > 1 ? '<small class="both">Vous deux</small>' : `<small>${esc(prenomOf(ids[0]))}</small>`}</div>`).join('')
+      + `</div></div>`;
+  }
+  const pref = picksOf(code, 'prefere');
+  if (pref.length){
+    const me = state.user?.id, mine = myPick(code, 'prefere');
+    h += `<div class="pal-row"><p class="pal-label"><span>💗</span>${CAT.prefere.l}</p>`;
+    if (mine && preferVisible(code) && pref.some(p => p.user_id !== me && keyOf(p) === keyOf(mine))){
+      h += `<div class="pal-match">${thumb(keyOf(mine))}<p>Votre moment préféré à tous les deux 💞</p></div>`;
+    } else {
+      const ids = state.members ? Object.keys(state.members) : [...new Set(pref.map(p => p.user_id))];
+      ids.sort((a, b) => (b === me) - (a === me));
+      h += `<div class="pal-cols">` + ids.map(id => {
+        const p = pref.find(x => x.user_id === id);
+        let body;
+        if (id === me) body = p ? thumb(keyOf(p)) : `<button class="pal-lock" data-action="palHint">Touche 💗 sur une photo ou 🏅 sur un souvenir pour choisir le tien</button>`;
+        else if (!p) body = `<p class="pal-lock">Pas encore choisi</p>`;
+        else body = preferVisible(code) ? thumb(keyOf(p)) : `<button class="pal-lock" data-action="palHint">🔒 Choisis le tien pour découvrir celui de ${esc(prenomOf(id))}</button>`;
+        return `<div class="pal-col"><small>Préféré de ${esc(prenomOf(id))}</small>${body}</div>`;
+      }).join('') + `</div>`;
+    }
+    h += `</div>`;
+  }
+  return h + `</div>`;
+}
+const pickRow = (code, key, attrs) => `<div class="pick-row" role="group" aria-label="Récompenser ce souvenir">` + CATS.map(c => {
+  const mine = myPick(code, c.k), on = !!mine && keyOf(mine) === key;
+  return `<button class="pick-btn${on ? ' on' : ''}" ${attrs} data-cat="${c.k}" aria-pressed="${on}" aria-label="${c.l}">${c.e}</button>`;
+}).join('') + `</div>`;
+
+/* ---------- « Vous avez choisi le même moment » ---------- */
+const matchQueue = [];
+let matchTimer;
+function checkMatches(){
+  if (!state.palmares || !isMember()) return;
+  const me = state.user.id, store = 'nos-voyages-celebre-' + me;
+  let seen; try { seen = JSON.parse(lsGet(store)) || []; } catch { seen = []; }
+  const byCountry = {};
+  state.picks.filter(p => p.category === 'prefere').forEach(p => (byCountry[p.country_code] ??= []).push(p));
+  for (const [code, ps] of Object.entries(byCountry)){
+    const mine = ps.find(p => p.user_id === me);
+    if (!mine || !momentOf(code, keyOf(mine)) || !ps.some(p => p.user_id !== me && keyOf(p) === keyOf(mine))) continue;
+    const id = code + '|' + keyOf(mine);
+    if (!seen.includes(id)){ seen.push(id); matchQueue.push({ code, key: keyOf(mine) }); }
+  }
+  lsSet(store, JSON.stringify(seen));
+  playMatches();
+}
+function playMatches(){
+  if ($('match').classList.contains('show') || !matchQueue.length) return;
+  // jamais par-dessus l'écran d'accueil ou la lettre : on attend l'arrivée sur la carte
+  if (document.getElementById('welcome') || $('letter').classList.contains('show')){ clearTimeout(matchTimer); matchTimer = setTimeout(playMatches, 600); return; }
+  const m = matchQueue.shift(), mo = momentOf(m.code, m.key);
+  if (!mo) return playMatches();
+  $('matchMoment').innerHTML = m.key[0] === 'p' ? `<img src="${esc(mo.url)}" alt="">` : `<p class="match-mem">« ${esc(mo.content)} »</p>`;
+  $('matchCountry').textContent = `${flag(state.iso2[m.code])} ${nameOf(m.code)}`;
+  const hearts = $('matchHearts'); hearts.innerHTML = '';
+  for (let i = 0; i < 28; i++){
+    const h = document.createElement('i'); h.textContent = '♥';
+    h.style.cssText = `left:${Math.random() * 100}%;font-size:${14 + Math.random() * 26}px;animation-delay:${Math.random() * 1.2}s;--dx:${(Math.random() - .5) * 90}px;--r:${(Math.random() - .5) * 60}deg`;
+    hearts.append(h);
+  }
+  $('match').classList.add('show');
+  try { navigator.vibrate?.([30, 60, 30]); } catch {}
+}
+$('matchBtn').addEventListener('click', () => { $('match').classList.remove('show'); playMatches(); });
+
+/* =========================================================
    FICHE PAYS
    ========================================================= */
 function openSheet(){ $('sheet').classList.add('open'); $('sheet').setAttribute('aria-hidden','false'); $('overlay').classList.add('show'); }
@@ -706,11 +959,14 @@ function renderSheet(){
     h += `<div class="block"><h3>Villes et lieux</h3><p class="places">${esc(c.places)}</p></div>`;
   }
 
+  h += palmaresHtml(code);
+
   // Photos
   if (photos.length || A){
     h += `<div class="block"><h3>Photos</h3><div class="gallery">`;
     photos.forEach((p, i) => {
-      h += `<div class="ph"><img src="${esc(p.url)}" alt="Photo ${i+1} — ${esc(nameOf(code))}" loading="lazy" data-action="view" data-i="${i}">${A ? `<button class="del" data-action="delPhoto" data-id="${esc(p.id)}" aria-label="Supprimer la photo">×</button>` : ''}</div>`;
+      const aw = state.palmares ? awardsOf(code, 'p:' + p.id) : '';
+      h += `<div class="ph"><img src="${esc(p.url)}" alt="Photo ${i+1} — ${esc(nameOf(code))}" loading="lazy" data-action="view" data-i="${i}">${aw ? `<span class="award">${aw}</span>` : ''}${A ? `<button class="del" data-action="delPhoto" data-id="${esc(p.id)}" aria-label="Supprimer la photo">×</button>` : ''}</div>`;
     });
     if (A) h += `<label class="add-photo">＋<span>Ajouter</span><input type="file" accept="image/*" multiple hidden data-action="addPhotos"></label>`;
     h += `</div></div>`;
@@ -724,7 +980,11 @@ function renderSheet(){
       if (A && state.editing === m.id){
         h += `<div class="mem"><textarea id="editInput">${esc(m.content)}</textarea><div class="row"><button class="btn primary" data-action="saveEdit" data-id="${esc(m.id)}">Enregistrer</button><button class="btn soft" data-action="cancelEdit">Annuler</button></div></div>`;
       } else {
-        h += `<div class="mem"><p>${esc(m.content)}</p><small>${fmtDate(m.created_at)}</small>${A ? `<div class="row"><button class="btn soft" data-action="edit" data-id="${esc(m.id)}">Modifier</button><button class="btn danger" data-action="delMem" data-id="${esc(m.id)}">Supprimer</button></div>` : ''}</div>`;
+        const aw = state.palmares ? awardsOf(code, 'm:' + m.id) : '';
+        const sign = m.author_id && state.members?.[m.author_id] ? `<p class="mem-sign">— ${esc(state.members[m.author_id])}</p>` : '';
+        const award = state.palmares ? `<button class="mem-award" data-action="memPicks" data-id="${esc(m.id)}" aria-expanded="${state.memPicks === m.id}" aria-label="Récompenser ce souvenir">${aw}🏅</button>` : '';
+        const row = state.palmares && state.memPicks === m.id ? pickRow(code, 'm:' + m.id, `data-action="pickMem" data-id="${esc(m.id)}"`) : '';
+        h += `<div class="mem" id="mem-${esc(m.id)}"><p>${esc(m.content)}</p>${sign}<div class="mem-foot"><small>${fmtDate(m.created_at)}</small>${award}</div>${row}${A ? `<div class="row"><button class="btn soft" data-action="edit" data-id="${esc(m.id)}">Modifier</button><button class="btn danger" data-action="delMem" data-id="${esc(m.id)}">Supprimer</button></div>` : ''}</div>`;
       }
     });
     if (A) h += `<textarea id="newMem" placeholder="${s==='dream' ? 'Ce qu’on rêve d’y faire…' : 'Un souvenir, une anecdote, ce qu’on a aimé…'}"></textarea><button class="btn primary" data-action="addMem">Ajouter ce souvenir</button>`;
@@ -734,6 +994,7 @@ function renderSheet(){
   if (!A && !photos.length && !mems.length && !c?.places){
     h += `<p class="empty block">Les souvenirs de ce voyage arrivent bientôt…</p>`;
   }
+  if (!A) h += `<button class="join" data-action="join">➕ Ajouter nos souvenirs</button>`;
   $('sheetBody').innerHTML = h;
 }
 
@@ -761,6 +1022,8 @@ function renderList(){
     list += `<button class="list-item" data-action="goto" data-code="${esc(c.code)}"><span class="flag">${flag(state.iso2[c.code])}</span><span><b>${esc(nameOf(c.code))}${c.status === 'dream' ? ' ✨' : ''}</b><small>${np} photo${np>1?'s':''}, ${nm} souvenir${nm>1?'s':''}</small></span></button>`;
   });
   list += `<button class="reread" data-action="reread">💌 Relire ta lettre</button>`;
+  if (!state.admin) list += `<button class="join" data-action="join">➕ Ajouter nos souvenirs</button>`;
+  if (isMember()) list += `<button class="logout-link" data-action="logout">Se déconnecter${state.user.prenom ? ` (${esc(state.user.prenom)})` : ''}</button>`;
   state.listHtml = list;
   $('sheetBody').innerHTML = `<div class="head"><span class="flag">🗺️</span><div><h2>Nos pays</h2>${stats}</div></div>
     <input class="search" id="search" type="search" placeholder="Rechercher un pays…" aria-label="Rechercher un pays" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" value="${esc(state.query || '')}">
@@ -780,6 +1043,13 @@ $('sheetBody').addEventListener('click', e => {
   const a = el.dataset.action, code = state.current, id = el.dataset.id;
 
   if (a === 'view') return openLightbox(+el.dataset.i);
+  if (a === 'join') return joinEdit();
+  if (a === 'logout') return logout();
+  if (a === 'memPicks'){ state.memPicks = state.memPicks === id ? null : id; renderSheet(); return; }
+  if (a === 'pickMem') return togglePick(code, el.dataset.cat, { memory_id: id });
+  if (a === 'palPhoto') return openLightbox(Math.max(0, (state.photos[code] || []).findIndex(x => x.id === id)));
+  if (a === 'palMem'){ const m = $('mem-' + id); if (m){ m.scrollIntoView({ behavior: 'smooth', block: 'center' }); m.classList.remove('flash'); void m.offsetWidth; m.classList.add('flash'); } return; }
+  if (a === 'palHint') return isMember() ? toast('Touche 💗 sur une photo, ou 🏅 sur un souvenir') : askCode({ type: 'none' });
   if (a === 'reread'){ closeSheet(); showLetter(); return; }
   if (a === 'goto'){ const c = el.dataset.code; closeSheet(); flyTo(c); setTimeout(() => openCountry(c), 450); return; }
   if (a === 'edit'){ state.editing = id; renderSheet(); $('editInput')?.focus(); return; }
@@ -791,7 +1061,7 @@ $('sheetBody').addEventListener('click', e => {
       if (!c) return;
       const hasContent = (state.photos[code] || []).length || (state.memories[code] || []).length || c.places;
       if (hasContent && !confirm(`Retirer ${nameOf(code)} de la carte supprimera aussi ses photos et souvenirs. Continuer ?`)) return;
-      return run(async () => { await Store.deleteCountry(code); delete state.countries[code]; delete state.photos[code]; delete state.memories[code]; }, 'Pays retiré de la carte');
+      return run(async () => { await Store.deleteCountry(code); delete state.countries[code]; delete state.photos[code]; delete state.memories[code]; state.picks = state.picks.filter(p => p.country_code !== code); }, 'Pays retiré de la carte');
     }
     return run(async () => { state.countries[code] = await Store.saveCountry({ ...(c || {}), code, name: nameOf(code), status: v }); }, v === 'visited' ? 'Ajouté à notre carte ❤️' : 'Ajouté à nos rêves ✨');
   }
@@ -809,12 +1079,12 @@ $('sheetBody').addEventListener('click', e => {
   }
   if (a === 'delMem'){
     if (!confirm('Supprimer ce souvenir ?')) return;
-    return run(async () => { await Store.deleteMemory(id); state.memories[code] = state.memories[code].filter(m => m.id !== id); }, 'Souvenir supprimé');
+    return run(async () => { await Store.deleteMemory(id); state.memories[code] = state.memories[code].filter(m => m.id !== id); state.picks = state.picks.filter(x => x.memory_id !== id); }, 'Souvenir supprimé');
   }
   if (a === 'delPhoto'){
     if (!confirm('Supprimer cette photo ?')) return;
     const p = state.photos[code].find(x => x.id === id);
-    return run(async () => { await Store.deletePhoto(p); state.photos[code] = state.photos[code].filter(x => x.id !== id); }, 'Photo supprimée');
+    return run(async () => { await Store.deletePhoto(p); state.photos[code] = state.photos[code].filter(x => x.id !== id); state.picks = state.picks.filter(x => x.photo_id !== id); }, 'Photo supprimée');
   }
 });
 
@@ -846,10 +1116,18 @@ $('worldBtn').addEventListener('click', worldView);
    ========================================================= */
 let lbIndex = 0;
 const lbPhotos = () => state.photos[state.current] || [];
-function showLb(){ const p = lbPhotos(); if (!p.length) return closeLb(); lbIndex = (lbIndex + p.length) % p.length; $('lbImg').src = p[lbIndex].url; $('lbCount').textContent = `${lbIndex + 1} / ${p.length}`; }
-function openLightbox(i){ lbIndex = i; showLb(); $('lightbox').classList.add('show'); }
+function showLb(){ const p = lbPhotos(); if (!p.length) return closeLb(); lbIndex = (lbIndex + p.length) % p.length; $('lbImg').src = p[lbIndex].url; $('lbCount').textContent = `${lbIndex + 1} / ${p.length}`; renderLbPicks(); }
+function openLightbox(i){ lbIndex = i; $('lightbox').classList.add('show'); showLb(); }
 function closeLb(){ $('lightbox').classList.remove('show'); }
+// Barre du palmarès : 🌅 🍽️ 😂 💗 (mes choix pour cette photo)
+function renderLbPicks(){
+  const lb = $('lightbox'), p = lbPhotos()[lbIndex], on = state.palmares && lb.classList.contains('show') && !!p;
+  lb.classList.toggle('picks', on);
+  if (on) $('lbPicks').innerHTML = pickRow(state.current, 'p:' + p.id, 'data-pick').replace(/^<div[^>]*>|<\/div>$/g, '');
+}
 $('lightbox').addEventListener('click', e => {
+  const pk = e.target.closest('[data-pick]');
+  if (pk){ const p = lbPhotos()[lbIndex]; if (p) togglePick(state.current, pk.dataset.cat, { photo_id: p.id }); return; }
   const b = e.target.closest('[data-lb]'); if (!b) return;
   if (b.dataset.lb === 'close') closeLb(); else { lbIndex += b.dataset.lb === 'next' ? 1 : -1; showLb(); }
 });
@@ -861,7 +1139,47 @@ document.addEventListener('keydown', e => { if (!$('lightbox').classList.contain
 /* =========================================================
    MODE ÉDITION (5 touches rapides sur le ❤️ ou adresse#admin)
    ========================================================= */
-function setAdmin(v){ state.admin = v; document.body.classList.toggle('admin', v); if (state.mode) renderSheet(); }
+function setAdmin(v){ v = !!v && isMember(); state.admin = v; document.body.classList.toggle('admin', v); if (state.mode) renderSheet(); }
+function enterEdit(){ lsSet(EDIT, '1'); setAdmin(true); }
+// « ➕ Ajouter nos souvenirs » : un membre déjà connecté entre directement, sinon le code secret est demandé
+function joinEdit(){
+  if (!isMember()) return askCode({ type: 'edit' });
+  enterEdit(); toast(`Mode édition activé${state.user.prenom ? ` — ${state.user.prenom}` : ''}`);
+}
+async function logout(){
+  await Store.logout(); await refreshUser(); setAdmin(false); renderLbPicks();
+  toast('Déconnecté — à bientôt 💕');
+}
+let pending = null;
+function askCode(p){
+  pending = p; $('codeErr').textContent = ''; $('codeInput').value = ''; $('codeHint').textContent = CONFIG.INDICE_CODE || '';
+  $('codeModal').classList.add('show'); setTimeout(() => $('codeInput').focus(), 60);
+}
+$('codeCancel').addEventListener('click', () => { pending = null; $('codeModal').classList.remove('show'); });
+$('codeForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const code = $('codeInput').value.trim();
+  try {
+    if (!code) throw new Error('vide');
+    await Store.loginCode(code); await refreshUser();
+    if (!isMember()){ await Store.logout(); await refreshUser(); throw new Error('membre'); }
+  } catch { $('codeErr').textContent = 'Ce n’est pas tout à fait ça… essaie encore 💭'; return; }
+  $('codeModal').classList.remove('show'); $('codeInput').value = '';
+  const p = pending; pending = null;
+  if (p?.type === 'edit') enterEdit(); else { lsSet(EDIT, '0'); setAdmin(false); }
+  toast(`Bienvenue${state.user.prenom ? ' ' + state.user.prenom : ''} 💕`);
+  if (state.mode) renderSheet();
+  renderLbPicks(); checkMatches();
+  if (p?.type === 'pick') togglePick(p.code, p.cat, p.target);
+});
+if (!REMOTE){
+  $('demoWho').hidden = false;
+  $('demoWho').addEventListener('click', async e => {
+    const b = e.target.closest('[data-who]'); if (!b) return;
+    LocalStore.setWho(b.dataset.who); await refreshUser();
+    setAdmin(isMember() && lsGet(EDIT) !== '0'); renderLbPicks(); checkMatches();
+  });
+}
 function openLogin(){
   $('loginErr').textContent = '';
   $('loginFields').style.display = REMOTE ? '' : 'none';
@@ -871,18 +1189,23 @@ function openLogin(){
 let taps = 0, tapT;
 $('brandHeart').addEventListener('click', () => {
   taps++; clearTimeout(tapT); tapT = setTimeout(() => taps = 0, 1500);
-  if (taps >= 5){ taps = 0; state.admin ? toast('Le mode édition est déjà actif') : openLogin(); }
+  if (taps >= 5){ taps = 0; state.admin ? toast('Le mode édition est déjà actif') : isMember() ? (enterEdit(), toast('Mode édition activé')) : openLogin(); }
 });
 $('loginCancel').addEventListener('click', () => $('loginModal').classList.remove('show'));
 $('loginForm').addEventListener('submit', async e => {
   e.preventDefault();
   try {
     await Store.login($('loginEmail').value.trim(), $('loginPw').value);
-    $('loginModal').classList.remove('show'); $('loginPw').value = '';
-    setAdmin(true); toast('Mode édition activé — touche un pays pour le modifier');
-  } catch { $('loginErr').textContent = 'E-mail ou mot de passe incorrect.'; }
+  } catch { $('loginErr').textContent = 'E-mail ou mot de passe incorrect.'; return; }
+  await refreshUser();
+  if (!isMember()){ await Store.logout(); await refreshUser(); $('loginErr').textContent = 'Ce compte ne fait pas partie de nos deux téléphones.'; return; }
+  $('loginModal').classList.remove('show'); $('loginPw').value = '';
+  enterEdit(); toast('Mode édition activé — touche un pays pour le modifier');
+  renderLbPicks(); checkMatches();
 });
-$('logoutBtn').addEventListener('click', async () => { await Store.logout(); setAdmin(false); toast('Mode édition désactivé'); });
+// « Quitter » sort du mode édition sans déconnecter : les choix du palmarès restent possibles,
+// et « ➕ Ajouter nos souvenirs » rouvre l'édition sans redemander le code
+$('logoutBtn').addEventListener('click', () => { lsSet(EDIT, '0'); setAdmin(false); toast('Mode édition désactivé'); });
 
 /* =========================================================
    ÉCRAN D'ACCUEIL
@@ -912,10 +1235,12 @@ $('letterBtn').addEventListener('click', hideLetter);
    DÉMARRAGE
    ========================================================= */
 (async function init(){
-  if (location.hash === '#admin'){ $('welcome').remove(); history.replaceState(null, '', location.pathname + location.search); }
+  const adminHash = location.hash === '#admin';
+  if (adminHash){ $('welcome').remove(); history.replaceState(null, '', location.pathname + location.search); }
 
   const dataP = Store.load().then(ingest).catch(e => { console.error(e); toast('Impossible de charger les souvenirs. Vérifie la connexion internet.', 5000); });
-  const adminP = Store.isAdmin().then(setAdmin).catch(() => {});
+  const peopleP = Promise.all([Store.loadMembers().catch(() => null), PALMARES_ACTIF ? Store.loadPicks().catch(() => null) : null])
+    .then(([m, p]) => { state.members = m; state.picks = p || []; state.palmares = PALMARES_ACTIF && Array.isArray(p); });
 
   try {
     const geo = splitTerritories(await loadGeo());
@@ -933,10 +1258,31 @@ $('letterBtn').addEventListener('click', hideLetter);
     $('mapLoading').textContent = 'La carte n’a pas pu se charger. Vérifie la connexion puis recharge la page.';
   }
 
-  await Promise.all([dataP, adminP]);
+  await Promise.all([dataP, peopleP]);
+  await refreshUser();
+  if (isMember() && (adminHash || lsGet(EDIT) !== '0')){ if (adminHash) lsSet(EDIT, '1'); setAdmin(true); }
   refreshMap(); updateCount();
-  if (!document.getElementById('welcome') && !state.admin) openLogin();
+  if (adminHash && !isMember()) openLogin();
+  checkMatches(); listenPicks();
 })();
+
+// Temps réel : quand l'autre fait un choix pendant que l'app est ouverte
+function listenPicks(){
+  if (!REMOTE || !state.palmares) return;
+  let t;
+  try {
+    db.channel('palmares').on('postgres_changes', { event: '*', schema: 'public', table: 'picks' }, () => {
+      clearTimeout(t);
+      t = setTimeout(async () => {
+        const p = await Store.loadPicks(); if (!p) return;
+        state.picks = p;
+        const typing = document.activeElement?.closest?.('#sheet') && /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+        if (state.mode === 'country' && !typing) renderSheet();
+        renderLbPicks(); checkMatches();
+      }, 400);
+    }).subscribe();
+  } catch {}
+}
 
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 })();

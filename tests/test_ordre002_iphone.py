@@ -56,10 +56,10 @@ with sync_playwright() as p:
     check(f"statistiques : « {stats} »", stats == "3 pays · 2 continents découverts ensemble")
     pg.screenshot(path=f"{OUT}/ordre002-4-liste.png")
     # 3. Relire
-    pg.click("text=💌 Relire ta lettre"); pg.wait_for_timeout(2600)
+    pg.click("text=💌 Relire ta lettre"); pg.wait_for_selector("#letter.show #letterBtn", state="visible", timeout=10000); pg.wait_for_timeout(1500)
     check("« Relire ta lettre » rouvre la lettre", pg.locator("#letter.show").count() == 1 and pg.locator("#letterBtn").is_visible())
     pg.screenshot(path=f"{OUT}/ordre002-5-relire.png")
-    pg.click("#letterBtn"); pg.wait_for_timeout(1600)
+    pg.click("#letterBtn"); pg.wait_for_selector("#letter", state="hidden", timeout=10000)
     check("retour à la carte", not pg.locator("#letter").is_visible() and pg.locator("#sheet.open").count() == 0)
     pg.context.close()
     # singulier

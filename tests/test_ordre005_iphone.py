@@ -141,7 +141,11 @@ with sync_playwright() as p:
                 zoom_out(pg); v = shot(pg, f"ordre005-7-monde-{q}")
                 bl = sorted(blobs(v, PINK), key=lambda b: (b[0]-xy[0])**2 + (b[1]-xy[1])**2)
                 got = None
-                if bl: pg.mouse.click(bl[0][0], bl[0][1]); pg.wait_for_timeout(900); got = h2(pg); close(pg)
+                if bl:
+                    # point sur la terre du pays (la tache rose), au plus près de son centre : le centre d'une botte peut tomber en mer
+                    h = np.array([0x8a, 0x7a, 0xff]); m = (np.abs(v.astype(int) - h).max(2) < 40)
+                    ys, xs = np.nonzero(m); d = (xs / 2 - bl[0][0]) ** 2 + (ys / 2 - bl[0][1]) ** 2; k = d.argmin()
+                    pg.mouse.click(xs[k] / 2, ys[k] / 2); pg.wait_for_timeout(900); got = h2(pg); close(pg)
                 check(f"[globe] vue d'ensemble : toucher le centre de {name} ouvre {name} ({got})", got == name)
                 goto(pg, q, name); pg.click("text=Pas encore"); pg.wait_for_timeout(600); close(pg)
             o = shot(pg)
