@@ -1,7 +1,7 @@
-# ORDRE-006 — Recette finale et version du jour J
+# ORDRE-007 — Recette finale et version du jour J
 
 **Émis par** : l'architecte · **Exécutant** : Claude Code + l'utilisateur · **Statut** : à faire
-**Échéance** : mardi 13 octobre 2026 · **Code gelé depuis** : lundi 12 au soir
+**Échéance** : mardi 13 octobre 2026 · **Code gelé depuis** : lundi 12 au soir (après l'ORDRE-006)
 
 ## Objectif
 Vérifier une dernière fois l'app **avec le vrai contenu**, puis figer une version de référence restaurable en une commande. **Aucune nouvelle fonctionnalité.** Seule une correction de bug bloquant est autorisée, après accord de l'utilisateur.
@@ -12,9 +12,10 @@ Vérifier une dernière fois l'app **avec le vrai contenu**, puis figer une vers
    - `CONFIG` pointe bien vers le projet Supabase de l'utilisateur ;
    - `CARTE_PAR_DEFAUT = 'globe'` ;
    - `LETTRE` : texte et signature « Max » exacts ;
+   - `PALMARES_ACTIF = true`, `ROXANE_EMAIL` fictif (aucune adresse personnelle), aucun e-mail réel dans `migration-002-palmares.sql` ;
    - aucun `console.log` de débogage oublié, aucune donnée de démo forcée hors mode démo ;
    - `carte-cadeau.html` : le QR décode toujours `https://mplaa8.github.io/nos-voyages/`.
-2. **Tests** : relance toute la batterie (ORDRES 002 à 005) en mode démo, viewport iPhone. Tout doit passer.
+2. **Tests** : relance toute la batterie (ORDRES 002 à 006) en mode démo, viewport iPhone. Tout doit passer.
 3. **Version de référence** : crée le tag git `v1.0-anniversaire` sur le commit validé et pousse-le. Note dans `docs/02-guide-installation.md` comment revenir à cette version en cas de souci (en langage simple pour l'utilisateur, et la commande exacte pour Claude Code).
 4. **Compte rendu** et mise à jour de `docs/00-etat-du-projet.md` (« Idées » : renvoyer vers `docs/04-banque-idees.md`).
 
@@ -29,6 +30,8 @@ Fermer complètement l'app, puis ouvrir `https://mplaa8.github.io/nos-voyages/` 
 - [ ] Ouvrir **chaque** pays visité : villes, photos (visionneuse, balayage), souvenirs sans faute de frappe
 - [ ] Les photos s'affichent en moins de 2–3 secondes en 4G
 - [ ] ☰ : statistiques justes, recherche, « 💌 Relire ta lettre »
+- [ ] Palmarès : mes choix (🌅 🍽️ 😂 💗) sont faits dans chaque pays ; mon 💗 apparaît caché (🔒) en visiteur
+- [ ] Code secret de Roxane testé **sur un autre appareil ou en navigation privée** (puis se déconnecter), jamais sur son iPhone avant le jour J
 - [ ] Aucun bouton « Modifier », « Supprimer » ou « Mode édition » visible (on est bien en visiteur)
 - [ ] **Partager → Sur l'écran d'accueil** : l'icône ❤️ apparaît, l'app s'ouvre en plein écran
 - [ ] Carte cadeau imprimée, QR scanné avec l'appareil photo de l'iPhone → ouvre bien l'app
