@@ -14,7 +14,9 @@ Il reste 5 jours. Le jour J, ce qui compte est **le contenu** (nos pays, nos pho
 | Dim 11 oct | Moi | ✅ **Globe validé** sur iPhone |
 | Dim 11 → Lun 12 oct | Claude Code + moi | ✅ code (dim. soir) · **ORDRE-006 — Palmarès** : 🌅 vue, 🍽️ assiette, 😂 drôle, 💗 préféré de chacun, animation « même moment » ; mêmes droits pour Max et Roxane, code secret pour Roxane. Moi : créer le compte de Roxane, lancer la migration SQL, faire mes choix |
 | Lun 12 oct (00 h 30) | Moi | ✅ Tests Supabase réussis (migration, vérification des droits, code secret) |
-| Lun 12 oct (soir) | — | **Gel des fonctionnalités** (après l'ORDRE-006) : plus aucune modification du code, sauf correction de bug |
+| Lun 12 oct | Claude Code + moi | ✅ ORDRE-007 partie A (audit, 152 tests, tag `v1.0-anniversaire`) · ✅ palmarès testé en vrai |
+| Lun 12 oct | Claude Code + moi | **ORDRE-009 — Destinations en commun** (avancé avant le 14 à ma demande) : « Tinder des voyages » + tirage du prochain voyage. Moi : migration 003, mes réponses, tag `v1.1-anniversaire` |
+| Mar 13 oct (soir) | — | **Gel définitif du code** : plus aucune modification, sauf bug bloquant (repli possible sur `v1.0-anniversaire`) |
 | Mar 13 oct | Claude Code + moi | **ORDRE-007 — Recette finale** : test complet sur iPhone (accueil, carte, chaque fiche, photos, liste), suppression du contenu de test, vérification de la vitesse avec toutes les photos, test de l'installation sur l'écran d'accueil |
 | Mer 14 oct | Moi | **Offrir** 🎁 |
 
@@ -35,7 +37,7 @@ Rythme conseillé : un ordre à la fois, testé sur iPhone avant de passer au su
 | Ordre | Contenu | Pourquoi à ce rang |
 |---|---|---|
 | **ORDRE-008 — Fondations** | Sauvegarde automatique hebdomadaire (données + photos) dans un dépôt GitHub privé ; anti-mise en veille de Supabase ; procédure de restauration | Deux téléphones ajoutent des photos : rien n'est plus grave que de perdre des souvenirs |
-| **ORDRE-009 — Destinations en commun** | Le « Tinder des voyages » (❤️ / ✖️ en secret, animation « Destination en commun 💞 », pays doré) + le tirage du prochain voyage sur le globe | Le plus fort émotionnellement, réutilise la mécanique du « même moment » |
+| ~~ORDRE-009 — Destinations en commun~~ | **Avancé avant le 14 octobre** (voir phase 1) | — |
 | **ORDRE-010 — Nos voyages** | La notion de Voyage (titre, dates, pays, villes), migration douce du contenu existant, frise « Notre histoire », mode « voyage en cours » (ajout rapide pendant le voyage) | Pierre angulaire : débloque dates, frise, récap annuel, Oscars |
 | **ORDRE-011 — Jeux et attentions** | « Devine où c'était » (5 photos, points, revanche) + mots doux cachés sur les photos | Fait vivre l'app entre deux voyages |
 | **ORDRE-012 — Les Oscars** | Catégories du palmarès à la carte (« Plus belle chambre », « Meilleur cocktail », « Plus grosse galère »…) + cérémonie annuelle des Oscars (vote parmi les gagnants de tous les pays, révélation animée) | À livrer avant le **14 octobre 2027** pour la première cérémonie |
