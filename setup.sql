@@ -1,12 +1,12 @@
 -- =========================================================
 -- Carte de nos voyages — installation neuve, à coller dans Supabase > SQL Editor > Run
--- (modèle complet : pays, souvenirs, photos, deux membres, palmarès)
+-- (modèle complet : pays, souvenirs, photos, deux membres, palmarès, envies de voyage)
 --
 -- AVANT de lancer : créer les deux comptes dans Authentication > Users > Add user
 -- (« Auto Confirm User » coché) : celui de Maxime, et celui de Roxane avec l'adresse
 -- fictive de CONFIG.ROXANE_EMAIL et le code secret comme mot de passe.
 -- Puis remplacer EMAIL-DE-MAXIME et EMAIL-DE-ROXANE tout en bas.
--- Une base déjà installée avant octobre 2026 se met à jour avec migration-002-palmares.sql.
+-- Une base déjà installée avant octobre 2026 se met à jour avec migration-002-palmares.sql puis migration-003-destinations.sql.
 -- =========================================================
 begin;
 
@@ -47,6 +47,14 @@ create table if not exists public.picks (
   constraint picks_un_par_categorie unique (user_id, country_code, category)
 );
 
+create table if not exists public.wishes (
+  user_id       uuid not null default auth.uid() references auth.users(id) on delete cascade,
+  country_code  text not null,                -- pas de clé étrangère : on répond aussi pour des pays pas encore sur la carte
+  answer        text not null check (answer in ('oui','non')),
+  created_at    timestamptz default now(),
+  primary key (user_id, country_code)
+);
+
 create or replace function public.is_member() returns boolean
 language sql stable security definer set search_path = public
 as $$ select exists (select 1 from public.members where user_id = auth.uid()) $$;
@@ -57,6 +65,7 @@ alter table public.memories  enable row level security;
 alter table public.photos    enable row level security;
 alter table public.members   enable row level security;
 alter table public.picks     enable row level security;
+alter table public.wishes    enable row level security;
 drop policy if exists "lecture countries" on public.countries;
 drop policy if exists "membres countries" on public.countries;
 drop policy if exists "lecture memories"  on public.memories;
@@ -66,6 +75,8 @@ drop policy if exists "membres photos"    on public.photos;
 drop policy if exists "lecture members"   on public.members;
 drop policy if exists "lecture picks"     on public.picks;
 drop policy if exists "mes picks"         on public.picks;
+drop policy if exists "lecture wishes"    on public.wishes;
+drop policy if exists "mes wishes"        on public.wishes;
 create policy "lecture countries" on public.countries for select using (true);
 create policy "membres countries" on public.countries for all to authenticated using (public.is_member()) with check (public.is_member());
 create policy "lecture memories"  on public.memories  for select using (true);
@@ -75,6 +86,9 @@ create policy "membres photos"    on public.photos    for all to authenticated u
 create policy "lecture members"   on public.members   for select using (true);
 create policy "lecture picks"     on public.picks     for select using (true);
 create policy "mes picks"         on public.picks     for all to authenticated
+  using (user_id = auth.uid() and public.is_member()) with check (user_id = auth.uid() and public.is_member());
+create policy "lecture wishes"    on public.wishes    for select using (true);
+create policy "mes wishes"        on public.wishes    for all to authenticated
   using (user_id = auth.uid() and public.is_member()) with check (user_id = auth.uid() and public.is_member());
 
 -- Espace de stockage des photos
@@ -91,6 +105,9 @@ do $$
 begin
   if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'picks') then
     alter publication supabase_realtime add table public.picks;
+  end if;
+  if not exists (select 1 from pg_publication_tables where pubname = 'supabase_realtime' and schemaname = 'public' and tablename = 'wishes') then
+    alter publication supabase_realtime add table public.wishes;
   end if;
 end $$;
 

@@ -203,6 +203,51 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
 .demo-who[hidden]{display:none}
 .demo-who button{min-height:44px;padding:0 10px;border-radius:999px;font-size:13px;color:#c9c5e0}
 .demo-who button.on{background:rgba(255,255,255,.16);color:#fff}
+/* ---------- Nos envies de voyage ---------- */
+.envies{margin:2px 0 14px;padding:14px 16px 16px;border-radius:20px;background:#fff;border:1px solid var(--line)}
+.envies-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.envies-title{margin:0;font-family:var(--serif);font-style:italic;font-size:20px}
+.envies-sub{margin:6px 0 0;color:var(--muted);font-size:15px;line-height:1.4}
+.envies-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.envie{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:6px 14px 6px 10px;border-radius:999px;background:#fff0f2;font-size:15px;font-weight:700}
+.envie span{font-size:20px}
+.envies-draw{width:100%;margin-top:12px}
+.game{position:fixed;inset:0;z-index:2300;display:flex;flex-direction:column;padding:calc(var(--st) + 10px) 16px calc(var(--sb) + 16px);background:radial-gradient(130% 90% at 50% 35%,#2a2350 0%,#1a1d3a 55%,#11142a 100%);color:#fbf3f6;overflow:hidden;touch-action:none}
+.game[hidden],.draw[hidden]{display:none}
+.game-top{position:relative;display:flex;align-items:center;gap:12px}
+.game-title{display:flex;flex-direction:column}
+.game-title b{font-family:var(--serif);font-style:italic;font-weight:500;font-size:22px}
+.game-title small{color:#c9c5e0;font-size:14px}
+.game-filters{position:relative;display:flex;gap:8px;margin:12px -16px 0;padding:0 16px 4px;overflow-x:auto;scrollbar-width:none;touch-action:pan-x}
+.game-filters::-webkit-scrollbar{display:none}
+.game-filters button{flex:none;min-height:44px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.08);color:#d6d0ea;font-size:14px;font-weight:700}
+.game-filters button.on{background:var(--paper);color:var(--ink)}
+.game-stack{position:relative;flex:1;display:grid;place-items:center;margin:14px 0}
+.swipe{position:absolute;width:min(330px,84vw);height:min(440px,58vh);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px 20px;border-radius:26px;background:var(--paper);color:var(--ink);box-shadow:0 18px 50px rgba(0,0,0,.45);text-align:center;user-select:none;-webkit-user-select:none;transition:transform .35s cubic-bezier(.2,.8,.25,1),opacity .35s;touch-action:none}
+.swipe.next{transform:translateY(14px) scale(.94);opacity:.6;pointer-events:none}
+.swipe-flag{position:absolute;left:18px;top:16px;font-size:34px;line-height:1}
+.sil{width:72%;height:44%;fill:var(--glow);filter:drop-shadow(0 0 10px rgba(255,122,138,.55))}
+.swipe h2{margin:16px 0 4px;font-family:var(--serif);font-weight:600;font-size:clamp(26px,7.5vw,32px);line-height:1.05}
+.swipe p{margin:0;color:var(--muted);font-size:15px}
+.stamp{position:absolute;top:22px;padding:4px 12px;border:3px solid;border-radius:12px;font-family:var(--serif);font-style:italic;font-weight:600;font-size:22px;opacity:0;pointer-events:none}
+.stamp.yes{left:16px;color:var(--glow-d);transform:rotate(-12deg)}
+.stamp.no{right:16px;color:var(--muted);transform:rotate(12deg)}
+.game-actions{display:flex;align-items:center;justify-content:center;gap:22px}
+.game-no,.game-yes{width:66px;height:66px;border-radius:50%;font-size:28px;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.game-no{background:var(--paper)}
+.game-yes{background:var(--glow);box-shadow:0 0 28px rgba(255,122,138,.5)}
+.game-undo{min-height:44px;padding:0 12px;border-radius:14px;color:#d6d0ea;font-size:15px}
+.game-undo:disabled,.game-no:disabled,.game-yes:disabled{opacity:.35}
+.game-end{max-width:300px;text-align:center}
+.game-end p{margin:0 0 6px;color:#d6d0ea;font-size:16px;line-height:1.5}
+.game-end .game-end-title{font-family:var(--serif);font-style:italic;font-size:26px;color:#fbf3f6;line-height:1.2;margin-bottom:10px}
+.game-end .open-btn{opacity:1;animation:none;margin-top:18px}
+.match-dest{position:relative;padding:20px 0 6px}
+.match-dest .sil{width:72%;height:auto;max-height:28vh}
+.match-flag{position:absolute;left:4px;top:4px;font-size:40px;line-height:1}
+.draw{position:fixed;z-index:1200;left:12px;right:12px;bottom:calc(var(--sb) + 76px);max-width:420px;margin:0 auto;padding:18px 18px 16px;border-radius:22px;background:var(--paper);color:var(--ink);box-shadow:0 14px 40px rgba(0,0,0,.4);animation:fadeUp .5s both}
+.draw-title{margin:0 44px 14px 0;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.25}
+.draw .close-btn{top:8px;right:8px}
 @media (prefers-reduced-motion:reduce){.match-hearts{display:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
@@ -289,6 +334,28 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
   </div>
 </div>
 
+<!-- Nos envies de voyage : le jeu à glisser -->
+<section class="game" id="game" role="dialog" aria-modal="true" aria-label="Nos envies de voyage" hidden>
+  <div class="game-top">
+    <button class="icon-btn" id="gameClose" aria-label="Fermer">×</button>
+    <div class="game-title"><b>Nos envies de voyage</b><small id="gameCount"></small></div>
+  </div>
+  <div class="game-filters" id="gameFilters" role="group" aria-label="Continent"></div>
+  <div class="game-stack" id="gameStack"></div>
+  <div class="game-actions">
+    <button class="game-no" id="gameNo" aria-label="Bof">✖️</button>
+    <button class="game-undo" id="gameUndo">↩︎ Annuler</button>
+    <button class="game-yes" id="gameYes" aria-label="J’ai envie">❤️</button>
+  </div>
+</section>
+
+<!-- Tirage du prochain voyage -->
+<div class="draw" id="draw" role="dialog" aria-labelledby="drawTitle" hidden>
+  <p class="draw-title" id="drawTitle"></p>
+  <div class="row"><button class="btn primary" id="drawOpen">Ouvrir la fiche</button><button class="btn soft" id="drawAgain">Retirer au sort</button></div>
+  <button class="close-btn" id="drawClose" aria-label="Fermer">×</button>
+</div>
+
 <!-- Mode démo : qui tient le téléphone ? -->
 <div class="demo-who glass" id="demoWho" hidden>Je suis :
   <button data-who="demo-maxime">Maxime</button><button data-who="demo-roxane">Roxane</button><button data-who="">Visiteur</button>
@@ -345,6 +412,10 @@ const CARTE_PAR_DEFAUT = 'globe';
 /* 🏅  PALMARÈS — plus belle vue, plus belle assiette, moment le plus drôle, moment préféré (et le « même moment »).
    Mettre false masque toute la fonctionnalité, sans toucher à la base de données. */
 const PALMARES_ACTIF = true;
+
+/* 💞  NOS ENVIES DE VOYAGE — le jeu à glisser (« j'ai envie » / « bof »), les destinations en commun et le tirage.
+   Mettre false masque toute la fonctionnalité, sans toucher à la base de données. */
+const DESTINATIONS_ACTIF = true;
 
 const GEO_URLS = [
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson/ne_50m_admin_0_countries.geojson",
@@ -423,7 +494,11 @@ const RemoteStore = {
   async loadMembers(){ const r = await db.from('members').select('user_id, prenom'); return r.error ? null : Object.fromEntries(r.data.map(m => [m.user_id, m.prenom])); },
   async loadPicks(){ const r = await db.from('picks').select('*'); return r.error ? null : r.data; },
   async setPick(row){ return ok(await db.from('picks').upsert(row, { onConflict: 'user_id,country_code,category' }).select().single()); },
-  async removePick(id){ ok(await db.from('picks').delete().eq('id', id)); }
+  async removePick(id){ ok(await db.from('picks').delete().eq('id', id)); },
+  // Envies de voyage (migration 003) : null si la table n'existe pas encore
+  async loadWishes(){ const r = await db.from('wishes').select('*'); return r.error ? null : r.data; },
+  async setWish(row){ return ok(await db.from('wishes').upsert(row, { onConflict: 'user_id,country_code' }).select().single()); },
+  async removeWish(code){ ok(await db.from('wishes').delete().eq('user_id', state.user.id).eq('country_code', code)); }
 };
 
 const KEY = 'nos-voyages-demo';
@@ -431,7 +506,7 @@ const DEMO_MEMBRES = { 'demo-maxime': 'Maxime', 'demo-roxane': 'Roxane' };
 const lsGet = k => { try { return localStorage.getItem(k); } catch { return null; } };
 const lsSet = (k, v) => { try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch {} };
 const LocalStore = {
-  _get(){ let d; try { d = JSON.parse(localStorage.getItem(KEY)); } catch {} d ||= {}; d.countries ||= []; d.memories ||= []; d.photos ||= []; d.picks ||= []; return d; },
+  _get(){ let d; try { d = JSON.parse(localStorage.getItem(KEY)); } catch {} d ||= {}; d.countries ||= []; d.memories ||= []; d.photos ||= []; d.picks ||= []; d.wishes ||= []; return d; },
   _who(){ const w = lsGet(KEY + '-who'); return w !== null ? w : (lsGet(KEY + '-admin') === '1' ? 'demo-maxime' : ''); },
   _set(d){ try { localStorage.setItem(KEY, JSON.stringify(d)); } catch { throw new Error("Espace de démo plein : configure Supabase pour stocker plus de photos."); } },
   async load(){ return this._get(); },
@@ -450,14 +525,17 @@ const LocalStore = {
   async loadMembers(){ return { ...DEMO_MEMBRES }; },
   async loadPicks(){ return this._get().picks; },
   async setPick(row){ const d = this._get(); d.picks = d.picks.filter(p => !(p.user_id === row.user_id && p.country_code === row.country_code && p.category === row.category)); const r = { id: uid(), created_at: new Date().toISOString(), ...row }; d.picks.push(r); this._set(d); return r; },
-  async removePick(id){ const d = this._get(); d.picks = d.picks.filter(p => p.id !== id); this._set(d); }
+  async removePick(id){ const d = this._get(); d.picks = d.picks.filter(p => p.id !== id); this._set(d); },
+  async loadWishes(){ return this._get().wishes; },
+  async setWish(row){ const d = this._get(); d.wishes = d.wishes.filter(w => !(w.user_id === row.user_id && w.country_code === row.country_code)); const r = { created_at: new Date().toISOString(), ...row }; d.wishes.push(r); this._set(d); return r; },
+  async removeWish(code){ const d = this._get(); const me = this._who(); d.wishes = d.wishes.filter(w => !(w.user_id === me && w.country_code === code)); this._set(d); }
 };
 const Store = REMOTE ? RemoteStore : LocalStore;
 
 /* =========================================================
    ÉTAT
    ========================================================= */
-const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, user:null, members:null, picks:[], palmares:false, admin:false, current:null, mode:null, editing:null, busy:false };
+const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, user:null, members:null, picks:[], palmares:false, wishes:[], destinations:false, region:{}, admin:false, current:null, mode:null, editing:null, busy:false };
 
 function ingest(data){
   state.countries = {}; state.memories = {}; state.photos = {};
@@ -699,6 +777,24 @@ const GlobeView = (() => {
       // Petit pays : tout l'archipel (Maldives), plus zoomé ; sinon le plus grand polygone
       gl.fitBounds(sh.small ? sh.all : sh.main, { padding: { top: 100, left: 24, right: 24, bottom: Math.round(innerHeight * .5) }, maxZoom: sh.small ? 6.5 : 5, duration: 1200 });
     },
+    // Tirage : le globe tourne vite puis ralentit (≈ 4 s) et s'arrête sur le pays
+    spinTo(code){
+      const sh = shapes[code]; if (!sh) return Promise.resolve();
+      stopSpin();
+      if (reduceMotion){ this.flyTo(code); return wait(1300); }
+      const box = sh.small ? sh.all : sh.main, tLng = (box[0][0] + box[1][0]) / 2, tLat = Math.max(-55, Math.min(65, (box[0][1] + box[1][1]) / 2));
+      const c0 = gl.getCenter(), z0 = gl.getZoom(), z1 = fitZoom() + .5;
+      const d = -(720 + (((c0.lng - tLng) % 360) + 360) % 360);   // dans le sens de la rotation habituelle
+      return new Promise(res => {
+        const t0 = performance.now(), D = 4200;
+        const step = now => {
+          const t = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - t, 3);
+          gl.jumpTo({ center: [c0.lng + d * e, c0.lat + (tLat - c0.lat) * e], zoom: z0 + (z1 - z0) * e });
+          if (t < 1) requestAnimationFrame(step); else { stopSpin(); res(); }
+        };
+        requestAnimationFrame(step);
+      });
+    },
     worldView(){
       lastTouch = 0;
       gl.easeTo({ center: [12, 30], zoom: fitZoom(), duration: 1000 });
@@ -758,6 +854,7 @@ const FlatView = (() => {
       map.flyToBounds((sh.small ? sh.all : sh.main).map(ll), { paddingTopLeft:[24, 100], paddingBottomRight:[24, Math.round(innerHeight * .5)], maxZoom: sh.small ? 6.5 : 5, duration:.9 });
     },
     worldView: () => view(),
+    spinTo(code){ this.flyTo(code); return wait(1000); },
     resize(){ map?.invalidateSize(); }
   };
 })();
@@ -904,10 +1001,20 @@ function playMatches(){
   if ($('match').classList.contains('show') || !matchQueue.length) return;
   // jamais par-dessus l'écran d'accueil ou la lettre : on attend l'arrivée sur la carte
   if (document.getElementById('welcome') || $('letter').classList.contains('show')){ clearTimeout(matchTimer); matchTimer = setTimeout(playMatches, 600); return; }
-  const m = matchQueue.shift(), mo = momentOf(m.code, m.key);
-  if (!mo) return playMatches();
-  $('matchMoment').innerHTML = m.key[0] === 'p' ? `<img src="${esc(mo.url)}" alt="">` : `<p class="match-mem">« ${esc(mo.content)} »</p>`;
-  $('matchCountry').textContent = `${flag(state.iso2[m.code])} ${nameOf(m.code)}`;
+  const m = matchQueue.shift();
+  let moment, title = 'Vous avez choisi le même moment 💞', country = `${flag(state.iso2[m.code])} ${nameOf(m.code)}`;
+  if (m.kind === 'dest'){ moment = `<div class="match-dest"><span class="match-flag">${flag(state.iso2[m.code])}</span>${silhouette(m.code)}</div>`; title = 'Destination en commun 💞'; country = nameOf(m.code); }
+  else if (m.kind === 'more'){ moment = ''; title = `… et ${m.n} autres destinations en commun !`; country = 'Elles vous attendent dans ☰ → Nos envies de voyage'; }
+  else {
+    const mo = momentOf(m.code, m.key);
+    if (!mo) return playMatches();
+    moment = m.key[0] === 'p' ? `<img src="${esc(mo.url)}" alt="">` : `<p class="match-mem">« ${esc(mo.content)} »</p>`;
+  }
+  $('matchMoment').innerHTML = moment; $('matchTitle').textContent = title; $('matchCountry').textContent = country;
+  const suite = matchQueue.length > 0;
+  $('matchBtn').textContent = suite ? 'Suivante 💞' : '🥰';
+  $('matchBtn').style.fontSize = suite ? '18px' : '';
+  $('matchBtn').setAttribute('aria-label', suite ? 'Suivante' : 'Fermer');
   const hearts = $('matchHearts'); hearts.innerHTML = '';
   for (let i = 0; i < 28; i++){
     const h = document.createElement('i'); h.textContent = '♥';
@@ -915,9 +1022,177 @@ function playMatches(){
     hearts.append(h);
   }
   $('match').classList.add('show');
-  try { navigator.vibrate?.([30, 60, 30]); } catch {}
+  try { if (navigator.userActivation?.hasBeenActive !== false) navigator.vibrate?.([30, 60, 30]); } catch {}   // pas avant un premier toucher
 }
 $('matchBtn').addEventListener('click', () => { $('match').classList.remove('show'); playMatches(); });
+
+/* =========================================================
+   NOS ENVIES DE VOYAGE — chacun répond en secret « j'ai envie » / « bof » pour les pays pas encore visités ;
+   seules les destinations en commun (❤️ + ❤️) sont révélées. Les « bof » de l'autre ne sont jamais montrés.
+   ========================================================= */
+const EXCLUS_ENVIES = new Set(['ATA', 'KAS', 'HMD', 'ATC', 'IOT']);   // Antarctique, glacier, îles inhabitées ou fermées
+const REGIONS = ['Europe', 'Asie', 'Afrique', 'Amérique du Nord', 'Amérique du Sud', 'Océanie'];
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const myWish = code => state.wishes.find(w => w.user_id === state.user?.id && w.country_code === code);
+function communes(){
+  const oui = {};
+  state.wishes.filter(w => w.answer === 'oui').forEach(w => (oui[w.country_code] ??= new Set()).add(w.user_id));
+  return Object.keys(oui).filter(c => oui[c].size >= 2 && state.names[c]).sort((a, b) => nameOf(a).localeCompare(nameOf(b), 'fr'));
+}
+// Silhouette du pays en SVG, dessinée à partir de la géométrie déjà chargée
+function silhouette(code){
+  const sh = shapes[code]; if (!sh) return '';
+  const [[w, so], [e, n]] = sh.all, k = Math.cos((so + n) / 2 * Math.PI / 180);
+  const W = Math.max((e - w) * k, 1e-6), H = Math.max(n - so, 1e-6), sc = 90 / Math.max(W, H), ox = (100 - W * sc) / 2, oy = (100 - H * sc) / 2;
+  let d = '';
+  for (const p of sh.polys){
+    if (p.bb[0][0] < w - 1e-9 || p.bb[1][0] > e + 1e-9 || p.bb[0][1] < so - 1e-9 || p.bb[1][1] > n + 1e-9) continue;
+    for (const ring of p.rings){
+      let last = null, seg = '';
+      for (const [x, y] of ring){
+        const X = ox + (x - w) * k * sc, Y = oy + (n - y) * sc;
+        if (last && Math.abs(X - last[0]) + Math.abs(Y - last[1]) < .4) continue;
+        seg += (seg ? 'L' : 'M') + X.toFixed(1) + ' ' + Y.toFixed(1); last = [X, Y];
+      }
+      d += seg + 'Z';
+    }
+  }
+  return `<svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><path d="${d}" fill-rule="evenodd"/></svg>`;
+}
+// Ordre aléatoire mais stable pour chaque personne
+const hashStr = str => { let h = 2166136261; for (const ch of str){ h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
+const deckOf = region => Object.keys(state.names)
+  .filter(c => !EXCLUS_ENVIES.has(c) && statusOf(c) !== 'visited' && (!region || state.region[c] === region))
+  .sort((a, b) => hashStr((state.user?.id || '') + a) - hashStr((state.user?.id || '') + b));
+
+// Un pays devenu destination en commun passe en « Un jour… » (jamais de rétrogradation d'un pays visité)
+async function ensureDream(code){
+  if (statusOf(code) !== 'none' || !isMember()) return;
+  try { state.countries[code] = await Store.saveCountry({ code, name: nameOf(code), status: 'dream' }); refreshMap(); updateCount(); if (state.mode) renderSheet(); }
+  catch (e){ console.error(e); }
+}
+// Célébrer une fois par appareil chaque destination en commun pas encore vue (créée par moi ou par l'autre)
+function checkWishMatches(){
+  if (!state.destinations || !isMember()) return;
+  const store = 'nos-voyages-envies-' + state.user.id;
+  let seen; try { seen = JSON.parse(lsGet(store)) || []; } catch { seen = []; }
+  const mine = new Set(state.wishes.filter(w => w.user_id === state.user.id && w.answer === 'oui').map(w => w.country_code));
+  const nouvelles = communes().filter(c => mine.has(c) && !seen.includes(c));
+  if (!nouvelles.length) return;
+  lsSet(store, JSON.stringify(seen.concat(nouvelles)));
+  nouvelles.forEach(ensureDream);
+  nouvelles.slice(0, 5).forEach(code => matchQueue.push({ kind: 'dest', code }));
+  if (nouvelles.length > 5) matchQueue.push({ kind: 'more', n: nouvelles.length - 5 });
+  playMatches();
+}
+
+function enviesHtml(){
+  if (!state.destinations) return '';
+  const com = communes();
+  let h = `<div class="envies" id="envies"><div class="envies-head"><p class="envies-title">💞 Nos envies de voyage</p><button class="btn primary" data-action="play">Jouer</button></div>`;
+  h += `<p class="envies-sub">${com.length ? `${com.length} destination${com.length > 1 ? 's' : ''} en commun` : 'Chacun dit « j’ai envie » de son côté, en secret : vos destinations en commun apparaîtront ici.'}</p>`;
+  if (com.length) h += `<div class="envies-list">` + com.map(c => `<button class="envie" data-action="goto" data-code="${esc(c)}"><span>${flag(state.iso2[c])}</span>${esc(nameOf(c))}</button>`).join('') + `</div>`;
+  if (com.length >= 2) h += `<button class="btn soft envies-draw" data-action="draw">🎲 Tirer notre prochain voyage</button>`;
+  return h + `</div>`;
+}
+
+/* ---------- Le jeu ---------- */
+const game = { region: '', history: [], busy: false };
+const gameOpen = () => !$('game').hidden;
+function openGame(){
+  if (!isMember()) return askCode({ type: 'game' });
+  closeSheet(); game.history = []; game.busy = false;
+  $('game').hidden = false; renderGame();
+}
+function closeGame(reopenList = true){
+  $('game').hidden = true;
+  if (reopenList){ state.query = ''; state.mode = 'list'; state.current = null; refreshMap(); renderSheet(); openSheet(); }
+}
+function renderGame(){
+  const all = deckOf(game.region), reste = all.filter(c => !myWish(c));
+  $('gameCount').textContent = `${all.length - reste.length} / ${all.length}`;
+  $('gameFilters').innerHTML = ['', ...REGIONS].map(r => `<button data-region="${r}" class="${r === game.region ? 'on' : ''}" aria-pressed="${r === game.region}">${r || 'Tous'}</button>`).join('');
+  const card = (c, cls) => `<article class="swipe ${cls}" data-code="${esc(c)}"${cls === 'top' ? ' aria-label="' + esc(nameOf(c)) + '"' : ''}>
+      <span class="stamp yes">❤️ J’ai envie</span><span class="stamp no">✖️ Bof</span>
+      <span class="swipe-flag">${flag(state.iso2[c])}</span>${silhouette(c)}
+      <h2>${esc(nameOf(c))}</h2><p>${esc(state.region[c] || '')}${statusOf(c) === 'dream' ? ' · ✨ Un jour…' : ''}</p></article>`;
+  $('gameStack').innerHTML = reste.length
+    ? (reste[1] ? card(reste[1], 'next') : '') + card(reste[0], 'top')
+    : `<div class="game-end"><p class="game-end-title">${game.region ? `Plus aucun pays à découvrir ici 🌍` : 'Tu as fait le tour du monde 🌍'}</p>
+        <p>${communes().length ? `Vous avez ${communes().length} destination${communes().length > 1 ? 's' : ''} en commun.` : 'Vos destinations en commun apparaîtront dès que vous aurez tous les deux dit « j’ai envie ».'}</p>
+        ${game.region ? '<button class="open-btn" data-game="tous">Tous les continents</button>' : '<button class="open-btn" data-game="voir">Voir nos destinations en commun</button>'}</div>`;
+  $('gameNo').disabled = $('gameYes').disabled = !reste.length;
+  $('gameUndo').disabled = !game.history.length;
+}
+async function answer(ans){
+  const card = $('gameStack').querySelector('.swipe.top'); if (!card || game.busy) return;
+  const code = card.dataset.code; game.busy = true;
+  card.style.transition = ''; card.style.transform = `translate(${ans === 'oui' ? 120 : -120}vw, 40px) rotate(${ans === 'oui' ? 24 : -24}deg)`;
+  card.querySelector('.stamp.' + (ans === 'oui' ? 'yes' : 'no')).style.opacity = 1;
+  try {
+    const row = await Store.setWish({ user_id: state.user.id, country_code: code, answer: ans });
+    state.wishes = state.wishes.filter(w => !(w.user_id === row.user_id && w.country_code === code)).concat(row);
+    game.history.push(code);
+  } catch (e){ console.error(e); toast('Ta réponse n’a pas pu être enregistrée, réessaie.'); }
+  await wait(260); game.busy = false; renderGame();
+  if (ans === 'oui') checkWishMatches();
+}
+async function undoAnswer(){
+  if (game.busy || !game.history.length) return;
+  const code = game.history.pop(); game.busy = true;
+  try { await Store.removeWish(code); state.wishes = state.wishes.filter(w => !(w.user_id === state.user.id && w.country_code === code)); }
+  catch (e){ console.error(e); game.history.push(code); toast('Impossible d’annuler, réessaie.'); }
+  game.busy = false; renderGame();
+}
+$('gameClose').addEventListener('click', () => closeGame());
+$('gameNo').addEventListener('click', () => answer('non'));
+$('gameYes').addEventListener('click', () => answer('oui'));
+$('gameUndo').addEventListener('click', undoAnswer);
+$('gameFilters').addEventListener('click', e => { const b = e.target.closest('[data-region]'); if (!b) return; game.region = b.dataset.region; renderGame(); });
+$('gameStack').addEventListener('click', e => {
+  const b = e.target.closest('[data-game]'); if (!b) return;
+  if (b.dataset.game === 'tous'){ game.region = ''; renderGame(); } else closeGame();
+});
+document.addEventListener('keydown', e => { if (!gameOpen() || $('match').classList.contains('show')) return; if (e.key === 'ArrowRight') answer('oui'); if (e.key === 'ArrowLeft') answer('non'); if (e.key === 'Escape') closeGame(); });
+// Glisser la carte : à droite « j'ai envie », à gauche « bof »
+let drag = null;
+$('gameStack').addEventListener('pointerdown', e => {
+  const card = e.target.closest('.swipe.top'); if (!card || game.busy) return;
+  drag = { card, id: e.pointerId, x0: e.clientX, y0: e.clientY, dx: 0 };
+  card.setPointerCapture(e.pointerId); card.style.transition = 'none';
+});
+$('gameStack').addEventListener('pointermove', e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  drag.dx = e.clientX - drag.x0; const dy = e.clientY - drag.y0;
+  drag.card.style.transform = `translate(${drag.dx}px, ${dy * .3}px) rotate(${drag.dx * .06}deg)`;
+  drag.card.querySelector('.stamp.yes').style.opacity = Math.max(0, Math.min(1, drag.dx / 100));
+  drag.card.querySelector('.stamp.no').style.opacity = Math.max(0, Math.min(1, -drag.dx / 100));
+});
+const endDrag = e => {
+  if (!drag || e.pointerId !== drag.id) return;
+  const { card, dx } = drag; drag = null;
+  if (Math.abs(dx) > 100) return answer(dx > 0 ? 'oui' : 'non');
+  card.style.transition = ''; card.style.transform = '';
+  card.querySelectorAll('.stamp').forEach(s => s.style.opacity = 0);
+};
+$('gameStack').addEventListener('pointerup', endDrag);
+$('gameStack').addEventListener('pointercancel', endDrag);
+
+/* ---------- Tirer notre prochain voyage ---------- */
+let lastDraw = null;
+async function drawTrip(){
+  const com = communes(); if (com.length < 2) return;
+  let code; do { code = com[Math.floor(Math.random() * com.length)]; } while (code === lastDraw);
+  lastDraw = code;
+  closeSheet(); $('draw').hidden = true;
+  await MapView?.spinTo(code);
+  state.current = code; refreshMap();                     // le pays tiré s'illumine
+  $('drawTitle').textContent = `Et si c’était… ${flag(state.iso2[code])} ${nameOf(code)} ? ✈️`;
+  $('draw').hidden = false;
+}
+$('drawAgain').addEventListener('click', drawTrip);
+$('drawOpen').addEventListener('click', () => { const c = lastDraw; $('draw').hidden = true; flyTo(c); setTimeout(() => openCountry(c), 450); });
+$('drawClose').addEventListener('click', () => { $('draw').hidden = true; state.current = null; refreshMap(); });
 
 /* =========================================================
    FICHE PAYS
@@ -1026,6 +1301,7 @@ function renderList(){
   if (isMember()) list += `<button class="logout-link" data-action="logout">Se déconnecter${state.user.prenom ? ` (${esc(state.user.prenom)})` : ''}</button>`;
   state.listHtml = list;
   $('sheetBody').innerHTML = `<div class="head"><span class="flag">🗺️</span><div><h2>Nos pays</h2>${stats}</div></div>
+    ${enviesHtml()}
     <input class="search" id="search" type="search" placeholder="Rechercher un pays…" aria-label="Rechercher un pays" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" value="${esc(state.query || '')}">
     <div id="listBody">${state.query?.trim() ? searchHtml(state.query) : list}</div>`;
 }
@@ -1044,6 +1320,8 @@ $('sheetBody').addEventListener('click', e => {
 
   if (a === 'view') return openLightbox(+el.dataset.i);
   if (a === 'join') return joinEdit();
+  if (a === 'play') return openGame();
+  if (a === 'draw') return drawTrip();
   if (a === 'logout') return logout();
   if (a === 'memPicks'){ state.memPicks = state.memPicks === id ? null : id; renderSheet(); return; }
   if (a === 'pickMem') return togglePick(code, el.dataset.cat, { memory_id: id });
@@ -1147,7 +1425,7 @@ function joinEdit(){
   enterEdit(); toast(`Mode édition activé${state.user.prenom ? ` — ${state.user.prenom}` : ''}`);
 }
 async function logout(){
-  await Store.logout(); await refreshUser(); setAdmin(false); renderLbPicks();
+  await Store.logout(); await refreshUser(); setAdmin(false); renderLbPicks(); if (gameOpen()) closeGame(false);
   toast('Déconnecté — à bientôt 💕');
 }
 let pending = null;
@@ -1167,9 +1445,10 @@ $('codeForm').addEventListener('submit', async e => {
   $('codeModal').classList.remove('show'); $('codeInput').value = '';
   const p = pending; pending = null;
   if (p?.type === 'edit') enterEdit(); else { lsSet(EDIT, '0'); setAdmin(false); }
+  if (p?.type === 'game') openGame();
   toast(`Bienvenue${state.user.prenom ? ' ' + state.user.prenom : ''} 💕`);
   if (state.mode) renderSheet();
-  renderLbPicks(); checkMatches();
+  renderLbPicks(); checkMatches(); checkWishMatches();
   if (p?.type === 'pick') togglePick(p.code, p.cat, p.target);
 });
 if (!REMOTE){
@@ -1177,7 +1456,8 @@ if (!REMOTE){
   $('demoWho').addEventListener('click', async e => {
     const b = e.target.closest('[data-who]'); if (!b) return;
     LocalStore.setWho(b.dataset.who); await refreshUser();
-    setAdmin(isMember() && lsGet(EDIT) !== '0'); renderLbPicks(); checkMatches();
+    setAdmin(isMember() && lsGet(EDIT) !== '0'); renderLbPicks(); checkMatches(); checkWishMatches();
+    if (gameOpen()){ if (isMember()){ game.history = []; renderGame(); } else closeGame(false); }
   });
 }
 function openLogin(){
@@ -1201,7 +1481,7 @@ $('loginForm').addEventListener('submit', async e => {
   if (!isMember()){ await Store.logout(); await refreshUser(); $('loginErr').textContent = 'Ce compte ne fait pas partie de nos deux téléphones.'; return; }
   $('loginModal').classList.remove('show'); $('loginPw').value = '';
   enterEdit(); toast('Mode édition activé — touche un pays pour le modifier');
-  renderLbPicks(); checkMatches();
+  renderLbPicks(); checkMatches(); checkWishMatches();
 });
 // « Quitter » sort du mode édition sans déconnecter : les choix du palmarès restent possibles,
 // et « ➕ Ajouter nos souvenirs » rouvre l'édition sans redemander le code
@@ -1210,7 +1490,7 @@ $('logoutBtn').addEventListener('click', () => { lsSet(EDIT, '0'); setAdmin(fals
 /* =========================================================
    ÉCRAN D'ACCUEIL
    ========================================================= */
-[$('welcome'), $('letter'), $('sky')].forEach(function stars(w){
+[$('welcome'), $('letter'), $('sky'), $('game')].forEach(function stars(w){
   for (let i = 0; i < 70; i++){
     const s = document.createElement('i'); s.className = 'star';
     s.style.left = Math.random() * 100 + '%'; s.style.top = Math.random() * 100 + '%';
@@ -1239,8 +1519,12 @@ $('letterBtn').addEventListener('click', hideLetter);
   if (adminHash){ $('welcome').remove(); history.replaceState(null, '', location.pathname + location.search); }
 
   const dataP = Store.load().then(ingest).catch(e => { console.error(e); toast('Impossible de charger les souvenirs. Vérifie la connexion internet.', 5000); });
-  const peopleP = Promise.all([Store.loadMembers().catch(() => null), PALMARES_ACTIF ? Store.loadPicks().catch(() => null) : null])
-    .then(([m, p]) => { state.members = m; state.picks = p || []; state.palmares = PALMARES_ACTIF && Array.isArray(p); });
+  const peopleP = Promise.all([Store.loadMembers().catch(() => null), PALMARES_ACTIF ? Store.loadPicks().catch(() => null) : null,
+                               DESTINATIONS_ACTIF ? Store.loadWishes().catch(() => null) : null])
+    .then(([m, p, w]) => {
+      state.members = m; state.picks = p || []; state.palmares = PALMARES_ACTIF && Array.isArray(p);
+      state.wishes = w || []; state.destinations = DESTINATIONS_ACTIF && Array.isArray(w);   // table absente : fonctionnalité cachée
+    });
 
   try {
     const geo = splitTerritories(await loadGeo());
@@ -1250,6 +1534,8 @@ $('letterBtn').addEventListener('click', hideLetter);
       state.names[code] = NOMS[code] || p.NAME_FR || p.NAME;
       state.iso2[code] = (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : p.ISO_A2;
       if (CONTINENTS[p.CONTINENT]) state.continent[code] = CONTINENTS[p.CONTINENT];
+      // Continent pour le jeu des envies : les îles « en pleine mer » (Maldives, Seychelles…) prennent leur région
+      state.region[code] = CONTINENTS[p.CONTINENT] || CONTINENTS[p.REGION_UN] || (p.REGION_UN === 'Americas' ? 'Amérique du Sud' : '');
     });
     await startMap(geo);
     $('mapLoading').remove();
@@ -1263,15 +1549,16 @@ $('letterBtn').addEventListener('click', hideLetter);
   if (isMember() && (adminHash || lsGet(EDIT) !== '0')){ if (adminHash) lsSet(EDIT, '1'); setAdmin(true); }
   refreshMap(); updateCount();
   if (adminHash && !isMember()) openLogin();
-  checkMatches(); listenPicks();
+  checkMatches(); checkWishMatches(); listenPicks();
 })();
 
 // Temps réel : quand l'autre fait un choix pendant que l'app est ouverte
 function listenPicks(){
-  if (!REMOTE || !state.palmares) return;
-  let t;
+  if (!REMOTE || (!state.palmares && !state.destinations)) return;
+  let t, tw;
   try {
-    db.channel('palmares').on('postgres_changes', { event: '*', schema: 'public', table: 'picks' }, () => {
+    const ch = db.channel('palmares');
+    if (state.palmares) ch.on('postgres_changes', { event: '*', schema: 'public', table: 'picks' }, () => {
       clearTimeout(t);
       t = setTimeout(async () => {
         const p = await Store.loadPicks(); if (!p) return;
@@ -1280,7 +1567,18 @@ function listenPicks(){
         if (state.mode === 'country' && !typing) renderSheet();
         renderLbPicks(); checkMatches();
       }, 400);
-    }).subscribe();
+    });
+    if (state.destinations) ch.on('postgres_changes', { event: '*', schema: 'public', table: 'wishes' }, () => {
+      clearTimeout(tw);
+      tw = setTimeout(async () => {
+        const w = await Store.loadWishes(); if (!w) return;
+        state.wishes = w;
+        const typing = document.activeElement?.closest?.('#sheet') && /INPUT|TEXTAREA/.test(document.activeElement.tagName);
+        if (state.mode === 'list' && !typing) renderSheet();
+        checkWishMatches();
+      }, 400);
+    });
+    ch.subscribe();
   } catch {}
 }
 

@@ -103,6 +103,7 @@ with sync_playwright() as p:
     pg.click("#openGift"); pg.wait_for_timeout(3600); pg.click("#letterBtn"); pg.wait_for_timeout(1500)
     check("visiteur : pas de sélecteur de démo", not pg.locator("#demoWho").is_visible())
     pg.click("#listBtn"); pg.wait_for_timeout(400)
+    check("table « wishes » absente (migration 003 pas lancée) : aucune trace des envies, aucun message", pg.locator(".envies").count() == 0 and not pg.locator("#toast.show").count())
     check("liste : « ➕ Ajouter nos souvenirs » pour le visiteur", pg.locator("[data-action=join]").count() == 1 and pg.locator("[data-action=logout]").count() == 0)
     pg.fill("#search", "portugal"); pg.click("#listBody .list-item:has-text('Portugal')"); pg.wait_for_timeout(1800)
     t = pg.inner_text(".pal")
@@ -133,7 +134,7 @@ with sync_playwright() as p:
     check("➕ : mode édition sans redemander le code", pg.locator("body.admin").count() == 1 and pg.locator("#codeModal.show").count() == 0)
     pg.context.close()
     b.close()
-attendues = [e for e in errs if "400" in e]
+attendues = [e for e in errs if "400" in e or "404" in e]
 print("Erreurs console :", *(errs or ["aucune"]), sep="\n  ")
-print(f"(dont {len(attendues)} attendue(s) : la réponse 400 du serveur au mauvais code)")
+print(f"(dont {len(attendues)} attendue(s) : 400 = mauvais code ; 404 = table « wishes » volontairement absente)")
 print(f"{sum(results)}/{len(results)} vérifications réussies")

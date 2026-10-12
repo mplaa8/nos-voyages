@@ -51,10 +51,17 @@ Sur l'iPhone de ta femme : Safari → l'adresse → **Partager → Sur l'écran 
 Pour une base installée avant octobre 2026 (sinon, rien à faire : `setup.sql` contient déjà tout).
 1. **Authentication → Users → Add user → Create new user** : l'adresse fictive de Roxane (`CONFIG.ROXANE_EMAIL`, par défaut `roxane@nos-voyages.fr`), **le code secret comme mot de passe** (au moins 6 caractères), **Auto Confirm User** coché.
 2. **SQL Editor → New query** : colle tout `migration-002-palmares.sql`, remplace `EMAIL-DE-MAXIME` (ton adresse de connexion, telle qu'elle apparaît dans Authentication → Users) et `EMAIL-DE-ROXANE` (l'adresse fictive), puis **Run**. Attendu : « Success ». Si un message rouge dit qu'un compte est introuvable, **rien n'a été modifié** : corrige l'adresse et relance. Le script peut être relancé sans risque.
-3. **Vérifier les droits** : SQL Editor → New query → colle `verification-droits.sql` → **Run**. Si Supabase affiche « Potential issue detected », clique sur **Run without RLS** (le tableau `verif` est temporaire et disparaît aussitôt ; « Run and enable RLS » ferait échouer la vérification). Un petit tableau s'affiche : les 4 lignes doivent commencer par ✅ (un visiteur ne peut rien écrire, Maxime et Roxane peuvent tout faire). Ce script ne modifie rien.
+3. **Vérifier les droits** : SQL Editor → New query → colle `verification-droits.sql` → **Run**. Si Supabase affiche « Potential issue detected », clique sur **Run without RLS** (le tableau `verif` est temporaire et disparaît aussitôt ; « Run and enable RLS » ferait échouer la vérification). Un petit tableau s'affiche : chaque ligne doit commencer par ✅ (une ligne ⚠️ « table absente » signifie seulement qu'une migration plus récente n'a pas encore été lancée) (un visiteur ne peut rien écrire, Maxime et Roxane peuvent tout faire). Ce script ne modifie rien.
 4. **Sur ton iPhone** : vérifie que tu peux toujours modifier un pays. Puis, **en navigation privée** (jamais sur l'iPhone de Roxane avant le jour J) : ouvre la carte, un pays, touche « ➕ Ajouter nos souvenirs », entre le code secret, ajoute une photo de test, supprime-la, puis ☰ → **Se déconnecter**.
 
 Dans l'app : « Quitter » sort du mode édition sans déconnecter (les choix du palmarès restent possibles) ; « Se déconnecter » se trouve en bas de la liste ☰. Pour masquer le palmarès sans toucher à la base : `PALMARES_ACTIF = false` dans `index.html`.
+
+## Mise à jour du 12 octobre 2026 : nos envies de voyage (migration 003)
+Pour une base installée avant cette date (sinon, rien à faire : `setup.sql` contient déjà tout).
+1. **SQL Editor → New query** : colle tout `migration-003-destinations.sql` (rien à remplacer), puis **Run**. Attendu : « Success ». Elle ne touche à rien d'existant et peut être relancée sans risque.
+2. **Vérifier les droits** : relance `verification-droits.sql` (si Supabase affiche « Potential issue detected », clique sur **Run without RLS**). Les 6 lignes doivent commencer par ✅.
+
+Dans l'app : ☰ → « 💞 Nos envies de voyage » → **Jouer**. Pour masquer le jeu sans toucher à la base : `DESTINATIONS_ACTIF = false` dans `index.html`.
 
 ## En cas de souci : revenir à la version du jour J (`v1.0-anniversaire`)
 La version vérifiée avant l'anniversaire est mise de côté sous le nom **`v1.0-anniversaire`**. Si une évolution future pose problème, on peut y revenir à tout moment.
