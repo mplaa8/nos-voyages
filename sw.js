@@ -1,5 +1,5 @@
 // Service worker : app utilisable rapidement, carte mise en cache
-const CACHE = 'nos-voyages-v10';
+const CACHE = 'nos-voyages-v11';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png'];
 
 self.addEventListener('install', e => {

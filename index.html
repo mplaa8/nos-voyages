@@ -1081,8 +1081,27 @@ function silhouette(code){
 /* ---------- Photos de présentation (Wikimedia, gratuit, sans clé, lectures publiques uniquement) ----------
    Repli permanent sur la silhouette : rien n'est affiché tant que la 1re photo n'est pas chargée, et rien après 4 s. */
 const WIKIDATA_TERRITOIRES = { GUF: 'Q3769', GLP: 'Q17012', MTQ: 'Q17054', REU: 'Q17070', MYT: 'Q17063', BES: 'Q27561', SJM: 'Q25231' };
-const PHOTO_EXCLUS = /flag|drapeau|map|carte|locator|location|orthographic|coat|blason|armoiries|emblem|logo|seal|sceau|graph|chart|diagram|population|portrait|president|signature/;
-const PHOTOS_KEY = 'nos-voyages-photos-v2';   // v2 : monuments et paysages (UNESCO, Wikivoyage)
+/* Règle absolue : uniquement des paysages et des monuments. En cas de doute, la photo n'est pas affichée (silhouette).
+   Mots interdits, comparés en mots entiers (séparateurs : espace _ - . ( ) , |), sans casse ni accents, pluriels compris. */
+const MOTS_FICHIER = ['flag', 'drapeau', 'map', 'carte', 'plan', 'locator', 'location', 'orthographic', 'coat', 'blason', 'armoiries', 'emblem', 'embleme',
+  'logo', 'seal', 'sceau', 'graph', 'chart', 'diagram', 'population', 'portrait', 'president', 'minister', 'ministre', 'king', 'queen', 'roi', 'reine',
+  'prince', 'princess', 'princesse', 'signature', 'signing', 'meeting', 'visit', 'visite', 'ceremony', 'ceremonie', 'stamp', 'timbre', 'coin', 'piece',
+  'monnaie', 'banknote', 'billet', 'poster', 'affiche', 'cover', 'couverture', 'ticket', 'postcard', 'carte postale'];
+const MOTS_CATEGORIE = ['stamps', 'timbres', 'coins', 'banknotes', 'currency', 'posters', 'people', 'persons', 'portraits', 'politicians', 'presidents',
+  'men', 'women', 'children', 'logos', 'maps', 'flags', 'coats of arms', 'emblems', 'documents', 'books', 'paintings', 'drawings', 'illustrations', 'artworks'];
+const MOTS_SAUF_BANNIERE = { fichier: ['statue'], categorie: ['sculptures', 'statues', 'interiors'] };   // tolérés seulement sur la bannière
+const motsDe = t => norm(t).split(/[\s_\-.(),|]+/).filter(Boolean);
+const memeMot = (tok, w) => tok === w || tok === w + 's' || tok === w + 'x' || (w.endsWith('s') && tok === w.slice(0, -1));
+const contientMot = (texte, liste) => { const toks = motsDe(texte); return liste.some(w => { const ws = w.split(' '); return toks.some((_, i) => ws.every((x, k) => toks[i + k] && memeMot(toks[i + k], x))); }); };
+const fichierValide = (f, banniere) => /\.jpe?g$/i.test(f) && !contientMot(f.replace(/\.jpe?g$/i, ''), banniere ? MOTS_FICHIER : MOTS_FICHIER.concat(MOTS_SAUF_BANNIERE.fichier));
+function photoValide(ii, banniere){
+  if (!ii || !/^https:\/\/upload\.wikimedia\.org\//.test(ii.thumburl || '')) return false;
+  if (!banniere && !(ii.width >= 1200 && ii.height > 0 && ii.width / ii.height >= 1.3)) return false;   // paysage, assez grande
+  const cats = ii.extmetadata?.Categories?.value;
+  if (typeof cats !== 'string' || !cats.trim()) return false;                                            // catégories illisibles : rejet
+  return !contientMot(cats, banniere ? MOTS_CATEGORIE : MOTS_CATEGORIE.concat(MOTS_SAUF_BANNIERE.categorie));
+}
+const PHOTOS_KEY = 'nos-voyages-photos-v3';   // v3 : bannière + UNESCO seulement, filtres stricts (oublie les anciennes listes)
 const photoMem = new Map(), photoOk = new Set();      // requêtes de la session ; images déjà chargées
 let photoStore = {};
 try { photoStore = JSON.parse(lsGet(PHOTOS_KEY)) || {}; } catch {}
@@ -1095,36 +1114,32 @@ const sparqlUnesco = (q, terr) => `SELECT ?img ?l WHERE { ?s wdt:P1435 wd:Q9259;
 const legende = t => { t = texteBrut(t); return !t || /^Q\d+$/.test(t) ? '' : t.length > 34 ? t.slice(0, 32).trim() + '…' : t; };
 async function fetchPhotos(code){
   const q = state.wikidata[code]; if (!/^Q\d+$/.test(q || '')) return [];
-  const W = 'https://www.wikidata.org/w/api.php?format=json&origin=*';
   const terr = Object.values(WIKIDATA_TERRITOIRES).includes(q);
-  const [cl, sl, sites] = await Promise.all([
-    getJSON(`${W}&action=wbgetclaims&entity=${q}&property=P948`).catch(() => null),                                  // bannière Wikivoyage
-    getJSON(`${W}&action=wbgetentities&ids=${q}&props=sitelinks&sitefilter=frwikivoyage%7Cenwikivoyage`).catch(() => null), // article Wikivoyage
+  // Deux sources seulement : la bannière Wikivoyage (P948) et les sites du patrimoine mondial de l'UNESCO
+  const [cl, sites] = await Promise.all([
+    getJSON(`https://www.wikidata.org/w/api.php?format=json&origin=*&action=wbgetclaims&entity=${q}&property=P948`).catch(() => null),
     getJSON(`https://query.wikidata.org/sparql?format=json&query=${encodeURIComponent(sparqlUnesco(q, terr))}`).catch(() => null)
   ]);
   const banners = (cl?.claims?.P948 || []).filter(c => c.rank !== 'deprecated' && typeof c.mainsnak?.datavalue?.value === 'string')
     .sort((a, b) => (b.rank === 'preferred') - (a.rank === 'preferred'));
-  const files = banners.length ? [{ f: banners[0].mainsnak.datavalue.value, t: '' }] : [];
-  const ajoute = (f, t) => { if (files.length < 3 && /\.jpe?g$/i.test(f) && !PHOTO_EXCLUS.test(norm(f)) && !files.some(x => fileKey(x.f) === fileKey(f))) files.push({ f, t: legende(t) }); };
-  // 1) Monuments et paysages classés à l'UNESCO
-  (sites?.results?.bindings || []).forEach(r => {
-    const m = /\/Special:FilePath\/(.+)$/.exec(r.img?.value || ''); if (!m) return;
-    let f; try { f = decodeURIComponent(m[1]); } catch { return; }
-    if (files.length < 3 && !files.some(x => x.t && x.t === legende(r.l?.value))) ajoute(f, r.l?.value);   // un seul cliché par site
-  });
-  // 2) Sinon, les photos choisies par les voyageurs de Wikivoyage (français, puis anglais)
-  const wv = ['frwikivoyage', 'enwikivoyage'].map(k => [k.slice(0, 2), sl?.entities?.[q]?.sitelinks?.[k]?.title]).find(([, t]) => t);
-  if (files.length < 3 && wv){
-    const ml = await getJSON(`https://${wv[0]}.wikivoyage.org/api/rest_v1/page/media-list/${encodeURIComponent(wv[1].replace(/ /g, '_'))}`).catch(() => null);
-    (ml?.items || []).filter(it => it.type === 'image' && typeof it.title === 'string')
-      .forEach(it => ajoute(it.title.replace(/^[^:]+:/, ''), it.caption?.text));
+  const cand = [];          // candidats, dans l'ordre de préférence ; on en vérifie jusqu'à 13 pour en garder 3 au plus
+  const b = banners[0]?.mainsnak.datavalue.value;
+  if (b && fichierValide(b, true)) cand.push({ f: b, t: '', banniere: true });
+  const sitesVus = new Set();
+  for (const r of sites?.results?.bindings || []){
+    if (cand.length >= 13) break;
+    const m = /\/Special:FilePath\/(.+)$/.exec(r.img?.value || ''); if (!m) continue;
+    let f; try { f = decodeURIComponent(m[1]); } catch { continue; }
+    const t = legende(r.l?.value), site = r.l?.value || f;
+    if (sitesVus.has(site) || !fichierValide(f, false) || cand.some(x => fileKey(x.f) === fileKey(f))) continue;
+    sitesVus.add(site); cand.push({ f, t, banniere: false });                  // un seul cliché par site
   }
-  if (!files.length) return [];
-  const C = 'https://commons.wikimedia.org/w/api.php?format=json&origin=*&action=query&prop=imageinfo&iiprop=url%7Csize%7Cextmetadata&iiextmetadatafilter=Artist&iiurlwidth=960';
-  const info = await getJSON(`${C}&titles=${files.map(x => encodeURIComponent('File:' + x.f)).join('%7C')}`);
+  if (!cand.length) return [];
+  const C = 'https://commons.wikimedia.org/w/api.php?format=json&origin=*&action=query&prop=imageinfo&iiprop=url%7Csize%7Cextmetadata&iiextmetadatafilter=Artist%7CCategories&iiurlwidth=960';
+  const info = await getJSON(`${C}&titles=${cand.map(x => encodeURIComponent('File:' + x.f)).join('%7C')}`);
   const byKey = {};
-  Object.values(info?.query?.pages || {}).forEach(pg => { const ii = pg.imageinfo?.[0]; if (ii && /^https:\/\/upload\.wikimedia\.org\//.test(ii.thumburl || '')) byKey[fileKey(pg.title)] = ii; });
-  return files.map(x => [byKey[fileKey(x.f)], x.t]).filter(([ii]) => ii).map(([ii, t]) => {
+  Object.values(info?.query?.pages || {}).forEach(pg => { const ii = pg.imageinfo?.[0]; if (ii) byKey[fileKey(pg.title)] = ii; });
+  return cand.map(x => ({ ...x, ii: byKey[fileKey(x.f)] })).filter(x => photoValide(x.ii, x.banniere)).slice(0, 3).map(({ ii, t }) => {
     let a = texteBrut(ii.extmetadata?.Artist?.value);
     if (a.length > 42) a = a.slice(0, 40).trim() + '…';
     // Bannière panoramique (≈ 7:1) : en 960 px elle serait floue une fois recadrée → 1920 px, ou l'original s'il est plus petit

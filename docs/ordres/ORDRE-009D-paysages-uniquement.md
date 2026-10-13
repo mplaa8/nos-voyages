@@ -1,6 +1,6 @@
 # ORDRE-009D — Jeu des envies : des paysages et monuments, et rien d'autre
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait
 **Échéance stricte** : mardi 13 octobre 2026, **avant 18 h**, poussé **directement sur `main`** (gel du code ce soir, anniversaire demain)
 
 ## Constat (test de Maxime sur iPhone, 10 pays)
@@ -41,9 +41,32 @@ Repli silhouette après 4 s, interrupteur `PHOTOS_ENVIES`, gestes, préchargemen
 4. Si tout est bon : tag `v1.2-anniversaire` sur `main`.
 
 ## Critères de fin
-- [ ] Deux sources seulement, filtres 1 à 4 appliqués, rejet en cas de doute
-- [ ] Clé de mémoire `v3`, cache `v11`
-- [ ] Tests passés, captures dans `docs/captures/`, état du projet à jour
-- [ ] Commit et push **sur `main`** avant 18 h, résumé de 5 lignes
+- [x] Deux sources seulement, filtres 1 à 4 appliqués, rejet en cas de doute
+- [x] Clé de mémoire `v3`, cache `v11`
+- [x] Tests passés, captures dans `docs/captures/`, état du projet à jour
+- [x] Commit et push **sur `main`** avant 18 h, résumé de 5 lignes
 
 ## Compte rendu (à remplir par Claude Code)
+
+**Fait le 13 octobre 2026**, poussé sur `main`.
+
+**Sources** : deux seulement, interrogées en parallèle : la bannière Wikivoyage (Wikidata P948, rang « preferred » d'abord) et les sites UNESCO (même requête SPARQL que l'ORDRE-009C, un cliché par site, les plus célèbres d'abord). La requête `wbgetentities` (liens Wikivoyage) et les `media-list` Wikipédia/Wikivoyage sont **supprimées**. Rien de valide → silhouette.
+
+**Filtres** (`index.html`, juste avant `fetchPhotos`) :
+1. JPEG seulement (nom en `.jpg`/`.jpeg`).
+2. Hors bannière : largeur ≥ 1 200 px et largeur/hauteur ≥ 1,3 (taille demandée à Commons, `iiprop=url|size|extmetadata`).
+3. Nom de fichier : liste de l'ordre (`MOTS_FICHIER`), comparée **en mots entiers** (séparateurs espace `_ - . ( ) , |`), sans casse ni accents ; pluriels simples (`s`, `x`) compris ; « carte postale » reconnu comme expression. « statue » toléré sur la bannière seule.
+4. Catégories Commons (`iiextmetadatafilter=Artist|Categories`) : liste `MOTS_CATEGORIE`, mêmes règles ; « sculptures, statues, interiors » tolérés sur la bannière seule. **Catégories absentes ou vides → rejet**, y compris pour la bannière.
+5. Clé de mémoire `nos-voyages-photos-v3`, `CACHE` → `nos-voyages-v11`. Le reste (4 s, interrupteur, préchargement de la carte suivante, crédits, légendes, cache du service worker) est inchangé.
+
+**Tests** (webapp-testing, 390 × 844, Wikimedia **simulé**) : `tests/test_ordre009d_paysages.py` **22/22** :
+- 14 pièges tous rejetés : personnalité (catégories « Politicians/Presidents »), timbre (par le nom et par les catégories), pièce, billet, affiche, carte, drapeau, tableau, portrait vertical, photo carrée, catégories illisibles, photo trop petite, catégorie « Women » ;
+- « Cathédrale de Chartres », « Mapungubwe », « Cartagena » acceptés ; « Chartreuse », « Royan », « Château de Chambord » aussi ;
+- bannière seule → 1 photo sans barres ; rien de valide → silhouette sans message ; service lent, en erreur, bannière introuvable, `PHOTOS_ENVIES = false` : comportements inchangés ;
+- **0 requête** vers `media-list`, Wikipédia, Wikivoyage ou `wbgetentities` sur 66 requêtes comptées ; seulement la carte affichée et la suivante sont interrogées.
+
+Non-régression : ORDRES 002 (OK), 003 18/18, 004 18/18, 005 41/41, 006 47/47 + code secret 15/15, 009 36/36 (le test simule maintenant aussi le service SPARQL). Aucune erreur console hors erreurs volontaires (MapLibre absent, mauvais code, réponses 500/503/404 simulées). SQL inchangé.
+`tests/test_photos_paysages.py` (009C) et `tests/test_ordre009b_photos.py` (009B) décrivaient les anciennes sources : remplacés par le nouveau test. Captures : `docs/captures/009d-*.png`.
+
+**Limite connue** : une photo de paysage dont les catégories mentionnent des personnes (« People at… ») ou un pays sans site UNESCO ni bannière valides affichera la silhouette. C'est voulu (règle « en cas de doute, on n'affiche pas »).
+
