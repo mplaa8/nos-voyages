@@ -1,0 +1,4677 @@
+{
+ "ALB": {
+  "pays": "Albanie",
+  "lieux": [
+   {
+    "nom_fr": "Butrint",
+    "type": "culture",
+    "wiki_en": "Butrint"
+   },
+   {
+    "nom_fr": "Œil Bleu",
+    "type": "paysage",
+    "wiki_en": "Blue Eye, Albania"
+   },
+   {
+    "nom_fr": "Château de Berat",
+    "type": "culture",
+    "wiki_en": "Berat Castle"
+   }
+  ]
+ },
+ "AND": {
+  "pays": "Andorre",
+  "lieux": [
+   {
+    "nom_fr": "Vallée du Madriu",
+    "type": "paysage",
+    "wiki_en": "Madriu-Perafita-Claror Valley"
+   },
+   {
+    "nom_fr": "Casa de la Vall",
+    "type": "culture",
+    "wiki_en": "Casa de la Vall"
+   },
+   {
+    "nom_fr": "Sant Joan de Caselles",
+    "type": "culture",
+    "wiki_en": "Sant Joan de Caselles"
+   }
+  ]
+ },
+ "AUT": {
+  "pays": "Autriche",
+  "lieux": [
+   {
+    "nom_fr": "Hallstatt",
+    "type": "culture",
+    "wiki_en": "Hallstatt"
+   },
+   {
+    "nom_fr": "Château de Schönbrunn",
+    "type": "culture",
+    "wiki_en": "Schönbrunn Palace"
+   },
+   {
+    "nom_fr": "Grossglockner",
+    "type": "paysage",
+    "wiki_en": "Grossglockner"
+   }
+  ]
+ },
+ "BLR": {
+  "pays": "Biélorussie",
+  "lieux": [
+   {
+    "nom_fr": "Château de Mir",
+    "type": "culture",
+    "wiki_en": "Mir Castle Complex"
+   },
+   {
+    "nom_fr": "Château de Niasvij",
+    "type": "culture",
+    "wiki_en": "Nesvizh Castle"
+   },
+   {
+    "nom_fr": "Forêt de Białowieża",
+    "type": "paysage",
+    "wiki_en": "Belovezhskaya Pushcha National Park"
+   }
+  ]
+ },
+ "BEL": {
+  "pays": "Belgique",
+  "lieux": [
+   {
+    "nom_fr": "Grand-Place de Bruxelles",
+    "type": "culture",
+    "wiki_en": "Grand-Place"
+   },
+   {
+    "nom_fr": "Beffroi de Bruges",
+    "type": "culture",
+    "wiki_en": "Belfry of Bruges"
+   },
+   {
+    "nom_fr": "Hautes Fagnes",
+    "type": "paysage",
+    "wiki_en": "High Fens"
+   }
+  ]
+ },
+ "BIH": {
+  "pays": "Bosnie-Herzégovine",
+  "lieux": [
+   {
+    "nom_fr": "Vieux pont de Mostar",
+    "type": "culture",
+    "wiki_en": "Stari Most"
+   },
+   {
+    "nom_fr": "Cascades de Kravica",
+    "type": "paysage",
+    "wiki_en": "Kravica (waterfall)"
+   },
+   {
+    "nom_fr": "Parc national de Sutjeska",
+    "type": "paysage",
+    "wiki_en": "Sutjeska National Park"
+   }
+  ]
+ },
+ "BGR": {
+  "pays": "Bulgarie",
+  "lieux": [
+   {
+    "nom_fr": "Monastère de Rila",
+    "type": "culture",
+    "wiki_en": "Rila Monastery"
+   },
+   {
+    "nom_fr": "Cathédrale Alexandre-Nevski",
+    "type": "culture",
+    "wiki_en": "Alexander Nevsky Cathedral, Sofia"
+   },
+   {
+    "nom_fr": "Les Sept lacs de Rila",
+    "type": "paysage",
+    "wiki_en": "Seven Rila Lakes"
+   }
+  ]
+ },
+ "HRV": {
+  "pays": "Croatie",
+  "lieux": [
+   {
+    "nom_fr": "Lacs de Plitvice",
+    "type": "paysage",
+    "wiki_en": "Plitvice Lakes National Park"
+   },
+   {
+    "nom_fr": "Remparts de Dubrovnik",
+    "type": "culture",
+    "wiki_en": "Walls of Dubrovnik"
+   },
+   {
+    "nom_fr": "Palais de Dioclétien",
+    "type": "culture",
+    "wiki_en": "Diocletian's Palace"
+   }
+  ]
+ },
+ "CYP": {
+  "pays": "Chypre",
+  "lieux": [
+   {
+    "nom_fr": "Rocher d'Aphrodite",
+    "type": "paysage",
+    "wiki_en": "Petra tou Romiou"
+   },
+   {
+    "nom_fr": "Kourion",
+    "type": "culture",
+    "wiki_en": "Kourion"
+   },
+   {
+    "nom_fr": "Cap Gréco",
+    "type": "paysage",
+    "wiki_en": "Cape Greco"
+   }
+  ]
+ },
+ "CZE": {
+  "pays": "Tchéquie",
+  "lieux": [
+   {
+    "nom_fr": "Pont Charles",
+    "type": "culture",
+    "wiki_en": "Charles Bridge"
+   },
+   {
+    "nom_fr": "Château de Prague",
+    "type": "culture",
+    "wiki_en": "Prague Castle"
+   },
+   {
+    "nom_fr": "Suisse bohémienne",
+    "type": "paysage",
+    "wiki_en": "Bohemian Switzerland National Park"
+   }
+  ]
+ },
+ "DNK": {
+  "pays": "Danemark",
+  "lieux": [
+   {
+    "nom_fr": "Château de Kronborg",
+    "type": "culture",
+    "wiki_en": "Kronborg"
+   },
+   {
+    "nom_fr": "Nyhavn",
+    "type": "culture",
+    "wiki_en": "Nyhavn"
+   },
+   {
+    "nom_fr": "Falaises de Møns Klint",
+    "type": "paysage",
+    "wiki_en": "Møns Klint"
+   }
+  ]
+ },
+ "EST": {
+  "pays": "Estonie",
+  "lieux": [
+   {
+    "nom_fr": "Vieille ville de Tallinn",
+    "type": "culture",
+    "wiki_en": "Tallinn Old Town"
+   },
+   {
+    "nom_fr": "Palais de Kadriorg",
+    "type": "culture",
+    "wiki_en": "Kadriorg Palace"
+   },
+   {
+    "nom_fr": "Parc national de Lahemaa",
+    "type": "paysage",
+    "wiki_en": "Lahemaa National Park"
+   }
+  ]
+ },
+ "FIN": {
+  "pays": "Finlande",
+  "lieux": [
+   {
+    "nom_fr": "Forteresse de Suomenlinna",
+    "type": "culture",
+    "wiki_en": "Suomenlinna"
+   },
+   {
+    "nom_fr": "Parc national de Koli",
+    "type": "paysage",
+    "wiki_en": "Koli National Park"
+   },
+   {
+    "nom_fr": "Cathédrale d'Helsinki",
+    "type": "culture",
+    "wiki_en": "Helsinki Cathedral"
+   }
+  ]
+ },
+ "FRA": {
+  "pays": "France",
+  "lieux": [
+   {
+    "nom_fr": "Mont-Saint-Michel",
+    "type": "culture",
+    "wiki_en": "Mont-Saint-Michel"
+   },
+   {
+    "nom_fr": "Gorges du Verdon",
+    "type": "paysage",
+    "wiki_en": "Verdon Gorge"
+   },
+   {
+    "nom_fr": "Tour Eiffel",
+    "type": "culture",
+    "wiki_en": "Eiffel Tower"
+   }
+  ]
+ },
+ "DEU": {
+  "pays": "Allemagne",
+  "lieux": [
+   {
+    "nom_fr": "Château de Neuschwanstein",
+    "type": "culture",
+    "wiki_en": "Neuschwanstein Castle"
+   },
+   {
+    "nom_fr": "Cathédrale de Cologne",
+    "type": "culture",
+    "wiki_en": "Cologne Cathedral"
+   },
+   {
+    "nom_fr": "Lac de Königssee",
+    "type": "paysage",
+    "wiki_en": "Königssee"
+   }
+  ]
+ },
+ "GRC": {
+  "pays": "Grèce",
+  "lieux": [
+   {
+    "nom_fr": "Acropole d'Athènes",
+    "type": "culture",
+    "wiki_en": "Acropolis of Athens"
+   },
+   {
+    "nom_fr": "Météores",
+    "type": "culture",
+    "wiki_en": "Meteora"
+   },
+   {
+    "nom_fr": "Plage de Navagio",
+    "type": "paysage",
+    "wiki_en": "Navagio"
+   }
+  ]
+ },
+ "HUN": {
+  "pays": "Hongrie",
+  "lieux": [
+   {
+    "nom_fr": "Parlement de Budapest",
+    "type": "culture",
+    "wiki_en": "Hungarian Parliament Building"
+   },
+   {
+    "nom_fr": "Bastion des Pêcheurs",
+    "type": "culture",
+    "wiki_en": "Fisherman's Bastion"
+   },
+   {
+    "nom_fr": "Lac Balaton",
+    "type": "paysage",
+    "wiki_en": "Lake Balaton"
+   }
+  ]
+ },
+ "ISL": {
+  "pays": "Islande",
+  "lieux": [
+   {
+    "nom_fr": "Chutes de Gullfoss",
+    "type": "paysage",
+    "wiki_en": "Gullfoss"
+   },
+   {
+    "nom_fr": "Lagune de Jökulsárlón",
+    "type": "paysage",
+    "wiki_en": "Jökulsárlón"
+   },
+   {
+    "nom_fr": "Hallgrímskirkja",
+    "type": "culture",
+    "wiki_en": "Hallgrímskirkja"
+   }
+  ]
+ },
+ "IRL": {
+  "pays": "Irlande",
+  "lieux": [
+   {
+    "nom_fr": "Falaises de Moher",
+    "type": "paysage",
+    "wiki_en": "Cliffs of Moher"
+   },
+   {
+    "nom_fr": "Skellig Michael",
+    "type": "culture",
+    "wiki_en": "Skellig Michael"
+   },
+   {
+    "nom_fr": "Rocher de Cashel",
+    "type": "culture",
+    "wiki_en": "Rock of Cashel"
+   }
+  ]
+ },
+ "ITA": {
+  "pays": "Italie",
+  "lieux": [
+   {
+    "nom_fr": "Colisée",
+    "type": "culture",
+    "wiki_en": "Colosseum"
+   },
+   {
+    "nom_fr": "Tour de Pise",
+    "type": "culture",
+    "wiki_en": "Leaning Tower of Pisa"
+   },
+   {
+    "nom_fr": "Dolomites",
+    "type": "paysage",
+    "wiki_en": "Dolomites"
+   }
+  ]
+ },
+ "KOS": {
+  "pays": "Kosovo",
+  "lieux": [
+   {
+    "nom_fr": "Monastère de Visoki Dečani",
+    "type": "culture",
+    "wiki_en": "Visoki Dečani"
+   },
+   {
+    "nom_fr": "Gorges de Rugova",
+    "type": "paysage",
+    "wiki_en": "Rugova Canyon"
+   },
+   {
+    "nom_fr": "Forteresse de Prizren",
+    "type": "culture",
+    "wiki_en": "Prizren Fortress"
+   }
+  ]
+ },
+ "LVA": {
+  "pays": "Lettonie",
+  "lieux": [
+   {
+    "nom_fr": "Maison des Têtes noires",
+    "type": "culture",
+    "wiki_en": "House of the Blackheads (Riga)"
+   },
+   {
+    "nom_fr": "Palais de Rundāle",
+    "type": "culture",
+    "wiki_en": "Rundāle Palace"
+   },
+   {
+    "nom_fr": "Parc national de la Gauja",
+    "type": "paysage",
+    "wiki_en": "Gauja National Park"
+   }
+  ]
+ },
+ "LIE": {
+  "pays": "Liechtenstein",
+  "lieux": [
+   {
+    "nom_fr": "Château de Vaduz",
+    "type": "culture",
+    "wiki_en": "Vaduz Castle"
+   },
+   {
+    "nom_fr": "Château de Gutenberg",
+    "type": "culture",
+    "wiki_en": "Gutenberg Castle"
+   },
+   {
+    "nom_fr": "Cathédrale de Vaduz",
+    "type": "culture",
+    "wiki_en": "Vaduz Cathedral"
+   }
+  ]
+ },
+ "LTU": {
+  "pays": "Lituanie",
+  "lieux": [
+   {
+    "nom_fr": "Château de Trakai",
+    "type": "culture",
+    "wiki_en": "Trakai Island Castle"
+   },
+   {
+    "nom_fr": "Isthme de Courlande",
+    "type": "paysage",
+    "wiki_en": "Curonian Spit"
+   },
+   {
+    "nom_fr": "Cathédrale de Vilnius",
+    "type": "culture",
+    "wiki_en": "Vilnius Cathedral"
+   }
+  ]
+ },
+ "LUX": {
+  "pays": "Luxembourg",
+  "lieux": [
+   {
+    "nom_fr": "Château de Vianden",
+    "type": "culture",
+    "wiki_en": "Vianden Castle"
+   },
+   {
+    "nom_fr": "Mullerthal",
+    "type": "paysage",
+    "wiki_en": "Little Switzerland (Luxembourg)"
+   },
+   {
+    "nom_fr": "Pont Adolphe",
+    "type": "culture",
+    "wiki_en": "Adolphe Bridge"
+   }
+  ]
+ },
+ "MLT": {
+  "pays": "Malte",
+  "lieux": [
+   {
+    "nom_fr": "Mdina",
+    "type": "culture",
+    "wiki_en": "Mdina"
+   },
+   {
+    "nom_fr": "Grotte Bleue",
+    "type": "paysage",
+    "wiki_en": "Blue Grotto (Malta)"
+   },
+   {
+    "nom_fr": "Temple de Ħaġar Qim",
+    "type": "culture",
+    "wiki_en": "Ħaġar Qim"
+   }
+  ]
+ },
+ "MDA": {
+  "pays": "Moldavie",
+  "lieux": [
+   {
+    "nom_fr": "Orheiul Vechi",
+    "type": "paysage",
+    "wiki_en": "Old Orhei"
+   },
+   {
+    "nom_fr": "Forteresse de Soroca",
+    "type": "culture",
+    "wiki_en": "Soroca Fort"
+   },
+   {
+    "nom_fr": "Monastère de Căpriana",
+    "type": "culture",
+    "wiki_en": "Căpriana monastery"
+   }
+  ]
+ },
+ "MCO": {
+  "pays": "Monaco",
+  "lieux": [
+   {
+    "nom_fr": "Casino de Monte-Carlo",
+    "type": "culture",
+    "wiki_en": "Monte Carlo Casino"
+   },
+   {
+    "nom_fr": "Palais princier de Monaco",
+    "type": "culture",
+    "wiki_en": "Prince's Palace of Monaco"
+   },
+   {
+    "nom_fr": "Cathédrale de Monaco",
+    "type": "culture",
+    "wiki_en": "Monaco Cathedral"
+   }
+  ]
+ },
+ "MNE": {
+  "pays": "Monténégro",
+  "lieux": [
+   {
+    "nom_fr": "Bouches de Kotor",
+    "type": "paysage",
+    "wiki_en": "Bay of Kotor"
+   },
+   {
+    "nom_fr": "Sveti Stefan",
+    "type": "culture",
+    "wiki_en": "Sveti Stefan"
+   },
+   {
+    "nom_fr": "Parc national du Durmitor",
+    "type": "paysage",
+    "wiki_en": "Durmitor National Park"
+   }
+  ]
+ },
+ "NLD": {
+  "pays": "Pays-Bas",
+  "lieux": [
+   {
+    "nom_fr": "Canaux d'Amsterdam",
+    "type": "culture",
+    "wiki_en": "Canals of Amsterdam"
+   },
+   {
+    "nom_fr": "Moulins de Kinderdijk",
+    "type": "culture",
+    "wiki_en": "Kinderdijk"
+   },
+   {
+    "nom_fr": "Parc de la Haute-Veluwe",
+    "type": "paysage",
+    "wiki_en": "Hoge Veluwe National Park"
+   }
+  ]
+ },
+ "MKD": {
+  "pays": "Macédoine du Nord",
+  "lieux": [
+   {
+    "nom_fr": "Lac d'Ohrid",
+    "type": "paysage",
+    "wiki_en": "Lake Ohrid"
+   },
+   {
+    "nom_fr": "Église Saint-Jean de Kaneo",
+    "type": "culture",
+    "wiki_en": "Church of St. John at Kaneo"
+   },
+   {
+    "nom_fr": "Canyon de Matka",
+    "type": "paysage",
+    "wiki_en": "Matka Canyon"
+   }
+  ]
+ },
+ "NOR": {
+  "pays": "Norvège",
+  "lieux": [
+   {
+    "nom_fr": "Geirangerfjord",
+    "type": "paysage",
+    "wiki_en": "Geirangerfjord"
+   },
+   {
+    "nom_fr": "Preikestolen",
+    "type": "paysage",
+    "wiki_en": "Preikestolen"
+   },
+   {
+    "nom_fr": "Bryggen à Bergen",
+    "type": "culture",
+    "wiki_en": "Bryggen"
+   }
+  ]
+ },
+ "POL": {
+  "pays": "Pologne",
+  "lieux": [
+   {
+    "nom_fr": "Château du Wawel",
+    "type": "culture",
+    "wiki_en": "Wawel Castle"
+   },
+   {
+    "nom_fr": "Château de Malbork",
+    "type": "culture",
+    "wiki_en": "Malbork Castle"
+   },
+   {
+    "nom_fr": "Lac Morskie Oko",
+    "type": "paysage",
+    "wiki_en": "Morskie Oko"
+   }
+  ]
+ },
+ "PRT": {
+  "pays": "Portugal",
+  "lieux": [
+   {
+    "nom_fr": "Tour de Belém",
+    "type": "culture",
+    "wiki_en": "Belém Tower"
+   },
+   {
+    "nom_fr": "Palais de Pena",
+    "type": "culture",
+    "wiki_en": "Pena Palace"
+   },
+   {
+    "nom_fr": "Ponta da Piedade",
+    "type": "paysage",
+    "wiki_en": "Ponta da Piedade"
+   }
+  ]
+ },
+ "ROU": {
+  "pays": "Roumanie",
+  "lieux": [
+   {
+    "nom_fr": "Château de Bran",
+    "type": "culture",
+    "wiki_en": "Bran Castle"
+   },
+   {
+    "nom_fr": "Château de Peleș",
+    "type": "culture",
+    "wiki_en": "Peleș Castle"
+   },
+   {
+    "nom_fr": "Route Transfăgărășan",
+    "type": "paysage",
+    "wiki_en": "Transfăgărășan"
+   }
+  ]
+ },
+ "RUS": {
+  "pays": "Russie",
+  "lieux": [
+   {
+    "nom_fr": "Cathédrale Saint-Basile",
+    "type": "culture",
+    "wiki_en": "Saint Basil's Cathedral"
+   },
+   {
+    "nom_fr": "Lac Baïkal",
+    "type": "paysage",
+    "wiki_en": "Lake Baikal"
+   },
+   {
+    "nom_fr": "Palais de Peterhof",
+    "type": "culture",
+    "wiki_en": "Peterhof Palace"
+   }
+  ]
+ },
+ "SMR": {
+  "pays": "Saint-Marin",
+  "lieux": [
+   {
+    "nom_fr": "Tour Guaita",
+    "type": "culture",
+    "wiki_en": "Guaita"
+   },
+   {
+    "nom_fr": "Mont Titano",
+    "type": "paysage",
+    "wiki_en": "Monte Titano"
+   },
+   {
+    "nom_fr": "Palazzo Pubblico",
+    "type": "culture",
+    "wiki_en": "Palazzo Pubblico (San Marino)"
+   }
+  ]
+ },
+ "SRB": {
+  "pays": "Serbie",
+  "lieux": [
+   {
+    "nom_fr": "Forteresse de Belgrade",
+    "type": "culture",
+    "wiki_en": "Belgrade Fortress"
+   },
+   {
+    "nom_fr": "Parc national du Đerdap",
+    "type": "paysage",
+    "wiki_en": "Đerdap National Park"
+   },
+   {
+    "nom_fr": "Monastère de Studenica",
+    "type": "culture",
+    "wiki_en": "Studenica Monastery"
+   }
+  ]
+ },
+ "SVK": {
+  "pays": "Slovaquie",
+  "lieux": [
+   {
+    "nom_fr": "Château de Spiš",
+    "type": "culture",
+    "wiki_en": "Spiš Castle"
+   },
+   {
+    "nom_fr": "Hautes Tatras",
+    "type": "paysage",
+    "wiki_en": "High Tatras"
+   },
+   {
+    "nom_fr": "Château de Bojnice",
+    "type": "culture",
+    "wiki_en": "Bojnice Castle"
+   }
+  ]
+ },
+ "SVN": {
+  "pays": "Slovénie",
+  "lieux": [
+   {
+    "nom_fr": "Lac de Bled",
+    "type": "paysage",
+    "wiki_en": "Lake Bled"
+   },
+   {
+    "nom_fr": "Château de Predjama",
+    "type": "culture",
+    "wiki_en": "Predjama Castle"
+   },
+   {
+    "nom_fr": "Lac de Bohinj",
+    "type": "paysage",
+    "wiki_en": "Lake Bohinj"
+   }
+  ]
+ },
+ "ESP": {
+  "pays": "Espagne",
+  "lieux": [
+   {
+    "nom_fr": "Sagrada Família",
+    "type": "culture",
+    "wiki_en": "Sagrada Família"
+   },
+   {
+    "nom_fr": "Alhambra",
+    "type": "culture",
+    "wiki_en": "Alhambra"
+   },
+   {
+    "nom_fr": "Teide",
+    "type": "paysage",
+    "wiki_en": "Teide"
+   }
+  ]
+ },
+ "SWE": {
+  "pays": "Suède",
+  "lieux": [
+   {
+    "nom_fr": "Gamla stan",
+    "type": "culture",
+    "wiki_en": "Gamla stan"
+   },
+   {
+    "nom_fr": "Parc national d'Abisko",
+    "type": "paysage",
+    "wiki_en": "Abisko National Park"
+   },
+   {
+    "nom_fr": "Remparts de Visby",
+    "type": "culture",
+    "wiki_en": "Visby City Wall"
+   }
+  ]
+ },
+ "CHE": {
+  "pays": "Suisse",
+  "lieux": [
+   {
+    "nom_fr": "Cervin",
+    "type": "paysage",
+    "wiki_en": "Matterhorn"
+   },
+   {
+    "nom_fr": "Château de Chillon",
+    "type": "culture",
+    "wiki_en": "Chillon Castle"
+   },
+   {
+    "nom_fr": "Vallée de Lauterbrunnen",
+    "type": "paysage",
+    "wiki_en": "Lauterbrunnen"
+   }
+  ]
+ },
+ "UKR": {
+  "pays": "Ukraine",
+  "lieux": [
+   {
+    "nom_fr": "Cathédrale Sainte-Sophie",
+    "type": "culture",
+    "wiki_en": "Saint Sophia Cathedral, Kyiv"
+   },
+   {
+    "nom_fr": "Château de Kamianets",
+    "type": "culture",
+    "wiki_en": "Kamianets-Podilskyi Castle"
+   },
+   {
+    "nom_fr": "Lac Synevyr",
+    "type": "paysage",
+    "wiki_en": "Synevyr"
+   }
+  ]
+ },
+ "GBR": {
+  "pays": "Royaume-Uni",
+  "lieux": [
+   {
+    "nom_fr": "Big Ben",
+    "type": "culture",
+    "wiki_en": "Big Ben"
+   },
+   {
+    "nom_fr": "Stonehenge",
+    "type": "culture",
+    "wiki_en": "Stonehenge"
+   },
+   {
+    "nom_fr": "Chaussée des Géants",
+    "type": "paysage",
+    "wiki_en": "Giant's Causeway"
+   }
+  ]
+ },
+ "VAT": {
+  "pays": "Vatican",
+  "lieux": [
+   {
+    "nom_fr": "Basilique Saint-Pierre",
+    "type": "culture",
+    "wiki_en": "St. Peter's Basilica"
+   },
+   {
+    "nom_fr": "Place Saint-Pierre",
+    "type": "culture",
+    "wiki_en": "St. Peter's Square"
+   },
+   {
+    "nom_fr": "Jardins du Vatican",
+    "type": "paysage",
+    "wiki_en": "Vatican Gardens"
+   }
+  ]
+ },
+ "FRO": {
+  "pays": "Îles Féroé",
+  "lieux": [
+   {
+    "nom_fr": "Lac Sørvágsvatn",
+    "type": "paysage",
+    "wiki_en": "Sørvágsvatn"
+   },
+   {
+    "nom_fr": "Gásadalur",
+    "type": "paysage",
+    "wiki_en": "Gásadalur"
+   },
+   {
+    "nom_fr": "Drangarnir",
+    "type": "paysage",
+    "wiki_en": "Drangarnir"
+   }
+  ]
+ },
+ "SJM": {
+  "pays": "Svalbard et Jan Mayen",
+  "lieux": [
+   {
+    "nom_fr": "Kongsfjorden",
+    "type": "paysage",
+    "wiki_en": "Kongsfjorden"
+   },
+   {
+    "nom_fr": "Volcan Beerenberg",
+    "type": "paysage",
+    "wiki_en": "Beerenberg"
+   },
+   {
+    "nom_fr": "Pyramiden",
+    "type": "culture",
+    "wiki_en": "Pyramiden"
+   }
+  ]
+ },
+ "IMN": {
+  "pays": "Île de Man",
+  "lieux": [
+   {
+    "nom_fr": "Roue de Laxey",
+    "type": "culture",
+    "wiki_en": "Laxey Wheel"
+   },
+   {
+    "nom_fr": "Château de Peel",
+    "type": "culture",
+    "wiki_en": "Peel Castle"
+   },
+   {
+    "nom_fr": "Mont Snaefell",
+    "type": "paysage",
+    "wiki_en": "Snaefell"
+   }
+  ]
+ },
+ "JEY": {
+  "pays": "Jersey",
+  "lieux": [
+   {
+    "nom_fr": "Château de Mont Orgueil",
+    "type": "culture",
+    "wiki_en": "Mont Orgueil"
+   },
+   {
+    "nom_fr": "Château Elizabeth",
+    "type": "culture",
+    "wiki_en": "Elizabeth Castle"
+   },
+   {
+    "nom_fr": "Phare de la Corbière",
+    "type": "paysage",
+    "wiki_en": "La Corbière"
+   }
+  ]
+ },
+ "GGY": {
+  "pays": "Guernesey",
+  "lieux": [
+   {
+    "nom_fr": "Castle Cornet",
+    "type": "culture",
+    "wiki_en": "Castle Cornet"
+   },
+   {
+    "nom_fr": "La Petite Chapelle",
+    "type": "culture",
+    "wiki_en": "Little Chapel"
+   },
+   {
+    "nom_fr": "Pointe d'Icart",
+    "type": "paysage",
+    "wiki_en": "Icart Point"
+   }
+  ]
+ },
+ "ALA": {
+  "pays": "Åland",
+  "lieux": [
+   {
+    "nom_fr": "Château de Kastelholm",
+    "type": "culture",
+    "wiki_en": "Kastelholm Castle"
+   },
+   {
+    "nom_fr": "Église Saint-Olaf de Jomala",
+    "type": "culture",
+    "wiki_en": "St. Olaf's Church, Jomala"
+   },
+   {
+    "nom_fr": "Église de Finström",
+    "type": "culture",
+    "wiki_en": "St Michael's Church, Finström"
+   }
+  ]
+ },
+ "AFG": {
+  "pays": "Afghanistan",
+  "lieux": [
+   {
+    "nom_fr": "Lacs de Band-e Amir",
+    "type": "paysage",
+    "wiki_en": "Band-e Amir National Park"
+   },
+   {
+    "nom_fr": "Minaret de Djam",
+    "type": "culture",
+    "wiki_en": "Minaret of Jam"
+   },
+   {
+    "nom_fr": "Mosquée bleue de Mazar",
+    "type": "culture",
+    "wiki_en": "Blue Mosque, Mazar-i-Sharif"
+   }
+  ]
+ },
+ "ARM": {
+  "pays": "Arménie",
+  "lieux": [
+   {
+    "nom_fr": "Lac Sevan",
+    "type": "paysage",
+    "wiki_en": "Lake Sevan"
+   },
+   {
+    "nom_fr": "Monastère de Tatev",
+    "type": "culture",
+    "wiki_en": "Tatev Monastery"
+   },
+   {
+    "nom_fr": "Monastère de Geghard",
+    "type": "culture",
+    "wiki_en": "Geghard"
+   }
+  ]
+ },
+ "AZE": {
+  "pays": "Azerbaïdjan",
+  "lieux": [
+   {
+    "nom_fr": "Tour de la Vierge",
+    "type": "culture",
+    "wiki_en": "Maiden Tower (Baku)"
+   },
+   {
+    "nom_fr": "Palais des Chirvanchahs",
+    "type": "culture",
+    "wiki_en": "Palace of the Shirvanshahs"
+   },
+   {
+    "nom_fr": "Yanar Dag, montagne de feu",
+    "type": "paysage",
+    "wiki_en": "Yanar Dag"
+   }
+  ]
+ },
+ "BHR": {
+  "pays": "Bahreïn",
+  "lieux": [
+   {
+    "nom_fr": "Fort de Bahreïn",
+    "type": "culture",
+    "wiki_en": "Qal'at al-Bahrain"
+   },
+   {
+    "nom_fr": "Arbre de vie",
+    "type": "paysage",
+    "wiki_en": "Tree of Life (Bahrain)"
+   },
+   {
+    "nom_fr": "Grande mosquée Al-Fateh",
+    "type": "culture",
+    "wiki_en": "Al Fateh Grand Mosque"
+   }
+  ]
+ },
+ "BGD": {
+  "pays": "Bangladesh",
+  "lieux": [
+   {
+    "nom_fr": "Plage de Cox's Bazar",
+    "type": "paysage",
+    "wiki_en": "Cox's Bazar Beach"
+   },
+   {
+    "nom_fr": "Mosquée aux soixante dômes",
+    "type": "culture",
+    "wiki_en": "Sixty Dome Mosque"
+   },
+   {
+    "nom_fr": "Île Saint-Martin",
+    "type": "paysage",
+    "wiki_en": "Saint Martin's Island"
+   }
+  ]
+ },
+ "BTN": {
+  "pays": "Bhoutan",
+  "lieux": [
+   {
+    "nom_fr": "Taktsang, nid du tigre",
+    "type": "culture",
+    "wiki_en": "Paro Taktsang"
+   },
+   {
+    "nom_fr": "Dzong de Punakha",
+    "type": "culture",
+    "wiki_en": "Punakha Dzong"
+   },
+   {
+    "nom_fr": "Col de Dochula",
+    "type": "paysage",
+    "wiki_en": "Dochula Pass"
+   }
+  ]
+ },
+ "BRN": {
+  "pays": "Brunei",
+  "lieux": [
+   {
+    "nom_fr": "Mosquée Omar Ali Saifuddien",
+    "type": "culture",
+    "wiki_en": "Omar Ali Saifuddien Mosque"
+   },
+   {
+    "nom_fr": "Parc d'Ulu Temburong",
+    "type": "paysage",
+    "wiki_en": "Ulu Temburong National Park"
+   },
+   {
+    "nom_fr": "Mosquée Jame' Asr",
+    "type": "culture",
+    "wiki_en": "Jame' Asr Hassanil Bolkiah Mosque"
+   }
+  ]
+ },
+ "KHM": {
+  "pays": "Cambodge",
+  "lieux": [
+   {
+    "nom_fr": "Angkor Vat",
+    "type": "culture",
+    "wiki_en": "Angkor Wat"
+   },
+   {
+    "nom_fr": "Ta Prohm",
+    "type": "culture",
+    "wiki_en": "Ta Prohm"
+   },
+   {
+    "nom_fr": "Île de Koh Rong",
+    "type": "paysage",
+    "wiki_en": "Koh Rong"
+   }
+  ]
+ },
+ "CHN": {
+  "pays": "Chine",
+  "lieux": [
+   {
+    "nom_fr": "Grande Muraille",
+    "type": "culture",
+    "wiki_en": "Great Wall of China"
+   },
+   {
+    "nom_fr": "Cité interdite",
+    "type": "culture",
+    "wiki_en": "Forbidden City"
+   },
+   {
+    "nom_fr": "Montagnes de Zhangjiajie",
+    "type": "paysage",
+    "wiki_en": "Zhangjiajie National Forest Park"
+   }
+  ]
+ },
+ "GEO": {
+  "pays": "Géorgie",
+  "lieux": [
+   {
+    "nom_fr": "Église de Guerguéti",
+    "type": "culture",
+    "wiki_en": "Gergeti Trinity Church"
+   },
+   {
+    "nom_fr": "Mont Kazbek",
+    "type": "paysage",
+    "wiki_en": "Mount Kazbek"
+   },
+   {
+    "nom_fr": "Village d'Ouchgouli",
+    "type": "culture",
+    "wiki_en": "Ushguli"
+   }
+  ]
+ },
+ "HKG": {
+  "pays": "Hong Kong",
+  "lieux": [
+   {
+    "nom_fr": "Baie Victoria",
+    "type": "paysage",
+    "wiki_en": "Victoria Harbour"
+   },
+   {
+    "nom_fr": "Bouddha de Tian Tan",
+    "type": "culture",
+    "wiki_en": "Tian Tan Buddha"
+   },
+   {
+    "nom_fr": "Pic Victoria",
+    "type": "paysage",
+    "wiki_en": "Victoria Peak"
+   }
+  ]
+ },
+ "IND": {
+  "pays": "Inde",
+  "lieux": [
+   {
+    "nom_fr": "Taj Mahal",
+    "type": "culture",
+    "wiki_en": "Taj Mahal"
+   },
+   {
+    "nom_fr": "Temple d'Or d'Amritsar",
+    "type": "culture",
+    "wiki_en": "Golden Temple"
+   },
+   {
+    "nom_fr": "Backwaters du Kerala",
+    "type": "paysage",
+    "wiki_en": "Kerala backwaters"
+   }
+  ]
+ },
+ "IDN": {
+  "pays": "Indonésie",
+  "lieux": [
+   {
+    "nom_fr": "Borobudur",
+    "type": "culture",
+    "wiki_en": "Borobudur"
+   },
+   {
+    "nom_fr": "Volcan Bromo",
+    "type": "paysage",
+    "wiki_en": "Mount Bromo"
+   },
+   {
+    "nom_fr": "Temple de Tanah Lot",
+    "type": "culture",
+    "wiki_en": "Tanah Lot"
+   }
+  ]
+ },
+ "IRN": {
+  "pays": "Iran",
+  "lieux": [
+   {
+    "nom_fr": "Place Naqsh-e Jahan",
+    "type": "culture",
+    "wiki_en": "Naqsh-e Jahan Square"
+   },
+   {
+    "nom_fr": "Persépolis",
+    "type": "culture",
+    "wiki_en": "Persepolis"
+   },
+   {
+    "nom_fr": "Mont Damavand",
+    "type": "paysage",
+    "wiki_en": "Mount Damavand"
+   }
+  ]
+ },
+ "IRQ": {
+  "pays": "Irak",
+  "lieux": [
+   {
+    "nom_fr": "Ziggourat d'Ur",
+    "type": "culture",
+    "wiki_en": "Ziggurat of Ur"
+   },
+   {
+    "nom_fr": "Citadelle d'Erbil",
+    "type": "culture",
+    "wiki_en": "Citadel of Erbil"
+   },
+   {
+    "nom_fr": "Marais de Mésopotamie",
+    "type": "paysage",
+    "wiki_en": "Mesopotamian Marshes"
+   }
+  ]
+ },
+ "ISR": {
+  "pays": "Israël",
+  "lieux": [
+   {
+    "nom_fr": "Massada",
+    "type": "culture",
+    "wiki_en": "Masada"
+   },
+   {
+    "nom_fr": "Jardins bahá'ís de Haïfa",
+    "type": "culture",
+    "wiki_en": "Terraces (Baháʼí)"
+   },
+   {
+    "nom_fr": "Cratère de Ramon",
+    "type": "paysage",
+    "wiki_en": "Makhtesh Ramon"
+   }
+  ]
+ },
+ "JPN": {
+  "pays": "Japon",
+  "lieux": [
+   {
+    "nom_fr": "Mont Fuji",
+    "type": "paysage",
+    "wiki_en": "Mount Fuji"
+   },
+   {
+    "nom_fr": "Fushimi Inari-taisha",
+    "type": "culture",
+    "wiki_en": "Fushimi Inari-taisha"
+   },
+   {
+    "nom_fr": "Château de Himeji",
+    "type": "culture",
+    "wiki_en": "Himeji Castle"
+   }
+  ]
+ },
+ "JOR": {
+  "pays": "Jordanie",
+  "lieux": [
+   {
+    "nom_fr": "Pétra",
+    "type": "culture",
+    "wiki_en": "Petra"
+   },
+   {
+    "nom_fr": "Wadi Rum",
+    "type": "paysage",
+    "wiki_en": "Wadi Rum"
+   },
+   {
+    "nom_fr": "Jerash",
+    "type": "culture",
+    "wiki_en": "Jerash"
+   }
+  ]
+ },
+ "KAZ": {
+  "pays": "Kazakhstan",
+  "lieux": [
+   {
+    "nom_fr": "Canyon de Charyn",
+    "type": "paysage",
+    "wiki_en": "Charyn Canyon"
+   },
+   {
+    "nom_fr": "Grand lac d'Almaty",
+    "type": "paysage",
+    "wiki_en": "Big Almaty Lake"
+   },
+   {
+    "nom_fr": "Mausolée de Yasavi",
+    "type": "culture",
+    "wiki_en": "Mausoleum of Khoja Ahmed Yasawi"
+   }
+  ]
+ },
+ "KWT": {
+  "pays": "Koweït",
+  "lieux": [
+   {
+    "nom_fr": "Tours du Koweït",
+    "type": "culture",
+    "wiki_en": "Kuwait Towers"
+   },
+   {
+    "nom_fr": "Grande Mosquée du Koweït",
+    "type": "culture",
+    "wiki_en": "Grand Mosque (Kuwait)"
+   },
+   {
+    "nom_fr": "Île de Failaka",
+    "type": "paysage",
+    "wiki_en": "Failaka Island"
+   }
+  ]
+ },
+ "KGZ": {
+  "pays": "Kirghizistan",
+  "lieux": [
+   {
+    "nom_fr": "Lac Issyk-Koul",
+    "type": "paysage",
+    "wiki_en": "Issyk-Kul"
+   },
+   {
+    "nom_fr": "Lac Song-Köl",
+    "type": "paysage",
+    "wiki_en": "Song Kol"
+   },
+   {
+    "nom_fr": "Tour de Burana",
+    "type": "culture",
+    "wiki_en": "Burana Tower"
+   }
+  ]
+ },
+ "LAO": {
+  "pays": "Laos",
+  "lieux": [
+   {
+    "nom_fr": "Chutes de Kuang Si",
+    "type": "paysage",
+    "wiki_en": "Kuang Si Falls"
+   },
+   {
+    "nom_fr": "Pha That Luang",
+    "type": "culture",
+    "wiki_en": "Pha That Luang"
+   },
+   {
+    "nom_fr": "Vat Xieng Thong",
+    "type": "culture",
+    "wiki_en": "Wat Xieng Thong"
+   }
+  ]
+ },
+ "LBN": {
+  "pays": "Liban",
+  "lieux": [
+   {
+    "nom_fr": "Baalbek",
+    "type": "culture",
+    "wiki_en": "Baalbek"
+   },
+   {
+    "nom_fr": "Cèdres de Dieu",
+    "type": "paysage",
+    "wiki_en": "Cedars of God"
+   },
+   {
+    "nom_fr": "Byblos",
+    "type": "culture",
+    "wiki_en": "Byblos"
+   }
+  ]
+ },
+ "MAC": {
+  "pays": "Macao",
+  "lieux": [
+   {
+    "nom_fr": "Ruines de Saint-Paul",
+    "type": "culture",
+    "wiki_en": "Ruins of St. Paul's"
+   },
+   {
+    "nom_fr": "Place du Sénat",
+    "type": "culture",
+    "wiki_en": "Senado Square"
+   },
+   {
+    "nom_fr": "Temple d'A-Ma",
+    "type": "culture",
+    "wiki_en": "A-Ma Temple"
+   }
+  ]
+ },
+ "MYS": {
+  "pays": "Malaisie",
+  "lieux": [
+   {
+    "nom_fr": "Tours Petronas",
+    "type": "culture",
+    "wiki_en": "Petronas Towers"
+   },
+   {
+    "nom_fr": "Mont Kinabalu",
+    "type": "paysage",
+    "wiki_en": "Mount Kinabalu"
+   },
+   {
+    "nom_fr": "Grottes de Batu",
+    "type": "culture",
+    "wiki_en": "Batu Caves"
+   }
+  ]
+ },
+ "MDV": {
+  "pays": "Maldives",
+  "lieux": [
+   {
+    "nom_fr": "Atoll Baa",
+    "type": "paysage",
+    "wiki_en": "Baa Atoll"
+   },
+   {
+    "nom_fr": "Vieille mosquée de Malé",
+    "type": "culture",
+    "wiki_en": "Malé Friday Mosque"
+   }
+  ]
+ },
+ "MNG": {
+  "pays": "Mongolie",
+  "lieux": [
+   {
+    "nom_fr": "Lac Khövsgöl",
+    "type": "paysage",
+    "wiki_en": "Lake Khövsgöl"
+   },
+   {
+    "nom_fr": "Monastère d'Erdene Zuu",
+    "type": "culture",
+    "wiki_en": "Erdene Zuu Monastery"
+   },
+   {
+    "nom_fr": "Parc de Gorkhi-Terelj",
+    "type": "paysage",
+    "wiki_en": "Gorkhi-Terelj National Park"
+   }
+  ]
+ },
+ "MMR": {
+  "pays": "Myanmar",
+  "lieux": [
+   {
+    "nom_fr": "Bagan",
+    "type": "culture",
+    "wiki_en": "Bagan"
+   },
+   {
+    "nom_fr": "Pagode Shwedagon",
+    "type": "culture",
+    "wiki_en": "Shwedagon Pagoda"
+   },
+   {
+    "nom_fr": "Lac Inle",
+    "type": "paysage",
+    "wiki_en": "Inle Lake"
+   }
+  ]
+ },
+ "NPL": {
+  "pays": "Népal",
+  "lieux": [
+   {
+    "nom_fr": "Massif des Annapurnas",
+    "type": "paysage",
+    "wiki_en": "Annapurna Massif"
+   },
+   {
+    "nom_fr": "Stūpa de Bodnath",
+    "type": "culture",
+    "wiki_en": "Boudhanath"
+   },
+   {
+    "nom_fr": "Lac Phewa",
+    "type": "paysage",
+    "wiki_en": "Phewa Lake"
+   }
+  ]
+ },
+ "PRK": {
+  "pays": "Corée du Nord",
+  "lieux": [
+   {
+    "nom_fr": "Monts Kumgang",
+    "type": "paysage",
+    "wiki_en": "Mount Kumgang"
+   },
+   {
+    "nom_fr": "Monts Myohyang",
+    "type": "paysage",
+    "wiki_en": "Mount Myohyang"
+   },
+   {
+    "nom_fr": "Hôtel Ryugyong",
+    "type": "culture",
+    "wiki_en": "Ryugyong Hotel"
+   }
+  ]
+ },
+ "OMN": {
+  "pays": "Oman",
+  "lieux": [
+   {
+    "nom_fr": "Mosquée du sultan Qabous",
+    "type": "culture",
+    "wiki_en": "Sultan Qaboos Grand Mosque"
+   },
+   {
+    "nom_fr": "Fort de Nizwa",
+    "type": "culture",
+    "wiki_en": "Nizwa Fort"
+   },
+   {
+    "nom_fr": "Désert des Wahiba",
+    "type": "paysage",
+    "wiki_en": "Wahiba Sands"
+   }
+  ]
+ },
+ "PAK": {
+  "pays": "Pakistan",
+  "lieux": [
+   {
+    "nom_fr": "Mosquée Badshahi",
+    "type": "culture",
+    "wiki_en": "Badshahi Mosque"
+   },
+   {
+    "nom_fr": "Lac Saiful Muluk",
+    "type": "paysage",
+    "wiki_en": "Lake Saiful Muluk"
+   },
+   {
+    "nom_fr": "Mosquée Faisal",
+    "type": "culture",
+    "wiki_en": "Faisal Mosque"
+   }
+  ]
+ },
+ "PSX": {
+  "pays": "Palestine",
+  "lieux": [
+   {
+    "nom_fr": "Basilique de la Nativité",
+    "type": "culture",
+    "wiki_en": "Church of the Nativity"
+   },
+   {
+    "nom_fr": "Wadi Qelt",
+    "type": "paysage",
+    "wiki_en": "Wadi Qelt"
+   },
+   {
+    "nom_fr": "Palais d'Hisham",
+    "type": "culture",
+    "wiki_en": "Hisham's Palace"
+   }
+  ]
+ },
+ "PHL": {
+  "pays": "Philippines",
+  "lieux": [
+   {
+    "nom_fr": "Collines de chocolat",
+    "type": "paysage",
+    "wiki_en": "Chocolate Hills"
+   },
+   {
+    "nom_fr": "Rizières de Banaue",
+    "type": "paysage",
+    "wiki_en": "Banaue Rice Terraces"
+   },
+   {
+    "nom_fr": "Volcan Mayon",
+    "type": "paysage",
+    "wiki_en": "Mayon"
+   }
+  ]
+ },
+ "QAT": {
+  "pays": "Qatar",
+  "lieux": [
+   {
+    "nom_fr": "Souq Waqif",
+    "type": "culture",
+    "wiki_en": "Souq Waqif"
+   },
+   {
+    "nom_fr": "Khor Al Adaid, mer intérieure",
+    "type": "paysage",
+    "wiki_en": "Khor Al Adaid"
+   },
+   {
+    "nom_fr": "Site d'Al Zubarah",
+    "type": "culture",
+    "wiki_en": "Zubarah"
+   }
+  ]
+ },
+ "SAU": {
+  "pays": "Arabie saoudite",
+  "lieux": [
+   {
+    "nom_fr": "Hégra (Mada'in Saleh)",
+    "type": "culture",
+    "wiki_en": "Hegra"
+   },
+   {
+    "nom_fr": "Rocher de l'Éléphant",
+    "type": "paysage",
+    "wiki_en": "Elephant Rock (Saudi Arabia)"
+   },
+   {
+    "nom_fr": "Quartier d'At-Turaif",
+    "type": "culture",
+    "wiki_en": "At-Turaif District"
+   }
+  ]
+ },
+ "SGP": {
+  "pays": "Singapour",
+  "lieux": [
+   {
+    "nom_fr": "Marina Bay Sands",
+    "type": "culture",
+    "wiki_en": "Marina Bay Sands"
+   },
+   {
+    "nom_fr": "Gardens by the Bay",
+    "type": "culture",
+    "wiki_en": "Gardens by the Bay"
+   },
+   {
+    "nom_fr": "Jardin botanique",
+    "type": "paysage",
+    "wiki_en": "Singapore Botanic Gardens"
+   }
+  ]
+ },
+ "KOR": {
+  "pays": "Corée du Sud",
+  "lieux": [
+   {
+    "nom_fr": "Palais Gyeongbokgung",
+    "type": "culture",
+    "wiki_en": "Gyeongbokgung"
+   },
+   {
+    "nom_fr": "Temple Bulguksa",
+    "type": "culture",
+    "wiki_en": "Bulguksa"
+   },
+   {
+    "nom_fr": "Seongsan Ilchulbong",
+    "type": "paysage",
+    "wiki_en": "Seongsan Ilchulbong"
+   }
+  ]
+ },
+ "LKA": {
+  "pays": "Sri Lanka",
+  "lieux": [
+   {
+    "nom_fr": "Rocher de Sigiriya",
+    "type": "culture",
+    "wiki_en": "Sigiriya"
+   },
+   {
+    "nom_fr": "Temple de la Dent",
+    "type": "culture",
+    "wiki_en": "Temple of the Tooth"
+   },
+   {
+    "nom_fr": "Pic d'Adam",
+    "type": "paysage",
+    "wiki_en": "Adam's Peak"
+   }
+  ]
+ },
+ "SYR": {
+  "pays": "Syrie",
+  "lieux": [
+   {
+    "nom_fr": "Krak des Chevaliers",
+    "type": "culture",
+    "wiki_en": "Krak des Chevaliers"
+   },
+   {
+    "nom_fr": "Mosquée des Omeyyades",
+    "type": "culture",
+    "wiki_en": "Umayyad Mosque"
+   },
+   {
+    "nom_fr": "Théâtre de Bosra",
+    "type": "culture",
+    "wiki_en": "Bosra"
+   }
+  ]
+ },
+ "TWN": {
+  "pays": "Taïwan",
+  "lieux": [
+   {
+    "nom_fr": "Taipei 101",
+    "type": "culture",
+    "wiki_en": "Taipei 101"
+   },
+   {
+    "nom_fr": "Gorges de Taroko",
+    "type": "paysage",
+    "wiki_en": "Taroko National Park"
+   },
+   {
+    "nom_fr": "Lac du Soleil et de la Lune",
+    "type": "paysage",
+    "wiki_en": "Sun Moon Lake"
+   }
+  ]
+ },
+ "TJK": {
+  "pays": "Tadjikistan",
+  "lieux": [
+   {
+    "nom_fr": "Lac Iskanderkoul",
+    "type": "paysage",
+    "wiki_en": "Iskanderkul"
+   },
+   {
+    "nom_fr": "Monts Fann",
+    "type": "paysage",
+    "wiki_en": "Fann Mountains"
+   },
+   {
+    "nom_fr": "Lac Karakoul",
+    "type": "paysage",
+    "wiki_en": "Karakul (Tajikistan)"
+   }
+  ]
+ },
+ "THA": {
+  "pays": "Thaïlande",
+  "lieux": [
+   {
+    "nom_fr": "Grand Palais de Bangkok",
+    "type": "culture",
+    "wiki_en": "Grand Palace"
+   },
+   {
+    "nom_fr": "Wat Arun",
+    "type": "culture",
+    "wiki_en": "Wat Arun"
+   },
+   {
+    "nom_fr": "Îles Phi Phi",
+    "type": "paysage",
+    "wiki_en": "Phi Phi Islands"
+   }
+  ]
+ },
+ "TLS": {
+  "pays": "Timor oriental",
+  "lieux": [
+   {
+    "nom_fr": "Cristo Rei de Dili",
+    "type": "culture",
+    "wiki_en": "Cristo Rei of Dili"
+   },
+   {
+    "nom_fr": "Île d'Atauro",
+    "type": "paysage",
+    "wiki_en": "Atauro Island"
+   },
+   {
+    "nom_fr": "Mont Ramelau",
+    "type": "paysage",
+    "wiki_en": "Mount Ramelau"
+   }
+  ]
+ },
+ "TUR": {
+  "pays": "Turquie",
+  "lieux": [
+   {
+    "nom_fr": "Sainte-Sophie",
+    "type": "culture",
+    "wiki_en": "Hagia Sophia"
+   },
+   {
+    "nom_fr": "Cappadoce",
+    "type": "paysage",
+    "wiki_en": "Cappadocia"
+   },
+   {
+    "nom_fr": "Pamukkale",
+    "type": "paysage",
+    "wiki_en": "Pamukkale"
+   }
+  ]
+ },
+ "TKM": {
+  "pays": "Turkménistan",
+  "lieux": [
+   {
+    "nom_fr": "Cratère de Darvaza",
+    "type": "paysage",
+    "wiki_en": "Darvaza gas crater"
+   },
+   {
+    "nom_fr": "Merv antique",
+    "type": "culture",
+    "wiki_en": "Merv"
+   },
+   {
+    "nom_fr": "Canyon de Yangykala",
+    "type": "paysage",
+    "wiki_en": "Yangykala Canyon"
+   }
+  ]
+ },
+ "ARE": {
+  "pays": "Émirats arabes unis",
+  "lieux": [
+   {
+    "nom_fr": "Burj Khalifa",
+    "type": "culture",
+    "wiki_en": "Burj Khalifa"
+   },
+   {
+    "nom_fr": "Mosquée Cheikh Zayed",
+    "type": "culture",
+    "wiki_en": "Sheikh Zayed Grand Mosque"
+   },
+   {
+    "nom_fr": "Oasis de Liwa",
+    "type": "paysage",
+    "wiki_en": "Liwa Oasis"
+   }
+  ]
+ },
+ "UZB": {
+  "pays": "Ouzbékistan",
+  "lieux": [
+   {
+    "nom_fr": "Place du Registan",
+    "type": "culture",
+    "wiki_en": "Registan"
+   },
+   {
+    "nom_fr": "Ensemble Po-i-Kalyan",
+    "type": "culture",
+    "wiki_en": "Po-i-Kalyan"
+   },
+   {
+    "nom_fr": "Itchan Kala de Khiva",
+    "type": "culture",
+    "wiki_en": "Itchan Kala"
+   }
+  ]
+ },
+ "VNM": {
+  "pays": "Viêt Nam",
+  "lieux": [
+   {
+    "nom_fr": "Baie d'Ha Long",
+    "type": "paysage",
+    "wiki_en": "Ha Long Bay"
+   },
+   {
+    "nom_fr": "Vieille ville de Hội An",
+    "type": "culture",
+    "wiki_en": "Hoi An Ancient Town"
+   },
+   {
+    "nom_fr": "Parc de Phong Nha-Kẻ Bàng",
+    "type": "paysage",
+    "wiki_en": "Phong Nha-Kẻ Bàng National Park"
+   }
+  ]
+ },
+ "YEM": {
+  "pays": "Yémen",
+  "lieux": [
+   {
+    "nom_fr": "Île de Socotra",
+    "type": "paysage",
+    "wiki_en": "Socotra"
+   },
+   {
+    "nom_fr": "Shibam, Manhattan du désert",
+    "type": "culture",
+    "wiki_en": "Shibam"
+   },
+   {
+    "nom_fr": "Dar al-Hajar",
+    "type": "culture",
+    "wiki_en": "Dar al-Hajar"
+   }
+  ]
+ },
+ "DZA": {
+  "pays": "Algérie",
+  "lieux": [
+   {
+    "nom_fr": "Tassili n'Ajjer",
+    "type": "paysage",
+    "wiki_en": "Tassili n'Ajjer"
+   },
+   {
+    "nom_fr": "Ruines de Timgad",
+    "type": "culture",
+    "wiki_en": "Timgad"
+   },
+   {
+    "nom_fr": "Massif du Hoggar",
+    "type": "paysage",
+    "wiki_en": "Hoggar Mountains"
+   }
+  ]
+ },
+ "AGO": {
+  "pays": "Angola",
+  "lieux": [
+   {
+    "nom_fr": "Chutes de Kalandula",
+    "type": "paysage",
+    "wiki_en": "Kalandula Falls"
+   },
+   {
+    "nom_fr": "Faille de Tundavala",
+    "type": "paysage",
+    "wiki_en": "Tundavala Gap"
+   },
+   {
+    "nom_fr": "Parc national d'Iona",
+    "type": "paysage",
+    "wiki_en": "Iona National Park"
+   }
+  ]
+ },
+ "BEN": {
+  "pays": "Bénin",
+  "lieux": [
+   {
+    "nom_fr": "Village lacustre de Ganvié",
+    "type": "culture",
+    "wiki_en": "Ganvie"
+   },
+   {
+    "nom_fr": "Palais royaux d'Abomey",
+    "type": "culture",
+    "wiki_en": "Royal Palaces of Abomey"
+   },
+   {
+    "nom_fr": "Parc national de la Pendjari",
+    "type": "paysage",
+    "wiki_en": "Pendjari National Park"
+   }
+  ]
+ },
+ "BWA": {
+  "pays": "Botswana",
+  "lieux": [
+   {
+    "nom_fr": "Delta de l'Okavango",
+    "type": "paysage",
+    "wiki_en": "Okavango Delta"
+   },
+   {
+    "nom_fr": "Parc national de Chobe",
+    "type": "paysage",
+    "wiki_en": "Chobe National Park"
+   },
+   {
+    "nom_fr": "Pan de Makgadikgadi",
+    "type": "paysage",
+    "wiki_en": "Makgadikgadi Pan"
+   }
+  ]
+ },
+ "BFA": {
+  "pays": "Burkina Faso",
+  "lieux": [
+   {
+    "nom_fr": "Ruines de Loropéni",
+    "type": "culture",
+    "wiki_en": "Ruins of Loropéni"
+   },
+   {
+    "nom_fr": "Grande Mosquée de Bobo",
+    "type": "culture",
+    "wiki_en": "Grand Mosque of Bobo-Dioulasso"
+   },
+   {
+    "nom_fr": "Pics de Sindou",
+    "type": "paysage",
+    "wiki_en": "Sindou"
+   }
+  ]
+ },
+ "BDI": {
+  "pays": "Burundi",
+  "lieux": [
+   {
+    "nom_fr": "Chutes de Karera",
+    "type": "paysage",
+    "wiki_en": "Karera Falls"
+   },
+   {
+    "nom_fr": "Lac Tanganyika",
+    "type": "paysage",
+    "wiki_en": "Lake Tanganyika"
+   },
+   {
+    "nom_fr": "Parc national de la Kibira",
+    "type": "paysage",
+    "wiki_en": "Kibira National Park"
+   }
+  ]
+ },
+ "CPV": {
+  "pays": "Cap-Vert",
+  "lieux": [
+   {
+    "nom_fr": "Volcan Pico do Fogo",
+    "type": "paysage",
+    "wiki_en": "Pico do Fogo"
+   },
+   {
+    "nom_fr": "Plage de Santa Maria",
+    "type": "paysage",
+    "wiki_en": "Santa Maria, Cape Verde"
+   },
+   {
+    "nom_fr": "Salines de Pedra de Lume",
+    "type": "paysage",
+    "wiki_en": "Pedra de Lume"
+   }
+  ]
+ },
+ "CMR": {
+  "pays": "Cameroun",
+  "lieux": [
+   {
+    "nom_fr": "Mont Cameroun",
+    "type": "paysage",
+    "wiki_en": "Mount Cameroon"
+   },
+   {
+    "nom_fr": "Parc national de Waza",
+    "type": "paysage",
+    "wiki_en": "Waza National Park"
+   },
+   {
+    "nom_fr": "Pics de Rhumsiki",
+    "type": "paysage",
+    "wiki_en": "Rhumsiki"
+   }
+  ]
+ },
+ "CAF": {
+  "pays": "République centrafricaine",
+  "lieux": [
+   {
+    "nom_fr": "Réserve de Dzanga-Sangha",
+    "type": "paysage",
+    "wiki_en": "Dzanga-Sangha Special Reserve"
+   },
+   {
+    "nom_fr": "Parc Manovo-Gounda St Floris",
+    "type": "paysage",
+    "wiki_en": "Manovo-Gounda St. Floris National Park"
+   },
+   {
+    "nom_fr": "Parc de Bamingui-Bangoran",
+    "type": "paysage",
+    "wiki_en": "Bamingui-Bangoran National Park"
+   }
+  ]
+ },
+ "TCD": {
+  "pays": "Tchad",
+  "lieux": [
+   {
+    "nom_fr": "Massif de l'Ennedi",
+    "type": "paysage",
+    "wiki_en": "Ennedi Plateau"
+   },
+   {
+    "nom_fr": "Lacs d'Ounianga",
+    "type": "paysage",
+    "wiki_en": "Lakes of Ounianga"
+   },
+   {
+    "nom_fr": "Parc national de Zakouma",
+    "type": "paysage",
+    "wiki_en": "Zakouma National Park"
+   }
+  ]
+ },
+ "COM": {
+  "pays": "Comores",
+  "lieux": [
+   {
+    "nom_fr": "Volcan Karthala",
+    "type": "paysage",
+    "wiki_en": "Mount Karthala"
+   },
+   {
+    "nom_fr": "Parc national de Mohéli",
+    "type": "paysage",
+    "wiki_en": "Mohéli National Park"
+   },
+   {
+    "nom_fr": "Médina de Mutsamudu",
+    "type": "culture",
+    "wiki_en": "Mutsamudu"
+   }
+  ]
+ },
+ "COG": {
+  "pays": "République du Congo",
+  "lieux": [
+   {
+    "nom_fr": "Parc d'Odzala-Kokoua",
+    "type": "paysage",
+    "wiki_en": "Odzala-Kokoua National Park"
+   },
+   {
+    "nom_fr": "Parc de Nouabalé-Ndoki",
+    "type": "paysage",
+    "wiki_en": "Nouabalé-Ndoki National Park"
+   },
+   {
+    "nom_fr": "Parc de Conkouati-Douli",
+    "type": "paysage",
+    "wiki_en": "Conkouati-Douli National Park"
+   }
+  ]
+ },
+ "COD": {
+  "pays": "République démocratique du Congo",
+  "lieux": [
+   {
+    "nom_fr": "Parc national des Virunga",
+    "type": "paysage",
+    "wiki_en": "Virunga National Park"
+   },
+   {
+    "nom_fr": "Volcan Nyiragongo",
+    "type": "paysage",
+    "wiki_en": "Mount Nyiragongo"
+   },
+   {
+    "nom_fr": "Parc de Kahuzi-Biega",
+    "type": "paysage",
+    "wiki_en": "Kahuzi-Biéga National Park"
+   }
+  ]
+ },
+ "CIV": {
+  "pays": "Côte d'Ivoire",
+  "lieux": [
+   {
+    "nom_fr": "Basilique de Yamoussoukro",
+    "type": "culture",
+    "wiki_en": "Basilica of Our Lady of Peace of Yamoussoukro"
+   },
+   {
+    "nom_fr": "Vieille ville de Grand-Bassam",
+    "type": "culture",
+    "wiki_en": "Grand-Bassam"
+   },
+   {
+    "nom_fr": "Parc national de Taï",
+    "type": "paysage",
+    "wiki_en": "Taï National Park"
+   }
+  ]
+ },
+ "DJI": {
+  "pays": "Djibouti",
+  "lieux": [
+   {
+    "nom_fr": "Lac Assal",
+    "type": "paysage",
+    "wiki_en": "Lake Assal (Djibouti)"
+   },
+   {
+    "nom_fr": "Lac Abbé",
+    "type": "paysage",
+    "wiki_en": "Lake Abbe"
+   },
+   {
+    "nom_fr": "Île Moucha",
+    "type": "paysage",
+    "wiki_en": "Moucha Island"
+   }
+  ]
+ },
+ "EGY": {
+  "pays": "Égypte",
+  "lieux": [
+   {
+    "nom_fr": "Pyramides de Gizeh",
+    "type": "culture",
+    "wiki_en": "Giza pyramid complex"
+   },
+   {
+    "nom_fr": "Désert Blanc",
+    "type": "paysage",
+    "wiki_en": "White Desert National Park"
+   },
+   {
+    "nom_fr": "Temple d'Abou Simbel",
+    "type": "culture",
+    "wiki_en": "Abu Simbel"
+   }
+  ]
+ },
+ "GNQ": {
+  "pays": "Guinée équatoriale",
+  "lieux": [
+   {
+    "nom_fr": "Pico Basilé",
+    "type": "paysage",
+    "wiki_en": "Pico Basilé"
+   },
+   {
+    "nom_fr": "Parc national de Monte Alén",
+    "type": "paysage",
+    "wiki_en": "Monte Alén National Park"
+   },
+   {
+    "nom_fr": "Île d'Annobón",
+    "type": "paysage",
+    "wiki_en": "Annobón"
+   }
+  ]
+ },
+ "ERI": {
+  "pays": "Érythrée",
+  "lieux": [
+   {
+    "nom_fr": "Fiat Tagliero d'Asmara",
+    "type": "culture",
+    "wiki_en": "Fiat Tagliero Building"
+   },
+   {
+    "nom_fr": "Archipel des Dahlak",
+    "type": "paysage",
+    "wiki_en": "Dahlak Archipelago"
+   },
+   {
+    "nom_fr": "Ruines de Qohaito",
+    "type": "culture",
+    "wiki_en": "Qohaito"
+   }
+  ]
+ },
+ "SWZ": {
+  "pays": "Eswatini",
+  "lieux": [
+   {
+    "nom_fr": "Rocher de Sibebe",
+    "type": "paysage",
+    "wiki_en": "Sibebe"
+   },
+   {
+    "nom_fr": "Réserve de Mlilwane",
+    "type": "paysage",
+    "wiki_en": "Mlilwane Wildlife Sanctuary"
+   },
+   {
+    "nom_fr": "Parc royal de Hlane",
+    "type": "paysage",
+    "wiki_en": "Hlane Royal National Park"
+   }
+  ]
+ },
+ "ETH": {
+  "pays": "Éthiopie",
+  "lieux": [
+   {
+    "nom_fr": "Églises de Lalibela",
+    "type": "culture",
+    "wiki_en": "Rock-Hewn Churches, Lalibela"
+   },
+   {
+    "nom_fr": "Monts Simien",
+    "type": "paysage",
+    "wiki_en": "Simien Mountains National Park"
+   },
+   {
+    "nom_fr": "Site volcanique de Dallol",
+    "type": "paysage",
+    "wiki_en": "Dallol (hydrothermal system)"
+   }
+  ]
+ },
+ "GAB": {
+  "pays": "Gabon",
+  "lieux": [
+   {
+    "nom_fr": "Parc national de Loango",
+    "type": "paysage",
+    "wiki_en": "Loango National Park"
+   },
+   {
+    "nom_fr": "Parc national de la Lopé",
+    "type": "paysage",
+    "wiki_en": "Lopé National Park"
+   },
+   {
+    "nom_fr": "Parc national de l'Ivindo",
+    "type": "paysage",
+    "wiki_en": "Ivindo National Park"
+   }
+  ]
+ },
+ "GMB": {
+  "pays": "Gambie",
+  "lieux": [
+   {
+    "nom_fr": "Parc du fleuve Gambie",
+    "type": "paysage",
+    "wiki_en": "River Gambia National Park"
+   },
+   {
+    "nom_fr": "Cercles de pierres de Wassu",
+    "type": "culture",
+    "wiki_en": "Senegambian stone circles"
+   },
+   {
+    "nom_fr": "Réserve d'Abuko",
+    "type": "paysage",
+    "wiki_en": "Abuko Nature Reserve"
+   }
+  ]
+ },
+ "GHA": {
+  "pays": "Ghana",
+  "lieux": [
+   {
+    "nom_fr": "Parc national de Kakum",
+    "type": "paysage",
+    "wiki_en": "Kakum National Park"
+   },
+   {
+    "nom_fr": "Lac Bosumtwi",
+    "type": "paysage",
+    "wiki_en": "Lake Bosumtwi"
+   },
+   {
+    "nom_fr": "Mosquée de Larabanga",
+    "type": "culture",
+    "wiki_en": "Larabanga Mosque"
+   }
+  ]
+ },
+ "GIN": {
+  "pays": "Guinée",
+  "lieux": [
+   {
+    "nom_fr": "Massif du Fouta-Djalon",
+    "type": "paysage",
+    "wiki_en": "Fouta Djallon"
+   },
+   {
+    "nom_fr": "Îles de Los",
+    "type": "paysage",
+    "wiki_en": "Îles de Los"
+   },
+   {
+    "nom_fr": "Mont Nimba",
+    "type": "paysage",
+    "wiki_en": "Mount Nimba Strict Nature Reserve"
+   }
+  ]
+ },
+ "GNB": {
+  "pays": "Guinée-Bissau",
+  "lieux": [
+   {
+    "nom_fr": "Archipel des Bijagos",
+    "type": "paysage",
+    "wiki_en": "Bijagós Islands"
+   },
+   {
+    "nom_fr": "Parc national d'Orango",
+    "type": "paysage",
+    "wiki_en": "Orango National Park"
+   },
+   {
+    "nom_fr": "Îles João Vieira et Poilão",
+    "type": "paysage",
+    "wiki_en": "João Vieira and Poilão Marine National Park"
+   }
+  ]
+ },
+ "KEN": {
+  "pays": "Kenya",
+  "lieux": [
+   {
+    "nom_fr": "Réserve du Masai Mara",
+    "type": "paysage",
+    "wiki_en": "Maasai Mara"
+   },
+   {
+    "nom_fr": "Mont Kenya",
+    "type": "paysage",
+    "wiki_en": "Mount Kenya"
+   },
+   {
+    "nom_fr": "Parc national d'Amboseli",
+    "type": "paysage",
+    "wiki_en": "Amboseli National Park"
+   }
+  ]
+ },
+ "LSO": {
+  "pays": "Lesotho",
+  "lieux": [
+   {
+    "nom_fr": "Chutes de Maletsunyane",
+    "type": "paysage",
+    "wiki_en": "Maletsunyane Falls"
+   },
+   {
+    "nom_fr": "Parc de Sehlabathebe",
+    "type": "paysage",
+    "wiki_en": "Sehlabathebe National Park"
+   },
+   {
+    "nom_fr": "Plateau de Thaba Bosiu",
+    "type": "culture",
+    "wiki_en": "Thaba Bosiu"
+   }
+  ]
+ },
+ "LBR": {
+  "pays": "Liberia",
+  "lieux": [
+   {
+    "nom_fr": "Parc national de Sapo",
+    "type": "paysage",
+    "wiki_en": "Sapo National Park"
+   },
+   {
+    "nom_fr": "Lac Piso",
+    "type": "paysage",
+    "wiki_en": "Lake Piso"
+   },
+   {
+    "nom_fr": "Plages de Robertsport",
+    "type": "paysage",
+    "wiki_en": "Robertsport"
+   }
+  ]
+ },
+ "LBY": {
+  "pays": "Libye",
+  "lieux": [
+   {
+    "nom_fr": "Leptis Magna",
+    "type": "culture",
+    "wiki_en": "Leptis Magna"
+   },
+   {
+    "nom_fr": "Massif de l'Akakus",
+    "type": "paysage",
+    "wiki_en": "Acacus Mountains"
+   },
+   {
+    "nom_fr": "Vieille ville de Ghadamès",
+    "type": "culture",
+    "wiki_en": "Ghadames"
+   }
+  ]
+ },
+ "MDG": {
+  "pays": "Madagascar",
+  "lieux": [
+   {
+    "nom_fr": "Allée des Baobabs",
+    "type": "paysage",
+    "wiki_en": "Avenue of the Baobabs"
+   },
+   {
+    "nom_fr": "Tsingy de Bemaraha",
+    "type": "paysage",
+    "wiki_en": "Tsingy de Bemaraha Strict Nature Reserve"
+   },
+   {
+    "nom_fr": "Parc national de l'Isalo",
+    "type": "paysage",
+    "wiki_en": "Isalo National Park"
+   }
+  ]
+ },
+ "MWI": {
+  "pays": "Malawi",
+  "lieux": [
+   {
+    "nom_fr": "Lac Malawi",
+    "type": "paysage",
+    "wiki_en": "Lake Malawi National Park"
+   },
+   {
+    "nom_fr": "Mont Mulanje",
+    "type": "paysage",
+    "wiki_en": "Mount Mulanje"
+   },
+   {
+    "nom_fr": "Parc national de Liwonde",
+    "type": "paysage",
+    "wiki_en": "Liwonde National Park"
+   }
+  ]
+ },
+ "MLI": {
+  "pays": "Mali",
+  "lieux": [
+   {
+    "nom_fr": "Grande Mosquée de Djenné",
+    "type": "culture",
+    "wiki_en": "Great Mosque of Djenné"
+   },
+   {
+    "nom_fr": "Falaise de Bandiagara",
+    "type": "paysage",
+    "wiki_en": "Bandiagara Escarpment"
+   },
+   {
+    "nom_fr": "Mosquée Djingareyber",
+    "type": "culture",
+    "wiki_en": "Djinguereber Mosque"
+   }
+  ]
+ },
+ "MRT": {
+  "pays": "Mauritanie",
+  "lieux": [
+   {
+    "nom_fr": "Œil du Sahara (Richat)",
+    "type": "paysage",
+    "wiki_en": "Richat Structure"
+   },
+   {
+    "nom_fr": "Parc du Banc d'Arguin",
+    "type": "paysage",
+    "wiki_en": "Banc d'Arguin National Park"
+   },
+   {
+    "nom_fr": "Ksar de Chinguetti",
+    "type": "culture",
+    "wiki_en": "Chinguetti"
+   }
+  ]
+ },
+ "MUS": {
+  "pays": "Maurice",
+  "lieux": [
+   {
+    "nom_fr": "Terre des Sept Couleurs",
+    "type": "paysage",
+    "wiki_en": "Seven Coloured Earths"
+   },
+   {
+    "nom_fr": "Gorges de Rivière Noire",
+    "type": "paysage",
+    "wiki_en": "Black River Gorges National Park"
+   },
+   {
+    "nom_fr": "Île aux Cerfs",
+    "type": "paysage",
+    "wiki_en": "Île aux Cerfs"
+   }
+  ]
+ },
+ "MYT": {
+  "pays": "Mayotte",
+  "lieux": [
+   {
+    "nom_fr": "Mont Choungui",
+    "type": "paysage",
+    "wiki_en": "Mont Choungui"
+   },
+   {
+    "nom_fr": "Lac Dziani",
+    "type": "paysage",
+    "wiki_en": "Dziani Dzaha"
+   }
+  ]
+ },
+ "REU": {
+  "pays": "La Réunion",
+  "lieux": [
+   {
+    "nom_fr": "Piton de la Fournaise",
+    "type": "paysage",
+    "wiki_en": "Piton de la Fournaise"
+   },
+   {
+    "nom_fr": "Cirque de Mafate",
+    "type": "paysage",
+    "wiki_en": "Cirque de Mafate"
+   },
+   {
+    "nom_fr": "Piton des Neiges",
+    "type": "paysage",
+    "wiki_en": "Piton des Neiges"
+   }
+  ]
+ },
+ "MAR": {
+  "pays": "Maroc",
+  "lieux": [
+   {
+    "nom_fr": "Mosquée Hassan II",
+    "type": "culture",
+    "wiki_en": "Hassan II Mosque"
+   },
+   {
+    "nom_fr": "Ksar d'Aït-Ben-Haddou",
+    "type": "culture",
+    "wiki_en": "Aït Benhaddou"
+   },
+   {
+    "nom_fr": "Dunes de l'Erg Chebbi",
+    "type": "paysage",
+    "wiki_en": "Erg Chebbi"
+   }
+  ]
+ },
+ "MOZ": {
+  "pays": "Mozambique",
+  "lieux": [
+   {
+    "nom_fr": "Archipel de Bazaruto",
+    "type": "paysage",
+    "wiki_en": "Bazaruto Archipelago"
+   },
+   {
+    "nom_fr": "Île de Mozambique",
+    "type": "culture",
+    "wiki_en": "Island of Mozambique"
+   },
+   {
+    "nom_fr": "Parc de Gorongosa",
+    "type": "paysage",
+    "wiki_en": "Gorongosa National Park"
+   }
+  ]
+ },
+ "NAM": {
+  "pays": "Namibie",
+  "lieux": [
+   {
+    "nom_fr": "Dunes de Sossusvlei",
+    "type": "paysage",
+    "wiki_en": "Sossusvlei"
+   },
+   {
+    "nom_fr": "Parc national d'Etosha",
+    "type": "paysage",
+    "wiki_en": "Etosha National Park"
+   },
+   {
+    "nom_fr": "Canyon de la Fish River",
+    "type": "paysage",
+    "wiki_en": "Fish River Canyon"
+   }
+  ]
+ },
+ "NER": {
+  "pays": "Niger",
+  "lieux": [
+   {
+    "nom_fr": "Grande Mosquée d'Agadez",
+    "type": "culture",
+    "wiki_en": "Agadez Mosque"
+   },
+   {
+    "nom_fr": "Massif de l'Aïr",
+    "type": "paysage",
+    "wiki_en": "Aïr Mountains"
+   },
+   {
+    "nom_fr": "Désert du Ténéré",
+    "type": "paysage",
+    "wiki_en": "Ténéré"
+   }
+  ]
+ },
+ "NGA": {
+  "pays": "Nigeria",
+  "lieux": [
+   {
+    "nom_fr": "Zuma Rock",
+    "type": "paysage",
+    "wiki_en": "Zuma Rock"
+   },
+   {
+    "nom_fr": "Forêt sacrée d'Osun-Osogbo",
+    "type": "culture",
+    "wiki_en": "Osun-Osogbo Sacred Grove"
+   },
+   {
+    "nom_fr": "Rocher d'Olumo",
+    "type": "paysage",
+    "wiki_en": "Olumo Rock"
+   }
+  ]
+ },
+ "RWA": {
+  "pays": "Rwanda",
+  "lieux": [
+   {
+    "nom_fr": "Parc national des Volcans",
+    "type": "paysage",
+    "wiki_en": "Volcanoes National Park"
+   },
+   {
+    "nom_fr": "Lac Kivu",
+    "type": "paysage",
+    "wiki_en": "Lake Kivu"
+   },
+   {
+    "nom_fr": "Forêt de Nyungwe",
+    "type": "paysage",
+    "wiki_en": "Nyungwe National Park"
+   }
+  ]
+ },
+ "STP": {
+  "pays": "Sao Tomé-et-Principe",
+  "lieux": [
+   {
+    "nom_fr": "Pico Cão Grande",
+    "type": "paysage",
+    "wiki_en": "Pico Cão Grande"
+   },
+   {
+    "nom_fr": "Îlot das Rolas",
+    "type": "paysage",
+    "wiki_en": "Ilhéu das Rolas"
+   },
+   {
+    "nom_fr": "Île de Principe",
+    "type": "paysage",
+    "wiki_en": "Príncipe"
+   }
+  ]
+ },
+ "SEN": {
+  "pays": "Sénégal",
+  "lieux": [
+   {
+    "nom_fr": "Lac Rose",
+    "type": "paysage",
+    "wiki_en": "Lake Retba"
+   },
+   {
+    "nom_fr": "Île de Saint-Louis",
+    "type": "culture",
+    "wiki_en": "Saint-Louis, Senegal"
+   },
+   {
+    "nom_fr": "Parc du Niokolo-Koba",
+    "type": "paysage",
+    "wiki_en": "Niokolo-Koba National Park"
+   }
+  ]
+ },
+ "SYC": {
+  "pays": "Seychelles",
+  "lieux": [
+   {
+    "nom_fr": "Anse Source d'Argent",
+    "type": "paysage",
+    "wiki_en": "Anse Source d'Argent"
+   },
+   {
+    "nom_fr": "Vallée de Mai",
+    "type": "paysage",
+    "wiki_en": "Vallée de Mai"
+   },
+   {
+    "nom_fr": "Anse Lazio",
+    "type": "paysage",
+    "wiki_en": "Anse Lazio"
+   }
+  ]
+ },
+ "SLE": {
+  "pays": "Sierra Leone",
+  "lieux": [
+   {
+    "nom_fr": "Île de Tiwai",
+    "type": "paysage",
+    "wiki_en": "Tiwai Island"
+   },
+   {
+    "nom_fr": "Mont Bintumani",
+    "type": "paysage",
+    "wiki_en": "Mount Bintumani"
+   },
+   {
+    "nom_fr": "Îles Banana",
+    "type": "paysage",
+    "wiki_en": "Banana Islands"
+   }
+  ]
+ },
+ "SOM": {
+  "pays": "Somalie",
+  "lieux": [
+   {
+    "nom_fr": "Cap Gardafui",
+    "type": "paysage",
+    "wiki_en": "Cape Guardafui"
+   },
+   {
+    "nom_fr": "Plage du Lido, Mogadiscio",
+    "type": "paysage",
+    "wiki_en": "Lido Beach, Mogadishu"
+   },
+   {
+    "nom_fr": "Mosquée Fakhr ad-Din",
+    "type": "culture",
+    "wiki_en": "Fakhr al-Din Mosque"
+   }
+  ]
+ },
+ "ZAF": {
+  "pays": "Afrique du Sud",
+  "lieux": [
+   {
+    "nom_fr": "Montagne de la Table",
+    "type": "paysage",
+    "wiki_en": "Table Mountain"
+   },
+   {
+    "nom_fr": "Parc national Kruger",
+    "type": "paysage",
+    "wiki_en": "Kruger National Park"
+   },
+   {
+    "nom_fr": "Cap de Bonne-Espérance",
+    "type": "paysage",
+    "wiki_en": "Cape of Good Hope"
+   }
+  ]
+ },
+ "SDS": {
+  "pays": "Soudan du Sud",
+  "lieux": [
+   {
+    "nom_fr": "Parc national de Boma",
+    "type": "paysage",
+    "wiki_en": "Boma National Park"
+   },
+   {
+    "nom_fr": "Marais du Sudd",
+    "type": "paysage",
+    "wiki_en": "Sudd"
+   },
+   {
+    "nom_fr": "Monts Imatong",
+    "type": "paysage",
+    "wiki_en": "Imatong Mountains"
+   }
+  ]
+ },
+ "SDN": {
+  "pays": "Soudan",
+  "lieux": [
+   {
+    "nom_fr": "Pyramides de Méroé",
+    "type": "culture",
+    "wiki_en": "Meroë"
+   },
+   {
+    "nom_fr": "Djebel Barkal",
+    "type": "culture",
+    "wiki_en": "Jebel Barkal"
+   },
+   {
+    "nom_fr": "Parc national de Dinder",
+    "type": "paysage",
+    "wiki_en": "Dinder National Park"
+   }
+  ]
+ },
+ "TZA": {
+  "pays": "Tanzanie",
+  "lieux": [
+   {
+    "nom_fr": "Kilimandjaro",
+    "type": "paysage",
+    "wiki_en": "Mount Kilimanjaro"
+   },
+   {
+    "nom_fr": "Parc du Serengeti",
+    "type": "paysage",
+    "wiki_en": "Serengeti National Park"
+   },
+   {
+    "nom_fr": "Stone Town de Zanzibar",
+    "type": "culture",
+    "wiki_en": "Stone Town"
+   }
+  ]
+ },
+ "TGO": {
+  "pays": "Togo",
+  "lieux": [
+   {
+    "nom_fr": "Koutammakou",
+    "type": "culture",
+    "wiki_en": "Koutammakou"
+   },
+   {
+    "nom_fr": "Lac Togo",
+    "type": "paysage",
+    "wiki_en": "Lake Togo"
+   },
+   {
+    "nom_fr": "Parc de Fazao-Malfakassa",
+    "type": "paysage",
+    "wiki_en": "Fazao-Malfakassa National Park"
+   }
+  ]
+ },
+ "TUN": {
+  "pays": "Tunisie",
+  "lieux": [
+   {
+    "nom_fr": "Amphithéâtre d'El Jem",
+    "type": "culture",
+    "wiki_en": "Amphitheatre of El Jem"
+   },
+   {
+    "nom_fr": "Sidi Bou Saïd",
+    "type": "culture",
+    "wiki_en": "Sidi Bou Said"
+   },
+   {
+    "nom_fr": "Chott el-Djérid",
+    "type": "paysage",
+    "wiki_en": "Chott el Djerid"
+   }
+  ]
+ },
+ "UGA": {
+  "pays": "Ouganda",
+  "lieux": [
+   {
+    "nom_fr": "Chutes Murchison",
+    "type": "paysage",
+    "wiki_en": "Murchison Falls"
+   },
+   {
+    "nom_fr": "Forêt de Bwindi",
+    "type": "paysage",
+    "wiki_en": "Bwindi Impenetrable National Park"
+   },
+   {
+    "nom_fr": "Monts Rwenzori",
+    "type": "paysage",
+    "wiki_en": "Rwenzori Mountains"
+   }
+  ]
+ },
+ "ZMB": {
+  "pays": "Zambie",
+  "lieux": [
+   {
+    "nom_fr": "Parc de South Luangwa",
+    "type": "paysage",
+    "wiki_en": "South Luangwa National Park"
+   },
+   {
+    "nom_fr": "Chutes de Kalambo",
+    "type": "paysage",
+    "wiki_en": "Kalambo Falls"
+   },
+   {
+    "nom_fr": "Parc du Lower Zambezi",
+    "type": "paysage",
+    "wiki_en": "Lower Zambezi National Park"
+   }
+  ]
+ },
+ "ZWE": {
+  "pays": "Zimbabwe",
+  "lieux": [
+   {
+    "nom_fr": "Chutes Victoria",
+    "type": "paysage",
+    "wiki_en": "Victoria Falls"
+   },
+   {
+    "nom_fr": "Grand Zimbabwe",
+    "type": "culture",
+    "wiki_en": "Great Zimbabwe"
+   },
+   {
+    "nom_fr": "Parc de Mana Pools",
+    "type": "paysage",
+    "wiki_en": "Mana Pools National Park"
+   }
+  ]
+ },
+ "SAH": {
+  "pays": "Sahara occidental",
+  "lieux": [
+   {
+    "nom_fr": "Baie de Dakhla",
+    "type": "paysage",
+    "wiki_en": "Dakhla Bay"
+   },
+   {
+    "nom_fr": "Cap Bojador",
+    "type": "paysage",
+    "wiki_en": "Cape Bojador"
+   }
+  ]
+ },
+ "SHN": {
+  "pays": "Sainte-Hélène",
+  "lieux": [
+   {
+    "nom_fr": "Diana's Peak",
+    "type": "paysage",
+    "wiki_en": "Diana's Peak"
+   },
+   {
+    "nom_fr": "Escalier Jacob's Ladder",
+    "type": "culture",
+    "wiki_en": "Jacob's Ladder (Saint Helena)"
+   }
+  ]
+ },
+ "CAN": {
+  "pays": "Canada",
+  "lieux": [
+   {
+    "nom_fr": "Lac Moraine",
+    "type": "paysage",
+    "wiki_en": "Moraine Lake"
+   },
+   {
+    "nom_fr": "Château Frontenac",
+    "type": "culture",
+    "wiki_en": "Château Frontenac"
+   },
+   {
+    "nom_fr": "Lac Peyto",
+    "type": "paysage",
+    "wiki_en": "Peyto Lake"
+   }
+  ]
+ },
+ "USA": {
+  "pays": "États-Unis",
+  "lieux": [
+   {
+    "nom_fr": "Grand Canyon",
+    "type": "paysage",
+    "wiki_en": "Grand Canyon"
+   },
+   {
+    "nom_fr": "Statue de la Liberté",
+    "type": "culture",
+    "wiki_en": "Statue of Liberty"
+   },
+   {
+    "nom_fr": "Golden Gate Bridge",
+    "type": "culture",
+    "wiki_en": "Golden Gate Bridge"
+   }
+  ]
+ },
+ "MEX": {
+  "pays": "Mexique",
+  "lieux": [
+   {
+    "nom_fr": "Chichén Itzá",
+    "type": "culture",
+    "wiki_en": "Chichen Itza"
+   },
+   {
+    "nom_fr": "Teotihuacan",
+    "type": "culture",
+    "wiki_en": "Teotihuacan"
+   },
+   {
+    "nom_fr": "Canyon du Cuivre",
+    "type": "paysage",
+    "wiki_en": "Copper Canyon"
+   }
+  ]
+ },
+ "GTM": {
+  "pays": "Guatemala",
+  "lieux": [
+   {
+    "nom_fr": "Tikal",
+    "type": "culture",
+    "wiki_en": "Tikal"
+   },
+   {
+    "nom_fr": "Lac Atitlán",
+    "type": "paysage",
+    "wiki_en": "Lake Atitlán"
+   },
+   {
+    "nom_fr": "Antigua Guatemala",
+    "type": "culture",
+    "wiki_en": "Antigua Guatemala"
+   }
+  ]
+ },
+ "BLZ": {
+  "pays": "Belize",
+  "lieux": [
+   {
+    "nom_fr": "Grand Trou bleu",
+    "type": "paysage",
+    "wiki_en": "Great Blue Hole"
+   },
+   {
+    "nom_fr": "Xunantunich",
+    "type": "culture",
+    "wiki_en": "Xunantunich"
+   },
+   {
+    "nom_fr": "Lamanai",
+    "type": "culture",
+    "wiki_en": "Lamanai"
+   }
+  ]
+ },
+ "SLV": {
+  "pays": "Salvador",
+  "lieux": [
+   {
+    "nom_fr": "Volcan Santa Ana",
+    "type": "paysage",
+    "wiki_en": "Santa Ana Volcano"
+   },
+   {
+    "nom_fr": "Lac de Coatepeque",
+    "type": "paysage",
+    "wiki_en": "Coatepeque Caldera"
+   },
+   {
+    "nom_fr": "Joya de Cerén",
+    "type": "culture",
+    "wiki_en": "Joya de Cerén"
+   }
+  ]
+ },
+ "HND": {
+  "pays": "Honduras",
+  "lieux": [
+   {
+    "nom_fr": "Copán",
+    "type": "culture",
+    "wiki_en": "Copán"
+   },
+   {
+    "nom_fr": "Roatán",
+    "type": "paysage",
+    "wiki_en": "Roatán"
+   },
+   {
+    "nom_fr": "Parc national Pico Bonito",
+    "type": "paysage",
+    "wiki_en": "Pico Bonito National Park"
+   }
+  ]
+ },
+ "NIC": {
+  "pays": "Nicaragua",
+  "lieux": [
+   {
+    "nom_fr": "Île d'Ometepe",
+    "type": "paysage",
+    "wiki_en": "Ometepe"
+   },
+   {
+    "nom_fr": "Volcan Masaya",
+    "type": "paysage",
+    "wiki_en": "Masaya Volcano"
+   },
+   {
+    "nom_fr": "Cathédrale de León",
+    "type": "culture",
+    "wiki_en": "León Cathedral, Nicaragua"
+   }
+  ]
+ },
+ "CRI": {
+  "pays": "Costa Rica",
+  "lieux": [
+   {
+    "nom_fr": "Volcan Arenal",
+    "type": "paysage",
+    "wiki_en": "Arenal Volcano"
+   },
+   {
+    "nom_fr": "Parc Manuel Antonio",
+    "type": "paysage",
+    "wiki_en": "Manuel Antonio National Park"
+   },
+   {
+    "nom_fr": "Forêt de Monteverde",
+    "type": "paysage",
+    "wiki_en": "Monteverde Cloud Forest Reserve"
+   }
+  ]
+ },
+ "PAN": {
+  "pays": "Panama",
+  "lieux": [
+   {
+    "nom_fr": "Canal de Panama",
+    "type": "culture",
+    "wiki_en": "Panama Canal"
+   },
+   {
+    "nom_fr": "Îles San Blas",
+    "type": "paysage",
+    "wiki_en": "San Blas Islands"
+   },
+   {
+    "nom_fr": "Casco Viejo",
+    "type": "culture",
+    "wiki_en": "Casco Viejo, Panama"
+   }
+  ]
+ },
+ "CUB": {
+  "pays": "Cuba",
+  "lieux": [
+   {
+    "nom_fr": "Vieille Havane",
+    "type": "culture",
+    "wiki_en": "Old Havana"
+   },
+   {
+    "nom_fr": "Vallée de Viñales",
+    "type": "paysage",
+    "wiki_en": "Viñales Valley"
+   },
+   {
+    "nom_fr": "Trinidad",
+    "type": "culture",
+    "wiki_en": "Trinidad, Cuba"
+   }
+  ]
+ },
+ "JAM": {
+  "pays": "Jamaïque",
+  "lieux": [
+   {
+    "nom_fr": "Chutes de Dunn's River",
+    "type": "paysage",
+    "wiki_en": "Dunn's River Falls"
+   },
+   {
+    "nom_fr": "Blue Mountains",
+    "type": "paysage",
+    "wiki_en": "Blue Mountains (Jamaica)"
+   },
+   {
+    "nom_fr": "Rose Hall",
+    "type": "culture",
+    "wiki_en": "Rose Hall, Montego Bay"
+   }
+  ]
+ },
+ "HTI": {
+  "pays": "Haïti",
+  "lieux": [
+   {
+    "nom_fr": "Citadelle Laferrière",
+    "type": "culture",
+    "wiki_en": "Citadelle Laferrière"
+   },
+   {
+    "nom_fr": "Palais Sans-Souci",
+    "type": "culture",
+    "wiki_en": "Sans-Souci Palace"
+   },
+   {
+    "nom_fr": "Île-à-Vache",
+    "type": "paysage",
+    "wiki_en": "Île-à-Vache"
+   }
+  ]
+ },
+ "DOM": {
+  "pays": "République dominicaine",
+  "lieux": [
+   {
+    "nom_fr": "Zone coloniale",
+    "type": "culture",
+    "wiki_en": "Ciudad Colonial (Santo Domingo)"
+   },
+   {
+    "nom_fr": "Île Saona",
+    "type": "paysage",
+    "wiki_en": "Saona Island"
+   },
+   {
+    "nom_fr": "Parc Los Haitises",
+    "type": "paysage",
+    "wiki_en": "Los Haitises National Park"
+   }
+  ]
+ },
+ "PRI": {
+  "pays": "Porto Rico",
+  "lieux": [
+   {
+    "nom_fr": "Fort San Felipe del Morro",
+    "type": "culture",
+    "wiki_en": "Castillo San Felipe del Morro"
+   },
+   {
+    "nom_fr": "Forêt d'El Yunque",
+    "type": "paysage",
+    "wiki_en": "El Yunque National Forest"
+   },
+   {
+    "nom_fr": "Vieux San Juan",
+    "type": "culture",
+    "wiki_en": "Old San Juan"
+   }
+  ]
+ },
+ "BHS": {
+  "pays": "Bahamas",
+  "lieux": [
+   {
+    "nom_fr": "Exumas",
+    "type": "paysage",
+    "wiki_en": "Exuma"
+   },
+   {
+    "nom_fr": "Trou bleu de Dean",
+    "type": "paysage",
+    "wiki_en": "Dean's Blue Hole"
+   },
+   {
+    "nom_fr": "Harbour Island",
+    "type": "paysage",
+    "wiki_en": "Harbour Island, Bahamas"
+   }
+  ]
+ },
+ "BRB": {
+  "pays": "Barbade",
+  "lieux": [
+   {
+    "nom_fr": "Bathsheba",
+    "type": "paysage",
+    "wiki_en": "Bathsheba, Barbados"
+   },
+   {
+    "nom_fr": "Baie de Carlisle",
+    "type": "paysage",
+    "wiki_en": "Carlisle Bay, Barbados"
+   },
+   {
+    "nom_fr": "Garnison de Bridgetown",
+    "type": "culture",
+    "wiki_en": "Garrison Historic Area"
+   }
+  ]
+ },
+ "TTO": {
+  "pays": "Trinité-et-Tobago",
+  "lieux": [
+   {
+    "nom_fr": "Lac d’asphalte (Pitch Lake)",
+    "type": "paysage",
+    "wiki_en": "Pitch Lake"
+   },
+   {
+    "nom_fr": "Pigeon Point",
+    "type": "paysage",
+    "wiki_en": "Pigeon Point, Tobago"
+   },
+   {
+    "nom_fr": "Marais de Caroni",
+    "type": "paysage",
+    "wiki_en": "Caroni Swamp"
+   }
+  ]
+ },
+ "ATG": {
+  "pays": "Antigua-et-Barbuda",
+  "lieux": [
+   {
+    "nom_fr": "Nelson's Dockyard",
+    "type": "culture",
+    "wiki_en": "Nelson's Dockyard"
+   },
+   {
+    "nom_fr": "Shirley Heights",
+    "type": "culture",
+    "wiki_en": "Shirley Heights, Antigua and Barbuda"
+   }
+  ]
+ },
+ "DMA": {
+  "pays": "Dominique",
+  "lieux": [
+   {
+    "nom_fr": "Lac Bouillonnant",
+    "type": "paysage",
+    "wiki_en": "Boiling Lake"
+   },
+   {
+    "nom_fr": "Morne Trois Pitons",
+    "type": "paysage",
+    "wiki_en": "Morne Trois Pitons National Park"
+   },
+   {
+    "nom_fr": "Parc des Cabrits",
+    "type": "paysage",
+    "wiki_en": "Cabrits National Park"
+   }
+  ]
+ },
+ "GRD": {
+  "pays": "Grenade",
+  "lieux": [
+   {
+    "nom_fr": "Lac du Grand Étang",
+    "type": "paysage",
+    "wiki_en": "Grand Etang Lake"
+   },
+   {
+    "nom_fr": "Fort George",
+    "type": "culture",
+    "wiki_en": "Fort George, Grenada"
+   },
+   {
+    "nom_fr": "Carriacou",
+    "type": "paysage",
+    "wiki_en": "Carriacou"
+   }
+  ]
+ },
+ "KNA": {
+  "pays": "Saint-Christophe-et-Niévès",
+  "lieux": [
+   {
+    "nom_fr": "Forteresse de Brimstone Hill",
+    "type": "culture",
+    "wiki_en": "Brimstone Hill Fortress National Park"
+   },
+   {
+    "nom_fr": "Mont Liamuiga",
+    "type": "paysage",
+    "wiki_en": "Mount Liamuiga"
+   },
+   {
+    "nom_fr": "Pic de Nevis",
+    "type": "paysage",
+    "wiki_en": "Nevis Peak"
+   }
+  ]
+ },
+ "LCA": {
+  "pays": "Sainte-Lucie",
+  "lieux": [
+   {
+    "nom_fr": "Les Pitons",
+    "type": "paysage",
+    "wiki_en": "Pitons (Saint Lucia)"
+   },
+   {
+    "nom_fr": "Marigot Bay",
+    "type": "paysage",
+    "wiki_en": "Marigot Bay"
+   },
+   {
+    "nom_fr": "Pigeon Island",
+    "type": "culture",
+    "wiki_en": "Pigeon Island (Saint Lucia)"
+   }
+  ]
+ },
+ "VCT": {
+  "pays": "Saint-Vincent-et-les-Grenadines",
+  "lieux": [
+   {
+    "nom_fr": "Tobago Cays",
+    "type": "paysage",
+    "wiki_en": "Tobago Cays"
+   },
+   {
+    "nom_fr": "La Soufrière",
+    "type": "paysage",
+    "wiki_en": "La Soufrière (volcano)"
+   },
+   {
+    "nom_fr": "Bequia",
+    "type": "paysage",
+    "wiki_en": "Bequia"
+   }
+  ]
+ },
+ "ABW": {
+  "pays": "Aruba",
+  "lieux": [
+   {
+    "nom_fr": "Eagle Beach",
+    "type": "paysage",
+    "wiki_en": "Eagle Beach"
+   },
+   {
+    "nom_fr": "Parc national Arikok",
+    "type": "paysage",
+    "wiki_en": "Arikok National Park"
+   },
+   {
+    "nom_fr": "Phare California",
+    "type": "culture",
+    "wiki_en": "California Lighthouse"
+   }
+  ]
+ },
+ "CUW": {
+  "pays": "Curaçao",
+  "lieux": [
+   {
+    "nom_fr": "Pont Reine-Emma",
+    "type": "culture",
+    "wiki_en": "Queen Emma Bridge"
+   },
+   {
+    "nom_fr": "Parc Christoffel",
+    "type": "paysage",
+    "wiki_en": "Christoffelpark"
+   },
+   {
+    "nom_fr": "Fort Amsterdam",
+    "type": "culture",
+    "wiki_en": "Fort Amsterdam (Curaçao)"
+   }
+  ]
+ },
+ "BES": {
+  "pays": "Pays-Bas caribéens",
+  "lieux": [
+   {
+    "nom_fr": "Mont Scenery (Saba)",
+    "type": "paysage",
+    "wiki_en": "Mount Scenery"
+   },
+   {
+    "nom_fr": "Parc Washington Slagbaai",
+    "type": "paysage",
+    "wiki_en": "Washington Slagbaai National Park"
+   },
+   {
+    "nom_fr": "The Quill (Saint-Eustache)",
+    "type": "paysage",
+    "wiki_en": "The Quill (volcano)"
+   }
+  ]
+ },
+ "SXM": {
+  "pays": "Sint Maarten",
+  "lieux": [
+   {
+    "nom_fr": "Maho Beach",
+    "type": "paysage",
+    "wiki_en": "Maho Beach"
+   },
+   {
+    "nom_fr": "Philipsburg",
+    "type": "culture",
+    "wiki_en": "Philipsburg, Sint Maarten"
+   },
+   {
+    "nom_fr": "Fort Amsterdam",
+    "type": "culture",
+    "wiki_en": "Fort Amsterdam (Sint Maarten)"
+   }
+  ]
+ },
+ "MAF": {
+  "pays": "Saint-Martin",
+  "lieux": [
+   {
+    "nom_fr": "Pic Paradis",
+    "type": "paysage",
+    "wiki_en": "Pic Paradis"
+   },
+   {
+    "nom_fr": "Île Tintamarre",
+    "type": "paysage",
+    "wiki_en": "Île Tintamarre"
+   }
+  ]
+ },
+ "GLP": {
+  "pays": "Guadeloupe",
+  "lieux": [
+   {
+    "nom_fr": "La Soufrière",
+    "type": "paysage",
+    "wiki_en": "La Grande Soufrière"
+   },
+   {
+    "nom_fr": "Les Saintes",
+    "type": "paysage",
+    "wiki_en": "Îles des Saintes"
+   },
+   {
+    "nom_fr": "Chutes du Carbet",
+    "type": "paysage",
+    "wiki_en": "Carbet Falls"
+   }
+  ]
+ },
+ "MTQ": {
+  "pays": "Martinique",
+  "lieux": [
+   {
+    "nom_fr": "Montagne Pelée",
+    "type": "paysage",
+    "wiki_en": "Mount Pelée"
+   },
+   {
+    "nom_fr": "Rocher du Diamant",
+    "type": "paysage",
+    "wiki_en": "Diamond Rock"
+   },
+   {
+    "nom_fr": "Cathédrale de Fort-de-France",
+    "type": "culture",
+    "wiki_en": "St. Louis Cathedral, Fort-de-France"
+   }
+  ]
+ },
+ "TCA": {
+  "pays": "Îles Turques-et-Caïques",
+  "lieux": [
+   {
+    "nom_fr": "Salt Cay",
+    "type": "paysage",
+    "wiki_en": "Salt Cay, Turks Islands"
+   },
+   {
+    "nom_fr": "Phare de Grand Turk",
+    "type": "culture",
+    "wiki_en": "Grand Turk Lighthouse"
+   },
+   {
+    "nom_fr": "Grottes de Conch Bar",
+    "type": "paysage",
+    "wiki_en": "Conch Bar Caves"
+   }
+  ]
+ },
+ "CYM": {
+  "pays": "Îles Caïmans",
+  "lieux": [
+   {
+    "nom_fr": "Seven Mile Beach",
+    "type": "paysage",
+    "wiki_en": "Seven Mile Beach, Grand Cayman"
+   },
+   {
+    "nom_fr": "Stingray City",
+    "type": "paysage",
+    "wiki_en": "Stingray City, Grand Cayman"
+   },
+   {
+    "nom_fr": "Pedro St. James",
+    "type": "culture",
+    "wiki_en": "Pedro St. James Castle"
+   }
+  ]
+ },
+ "VGB": {
+  "pays": "Îles Vierges britanniques",
+  "lieux": [
+   {
+    "nom_fr": "The Baths",
+    "type": "paysage",
+    "wiki_en": "The Baths"
+   },
+   {
+    "nom_fr": "Anegada",
+    "type": "paysage",
+    "wiki_en": "Anegada"
+   },
+   {
+    "nom_fr": "Jost Van Dyke",
+    "type": "paysage",
+    "wiki_en": "Jost Van Dyke"
+   }
+  ]
+ },
+ "VIR": {
+  "pays": "Îles Vierges des États-Unis",
+  "lieux": [
+   {
+    "nom_fr": "Trunk Bay",
+    "type": "paysage",
+    "wiki_en": "Trunk Bay"
+   },
+   {
+    "nom_fr": "Magens Bay",
+    "type": "paysage",
+    "wiki_en": "Magens Bay"
+   },
+   {
+    "nom_fr": "Christiansted",
+    "type": "culture",
+    "wiki_en": "Christiansted National Historic Site"
+   }
+  ]
+ },
+ "BMU": {
+  "pays": "Bermudes",
+  "lieux": [
+   {
+    "nom_fr": "Horseshoe Bay",
+    "type": "paysage",
+    "wiki_en": "Horseshoe Bay, Bermuda"
+   },
+   {
+    "nom_fr": "St. George's",
+    "type": "culture",
+    "wiki_en": "Historic Town of St George and Related Fortifications, Bermuda"
+   },
+   {
+    "nom_fr": "Phare de Gibbs Hill",
+    "type": "culture",
+    "wiki_en": "Gibbs Hill Lighthouse"
+   }
+  ]
+ },
+ "GRL": {
+  "pays": "Groenland",
+  "lieux": [
+   {
+    "nom_fr": "Fjord glacé d'Ilulissat",
+    "type": "paysage",
+    "wiki_en": "Ilulissat Icefjord"
+   },
+   {
+    "nom_fr": "Scoresby Sund",
+    "type": "paysage",
+    "wiki_en": "Scoresby Sound"
+   },
+   {
+    "nom_fr": "Île d'Uummannaq",
+    "type": "paysage",
+    "wiki_en": "Uummannaq Island"
+   }
+  ]
+ },
+ "SPM": {
+  "pays": "Saint-Pierre-et-Miquelon",
+  "lieux": [
+   {
+    "nom_fr": "Langlade",
+    "type": "paysage",
+    "wiki_en": "Langlade Island"
+   },
+   {
+    "nom_fr": "Île aux Marins",
+    "type": "culture",
+    "wiki_en": "Île-aux-Marins"
+   },
+   {
+    "nom_fr": "Grand Barachois",
+    "type": "paysage",
+    "wiki_en": "Grand Barachois, Miquelon Island"
+   }
+  ]
+ },
+ "BLM": {
+  "pays": "Saint-Barthélemy",
+  "lieux": [
+   {
+    "nom_fr": "Gustavia",
+    "type": "culture",
+    "wiki_en": "Gustavia, Saint Barthélemy"
+   },
+   {
+    "nom_fr": "Île Fourchue",
+    "type": "paysage",
+    "wiki_en": "Île Fourchue"
+   },
+   {
+    "nom_fr": "Fort Karl",
+    "type": "culture",
+    "wiki_en": "Fort Karl"
+   }
+  ]
+ },
+ "ARG": {
+  "pays": "Argentine",
+  "lieux": [
+   {
+    "nom_fr": "Chutes d'Iguazú",
+    "type": "paysage",
+    "wiki_en": "Iguazu Falls"
+   },
+   {
+    "nom_fr": "Glacier Perito Moreno",
+    "type": "paysage",
+    "wiki_en": "Perito Moreno Glacier"
+   },
+   {
+    "nom_fr": "Quebrada de Humahuaca",
+    "type": "paysage",
+    "wiki_en": "Quebrada de Humahuaca"
+   }
+  ]
+ },
+ "BOL": {
+  "pays": "Bolivie",
+  "lieux": [
+   {
+    "nom_fr": "Salar d'Uyuni",
+    "type": "paysage",
+    "wiki_en": "Salar de Uyuni"
+   },
+   {
+    "nom_fr": "Tiwanaku",
+    "type": "culture",
+    "wiki_en": "Tiwanaku"
+   },
+   {
+    "nom_fr": "Laguna Colorada",
+    "type": "paysage",
+    "wiki_en": "Laguna Colorada"
+   }
+  ]
+ },
+ "BRA": {
+  "pays": "Brésil",
+  "lieux": [
+   {
+    "nom_fr": "Christ Rédempteur",
+    "type": "culture",
+    "wiki_en": "Christ the Redeemer (statue)"
+   },
+   {
+    "nom_fr": "Pain de Sucre",
+    "type": "paysage",
+    "wiki_en": "Sugarloaf Mountain"
+   },
+   {
+    "nom_fr": "Lençóis Maranhenses",
+    "type": "paysage",
+    "wiki_en": "Lençóis Maranhenses National Park"
+   }
+  ]
+ },
+ "CHL": {
+  "pays": "Chili",
+  "lieux": [
+   {
+    "nom_fr": "Torres del Paine",
+    "type": "paysage",
+    "wiki_en": "Torres del Paine National Park"
+   },
+   {
+    "nom_fr": "Moaï de l'île de Pâques",
+    "type": "culture",
+    "wiki_en": "Moai"
+   },
+   {
+    "nom_fr": "Vallée de la Lune",
+    "type": "paysage",
+    "wiki_en": "Valle de la Luna (Chile)"
+   }
+  ]
+ },
+ "COL": {
+  "pays": "Colombie",
+  "lieux": [
+   {
+    "nom_fr": "Fort San Felipe (Carthagène)",
+    "type": "culture",
+    "wiki_en": "Castillo San Felipe de Barajas"
+   },
+   {
+    "nom_fr": "Caño Cristales",
+    "type": "paysage",
+    "wiki_en": "Caño Cristales"
+   },
+   {
+    "nom_fr": "Sanctuaire de Las Lajas",
+    "type": "culture",
+    "wiki_en": "Las Lajas Sanctuary"
+   }
+  ]
+ },
+ "ECU": {
+  "pays": "Équateur",
+  "lieux": [
+   {
+    "nom_fr": "Îles Galápagos",
+    "type": "paysage",
+    "wiki_en": "Galápagos Islands"
+   },
+   {
+    "nom_fr": "Cotopaxi",
+    "type": "paysage",
+    "wiki_en": "Cotopaxi"
+   },
+   {
+    "nom_fr": "Lagune de Quilotoa",
+    "type": "paysage",
+    "wiki_en": "Quilotoa"
+   }
+  ]
+ },
+ "GUY": {
+  "pays": "Guyana",
+  "lieux": [
+   {
+    "nom_fr": "Chutes de Kaieteur",
+    "type": "paysage",
+    "wiki_en": "Kaieteur Falls"
+   },
+   {
+    "nom_fr": "Cathédrale Saint-Georges",
+    "type": "culture",
+    "wiki_en": "St. George's Cathedral, Georgetown"
+   },
+   {
+    "nom_fr": "Forêt d'Iwokrama",
+    "type": "paysage",
+    "wiki_en": "Iwokrama Forest"
+   }
+  ]
+ },
+ "GUF": {
+  "pays": "Guyane",
+  "lieux": [
+   {
+    "nom_fr": "Îles du Salut",
+    "type": "paysage",
+    "wiki_en": "Salvation Islands"
+   },
+   {
+    "nom_fr": "Parc amazonien de Guyane",
+    "type": "paysage",
+    "wiki_en": "Guiana Amazonian Park"
+   },
+   {
+    "nom_fr": "Montagne de Kaw",
+    "type": "paysage",
+    "wiki_en": "Kaw Mountain"
+   }
+  ]
+ },
+ "PRY": {
+  "pays": "Paraguay",
+  "lieux": [
+   {
+    "nom_fr": "Missions jésuites de Trinidad",
+    "type": "culture",
+    "wiki_en": "Jesuit Missions of La Santísima Trinidad de Paraná and Jesús de Tavarangue"
+   },
+   {
+    "nom_fr": "Chutes du Monday",
+    "type": "paysage",
+    "wiki_en": "Saltos del Monday"
+   },
+   {
+    "nom_fr": "Lac Ypacaraí",
+    "type": "paysage",
+    "wiki_en": "Ypacaraí Lake"
+   }
+  ]
+ },
+ "PER": {
+  "pays": "Pérou",
+  "lieux": [
+   {
+    "nom_fr": "Machu Picchu",
+    "type": "culture",
+    "wiki_en": "Machu Picchu"
+   },
+   {
+    "nom_fr": "Montagne aux sept couleurs",
+    "type": "paysage",
+    "wiki_en": "Vinicunca"
+   },
+   {
+    "nom_fr": "Lac Titicaca",
+    "type": "paysage",
+    "wiki_en": "Lake Titicaca"
+   }
+  ]
+ },
+ "SUR": {
+  "pays": "Suriname",
+  "lieux": [
+   {
+    "nom_fr": "Réserve du Suriname central",
+    "type": "paysage",
+    "wiki_en": "Central Suriname Nature Reserve"
+   },
+   {
+    "nom_fr": "Cathédrale de Paramaribo",
+    "type": "culture",
+    "wiki_en": "Saint Peter and Paul Cathedral, Paramaribo"
+   },
+   {
+    "nom_fr": "Parc de Brownsberg",
+    "type": "paysage",
+    "wiki_en": "Brownsberg Nature Park"
+   }
+  ]
+ },
+ "URY": {
+  "pays": "Uruguay",
+  "lieux": [
+   {
+    "nom_fr": "Colonia del Sacramento",
+    "type": "culture",
+    "wiki_en": "Colonia del Sacramento"
+   },
+   {
+    "nom_fr": "Cabo Polonio",
+    "type": "paysage",
+    "wiki_en": "Cabo Polonio"
+   },
+   {
+    "nom_fr": "Palacio Salvo",
+    "type": "culture",
+    "wiki_en": "Palacio Salvo"
+   }
+  ]
+ },
+ "VEN": {
+  "pays": "Venezuela",
+  "lieux": [
+   {
+    "nom_fr": "Salto Ángel",
+    "type": "paysage",
+    "wiki_en": "Angel Falls"
+   },
+   {
+    "nom_fr": "Archipel de Los Roques",
+    "type": "paysage",
+    "wiki_en": "Los Roques Archipelago"
+   },
+   {
+    "nom_fr": "Dunes de Coro",
+    "type": "paysage",
+    "wiki_en": "Médanos de Coro National Park"
+   }
+  ]
+ },
+ "FLK": {
+  "pays": "Îles Malouines",
+  "lieux": [
+   {
+    "nom_fr": "Volunteer Point",
+    "type": "paysage",
+    "wiki_en": "Volunteer Point"
+   },
+   {
+    "nom_fr": "Sea Lion Island",
+    "type": "paysage",
+    "wiki_en": "Sea Lion Island"
+   },
+   {
+    "nom_fr": "Cathédrale de Stanley",
+    "type": "culture",
+    "wiki_en": "Christ Church Cathedral (Falkland Islands)"
+   }
+  ]
+ },
+ "AUS": {
+  "pays": "Australie",
+  "lieux": [
+   {
+    "nom_fr": "Uluru",
+    "type": "paysage",
+    "wiki_en": "Uluru"
+   },
+   {
+    "nom_fr": "Opéra de Sydney",
+    "type": "culture",
+    "wiki_en": "Sydney Opera House"
+   },
+   {
+    "nom_fr": "Grande Barrière de corail",
+    "type": "paysage",
+    "wiki_en": "Great Barrier Reef"
+   }
+  ]
+ },
+ "NZL": {
+  "pays": "Nouvelle-Zélande",
+  "lieux": [
+   {
+    "nom_fr": "Fjord de Milford",
+    "type": "paysage",
+    "wiki_en": "Milford Sound"
+   },
+   {
+    "nom_fr": "Aoraki / Mont Cook",
+    "type": "paysage",
+    "wiki_en": "Aoraki / Mount Cook"
+   },
+   {
+    "nom_fr": "Lac Tekapo",
+    "type": "paysage",
+    "wiki_en": "Lake Tekapo"
+   }
+  ]
+ },
+ "FJI": {
+  "pays": "Fidji",
+  "lieux": [
+   {
+    "nom_fr": "Îles Mamanuca",
+    "type": "paysage",
+    "wiki_en": "Mamanuca Islands"
+   },
+   {
+    "nom_fr": "Îles Yasawa",
+    "type": "paysage",
+    "wiki_en": "Yasawa Group"
+   },
+   {
+    "nom_fr": "Levuka",
+    "type": "culture",
+    "wiki_en": "Levuka"
+   }
+  ]
+ },
+ "PNG": {
+  "pays": "Papouasie-Nouvelle-Guinée",
+  "lieux": [
+   {
+    "nom_fr": "Volcan Tavurvur",
+    "type": "paysage",
+    "wiki_en": "Tavurvur"
+   },
+   {
+    "nom_fr": "Mont Wilhelm",
+    "type": "paysage",
+    "wiki_en": "Mount Wilhelm"
+   },
+   {
+    "nom_fr": "Fleuve Sepik",
+    "type": "paysage",
+    "wiki_en": "Sepik River"
+   }
+  ]
+ },
+ "SLB": {
+  "pays": "Îles Salomon",
+  "lieux": [
+   {
+    "nom_fr": "Lagon de Marovo",
+    "type": "paysage",
+    "wiki_en": "Marovo Lagoon"
+   },
+   {
+    "nom_fr": "Rennell-Est",
+    "type": "paysage",
+    "wiki_en": "East Rennell"
+   },
+   {
+    "nom_fr": "Lagon de Langa Langa",
+    "type": "paysage",
+    "wiki_en": "Langa Langa Lagoon"
+   }
+  ]
+ },
+ "VUT": {
+  "pays": "Vanuatu",
+  "lieux": [
+   {
+    "nom_fr": "Volcan Yasur",
+    "type": "paysage",
+    "wiki_en": "Mount Yasur"
+   },
+   {
+    "nom_fr": "Champagne Beach",
+    "type": "paysage",
+    "wiki_en": "Champagne Beach (Vanuatu)"
+   },
+   {
+    "nom_fr": "Île d'Ambrym",
+    "type": "paysage",
+    "wiki_en": "Ambrym"
+   }
+  ]
+ },
+ "NCL": {
+  "pays": "Nouvelle-Calédonie",
+  "lieux": [
+   {
+    "nom_fr": "Lagon calédonien",
+    "type": "paysage",
+    "wiki_en": "New Caledonian barrier reef"
+   },
+   {
+    "nom_fr": "Île des Pins",
+    "type": "paysage",
+    "wiki_en": "Isle of Pines (New Caledonia)"
+   },
+   {
+    "nom_fr": "Centre culturel Tjibaou",
+    "type": "culture",
+    "wiki_en": "Tjibaou Cultural Centre"
+   }
+  ]
+ },
+ "PYF": {
+  "pays": "Polynésie française",
+  "lieux": [
+   {
+    "nom_fr": "Bora-Bora",
+    "type": "paysage",
+    "wiki_en": "Bora Bora"
+   },
+   {
+    "nom_fr": "Moorea",
+    "type": "paysage",
+    "wiki_en": "Moorea"
+   },
+   {
+    "nom_fr": "Marae de Taputapuātea",
+    "type": "culture",
+    "wiki_en": "Taputapuatea marae"
+   }
+  ]
+ },
+ "WSM": {
+  "pays": "Samoa",
+  "lieux": [
+   {
+    "nom_fr": "Souffleurs d'Alofaaga",
+    "type": "paysage",
+    "wiki_en": "Alofaaga Blowholes"
+   },
+   {
+    "nom_fr": "Bassin de Piula",
+    "type": "paysage",
+    "wiki_en": "Piula Cave Pool"
+   },
+   {
+    "nom_fr": "Tertre de Pulemelei",
+    "type": "culture",
+    "wiki_en": "Pulemelei Mound"
+   }
+  ]
+ },
+ "TON": {
+  "pays": "Tonga",
+  "lieux": [
+   {
+    "nom_fr": "Archipel de Vavaʻu",
+    "type": "paysage",
+    "wiki_en": "Vavaʻu"
+   },
+   {
+    "nom_fr": "Trilithe Haʻamonga ʻa Maui",
+    "type": "culture",
+    "wiki_en": "Haʻamonga ʻa Maui"
+   },
+   {
+    "nom_fr": "Parc national d'ʻEua",
+    "type": "paysage",
+    "wiki_en": "ʻEua National Park"
+   }
+  ]
+ },
+ "KIR": {
+  "pays": "Kiribati",
+  "lieux": [
+   {
+    "nom_fr": "Kiritimati",
+    "type": "paysage",
+    "wiki_en": "Kiritimati"
+   },
+   {
+    "nom_fr": "Aire protégée des Phoenix",
+    "type": "paysage",
+    "wiki_en": "Phoenix Islands Protected Area"
+   },
+   {
+    "nom_fr": "Atoll de Tarawa",
+    "type": "paysage",
+    "wiki_en": "Tarawa"
+   }
+  ]
+ },
+ "TUV": {
+  "pays": "Tuvalu",
+  "lieux": [
+   {
+    "nom_fr": "Atoll de Funafuti",
+    "type": "paysage",
+    "wiki_en": "Funafuti"
+   },
+   {
+    "nom_fr": "Réserve de Funafuti",
+    "type": "paysage",
+    "wiki_en": "Funafuti Conservation Area"
+   },
+   {
+    "nom_fr": "Atoll de Nanumea",
+    "type": "paysage",
+    "wiki_en": "Nanumea"
+   }
+  ]
+ },
+ "NRU": {
+  "pays": "Nauru",
+  "lieux": [
+   {
+    "nom_fr": "Baie d'Anibare",
+    "type": "paysage",
+    "wiki_en": "Anibare Bay"
+   },
+   {
+    "nom_fr": "Lagune de Buada",
+    "type": "paysage",
+    "wiki_en": "Buada Lagoon"
+   }
+  ]
+ },
+ "MHL": {
+  "pays": "Îles Marshall",
+  "lieux": [
+   {
+    "nom_fr": "Atoll de Majuro",
+    "type": "paysage",
+    "wiki_en": "Majuro"
+   },
+   {
+    "nom_fr": "Atoll d'Arno",
+    "type": "paysage",
+    "wiki_en": "Arno Atoll"
+   },
+   {
+    "nom_fr": "Atoll de Likiep",
+    "type": "paysage",
+    "wiki_en": "Likiep Atoll"
+   }
+  ]
+ },
+ "FSM": {
+  "pays": "Micronésie",
+  "lieux": [
+   {
+    "nom_fr": "Nan Madol",
+    "type": "culture",
+    "wiki_en": "Nan Madol"
+   },
+   {
+    "nom_fr": "Atoll d'Ant",
+    "type": "paysage",
+    "wiki_en": "Ant Atoll"
+   },
+   {
+    "nom_fr": "Île de Lelu",
+    "type": "culture",
+    "wiki_en": "Lelu Island"
+   }
+  ]
+ },
+ "PLW": {
+  "pays": "Palaos",
+  "lieux": [
+   {
+    "nom_fr": "Rock Islands",
+    "type": "paysage",
+    "wiki_en": "Rock Islands"
+   },
+   {
+    "nom_fr": "Lac aux méduses",
+    "type": "paysage",
+    "wiki_en": "Jellyfish Lake"
+   },
+   {
+    "nom_fr": "Atoll de Kayangel",
+    "type": "paysage",
+    "wiki_en": "Kayangel"
+   }
+  ]
+ },
+ "COK": {
+  "pays": "Îles Cook",
+  "lieux": [
+   {
+    "nom_fr": "Aitutaki",
+    "type": "paysage",
+    "wiki_en": "Aitutaki"
+   },
+   {
+    "nom_fr": "Rarotonga",
+    "type": "paysage",
+    "wiki_en": "Rarotonga"
+   },
+   {
+    "nom_fr": "Atiu",
+    "type": "paysage",
+    "wiki_en": "Atiu"
+   }
+  ]
+ },
+ "NIU": {
+  "pays": "Niue",
+  "lieux": [
+   {
+    "nom_fr": "Pointe Halagigie",
+    "type": "paysage",
+    "wiki_en": "Halagigie Point"
+   }
+  ]
+ },
+ "ASM": {
+  "pays": "Samoa américaines",
+  "lieux": [
+   {
+    "nom_fr": "Parc national des Samoa",
+    "type": "paysage",
+    "wiki_en": "National Park of American Samoa"
+   },
+   {
+    "nom_fr": "Baie de Pago Pago",
+    "type": "paysage",
+    "wiki_en": "Pago Pago Harbor"
+   },
+   {
+    "nom_fr": "Ofu et Olosega",
+    "type": "paysage",
+    "wiki_en": "Ofu-Olosega"
+   }
+  ]
+ },
+ "GUM": {
+  "pays": "Guam",
+  "lieux": [
+   {
+    "nom_fr": "Baie de Tumon",
+    "type": "paysage",
+    "wiki_en": "Tumon Bay"
+   },
+   {
+    "nom_fr": "Chutes de Talofofo",
+    "type": "paysage",
+    "wiki_en": "Talofofo Falls"
+   },
+   {
+    "nom_fr": "Cathédrale de Hagåtña",
+    "type": "culture",
+    "wiki_en": "Dulce Nombre de Maria Cathedral Basilica"
+   }
+  ]
+ },
+ "MNP": {
+  "pays": "Îles Mariannes du Nord",
+  "lieux": [
+   {
+    "nom_fr": "Île de Managaha",
+    "type": "paysage",
+    "wiki_en": "Managaha"
+   },
+   {
+    "nom_fr": "Mont Tapochau",
+    "type": "paysage",
+    "wiki_en": "Mount Tapochau"
+   },
+   {
+    "nom_fr": "Maison de Taga",
+    "type": "culture",
+    "wiki_en": "House of Taga"
+   }
+  ]
+ },
+ "WLF": {
+  "pays": "Wallis-et-Futuna",
+  "lieux": [
+   {
+    "nom_fr": "Lac Lalolalo",
+    "type": "paysage",
+    "wiki_en": "Lake Lalolalo"
+   },
+   {
+    "nom_fr": "Cathédrale de Mata-Utu",
+    "type": "culture",
+    "wiki_en": "Cathedral of Our Lady of the Assumption, Mata-Utu"
+   },
+   {
+    "nom_fr": "Site de Talietumu",
+    "type": "culture",
+    "wiki_en": "Talietumu"
+   }
+  ]
+ },
+ "NFK": {
+  "pays": "Île Norfolk",
+  "lieux": [
+   {
+    "nom_fr": "Parc national de Norfolk",
+    "type": "paysage",
+    "wiki_en": "Norfolk Island National Park"
+   },
+   {
+    "nom_fr": "Kingston",
+    "type": "culture",
+    "wiki_en": "Kingston, Norfolk Island"
+   },
+   {
+    "nom_fr": "Île Phillip",
+    "type": "paysage",
+    "wiki_en": "Phillip Island (Norfolk Island)"
+   }
+  ]
+ }
+}
