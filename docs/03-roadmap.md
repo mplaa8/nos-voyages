@@ -18,7 +18,8 @@ Il reste 5 jours. Le jour J, ce qui compte est **le contenu** (nos pays, nos pho
 | Lun 12 → Mar 13 oct | Claude Code + moi | ✅ **ORDRE-009 — Destinations en commun** (avancé avant le 14 à ma demande) : « Tinder des voyages » + tirage du prochain voyage. Migration 003 ✅, vérification des droits 6/6 ✅, secret vérifié ✅, tag `v1.1-anniversaire` ✅ |
 | Mar 13 oct (avant 19 h) | Claude Code + moi | **ORDRE-009B — Photos dans le jeu des envies** (bannières Wikivoyage + photos Wikipédia, repli silhouette, interrupteur `PHOTOS_ENVIES`). Moi : vérifier 10–15 cartes, tag `v1.2-anniversaire` |
 | Mar 13 oct (19 h 30) | Moi | **Décision : photos du jeu des envies désactivées pour le jour J** (`PHOTOS_ENVIES = false`, silhouettes seules). Les 699 lieux choisis (`lieux-envies.json`) et la page de revue sont conservés pour la phase 2 |
-| Mar 13 oct (soir) | — | **Gel définitif du code** : plus aucune modification, sauf bug bloquant (repli possible sur `v1.1-anniversaire` avec le jeu, ou `v1.0-anniversaire` sans) |
+| Mar 13 oct (20 h 35) | Moi | ✅ Tag `v1.2-anniversaire` créé (version du jour J, photos du jeu désactivées) |
+| Mar 13 oct (soir) | — | ✅ **Gel définitif du code** : plus aucune modification, sauf bug bloquant (repli possible sur `v1.1-anniversaire` avec le jeu, ou `v1.0-anniversaire` sans) |
 | Mar 13 oct | Claude Code + moi | **ORDRE-007 — Recette finale** : test complet sur iPhone (accueil, carte, chaque fiche, photos, liste), suppression du contenu de test, vérification de la vitesse avec toutes les photos, test de l'installation sur l'écran d'accueil |
 | Mer 14 oct | Moi | **Offrir** 🎁 |
 
