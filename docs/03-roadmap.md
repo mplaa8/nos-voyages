@@ -17,6 +17,7 @@ Il reste 5 jours. Le jour J, ce qui compte est **le contenu** (nos pays, nos pho
 | Lun 12 oct | Claude Code + moi | ✅ ORDRE-007 partie A (audit, 152 tests, tag `v1.0-anniversaire`) · ✅ palmarès testé en vrai |
 | Lun 12 → Mar 13 oct | Claude Code + moi | ✅ **ORDRE-009 — Destinations en commun** (avancé avant le 14 à ma demande) : « Tinder des voyages » + tirage du prochain voyage. Migration 003 ✅, vérification des droits 6/6 ✅, secret vérifié ✅, tag `v1.1-anniversaire` ✅ |
 | Mar 13 oct (avant 19 h) | Claude Code + moi | **ORDRE-009B — Photos dans le jeu des envies** (bannières Wikivoyage + photos Wikipédia, repli silhouette, interrupteur `PHOTOS_ENVIES`). Moi : vérifier 10–15 cartes, tag `v1.2-anniversaire` |
+| Mar 13 oct (19 h 30) | Moi | **Décision : photos du jeu des envies désactivées pour le jour J** (`PHOTOS_ENVIES = false`, silhouettes seules). Les 699 lieux choisis (`lieux-envies.json`) et la page de revue sont conservés pour la phase 2 |
 | Mar 13 oct (soir) | — | **Gel définitif du code** : plus aucune modification, sauf bug bloquant (repli possible sur `v1.1-anniversaire` avec le jeu, ou `v1.0-anniversaire` sans) |
 | Mar 13 oct | Claude Code + moi | **ORDRE-007 — Recette finale** : test complet sur iPhone (accueil, carte, chaque fiche, photos, liste), suppression du contenu de test, vérification de la vitesse avec toutes les photos, test de l'installation sur l'écran d'accueil |
 | Mer 14 oct | Moi | **Offrir** 🎁 |
@@ -42,6 +43,8 @@ Rythme conseillé : un ordre à la fois, testé sur iPhone avant de passer au su
 | **ORDRE-010 — Nos voyages** | La notion de Voyage (titre, dates, pays, villes), migration douce du contenu existant, frise « Notre histoire », mode « voyage en cours » (ajout rapide pendant le voyage) | Pierre angulaire : débloque dates, frise, récap annuel, Oscars |
 | **ORDRE-011 — Jeux et attentions** | « Devine où c'était » (5 photos, points, revanche) + mots doux cachés sur les photos | Fait vivre l'app entre deux voyages |
 | **ORDRE-012 — Les Oscars** | Catégories du palmarès à la carte (« Plus belle chambre », « Meilleur cocktail », « Plus grosse galère »…) + cérémonie annuelle des Oscars (vote parmi les gagnants de tous les pays, révélation animée) | À livrer avant le **14 octobre 2027** pour la première cérémonie |
+
+**À reprendre en priorité après le 14** : photos du jeu des envies — comprendre pourquoi la page `revue-photos.html` n'affiche rien sur iPhone, puis validation humaine photo par photo avant de réactiver.
 
 **En réserve** (banque d'idées) : photos enrichies (légende, couverture), villes sur la carte, compte à rebours, hors ligne, « Je pense à toi », notre accord parfait, messages vocaux, livre photo.
 
