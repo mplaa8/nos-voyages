@@ -23,3 +23,9 @@ Les photos de l'article **Wikipédia ne sont plus utilisées**.
 **Tests** (webapp-testing, 390 × 844, Wikimedia **simulé** car inaccessible depuis l'environnement de Claude Code) : `tests/test_photos_paysages.py` (adaptation de `test_ordre009b_photos.py`). **31/31** (sélection UNESCO, un cliché par site, légendes, repli Wikivoyage si pas de site ou service en panne, repli silhouette, service lent, image introuvable, interrupteur). Non-régression du jeu : ORDRE-009 **36/36**. `test_ordre009b_photos.py` décrit l'ancienne sélection (Wikipédia) et est remplacé par ce test. Captures : `docs/captures/paysages-*.png`.
 
 **À vérifier sur l'iPhone** : la vraie qualité des photos (10–15 pays). Le service de requêtes Wikidata peut être un peu lent la toute première fois ; dans ce cas la carte reste en silhouette, puis les photos apparaissent aux parties suivantes (elles sont mémorisées).
+
+## Revue de l'architecte (13/10, 15 h 30)
+- Validé : requête UNESCO correcte (P1435 = Q9259, tri par notoriété via le nombre de liens), un cliché par site, repli Wikivoyage puis silhouette, interrupteur inchangé, nouveaux domaines exclus du cache du service worker, cache `v10`, syntaxe JS OK.
+- Fusionné sur `main` par l'architecte (avance rapide) pour permettre la validation sur iPhone avant le gel de ce soir.
+- Limite connue, à traiter après le 14 (phase 2) : le filtre des noms de fichiers est une recherche de sous-chaînes ; il peut écarter à tort quelques sites dont le nom contient « map », « chart » ou « logo » (ex. Mapungubwe, Chartres). Sans gravité : les autres photos ou la bannière prennent le relais.
+- Après validation sur iPhone : créer le tag `v1.2-anniversaire`.
