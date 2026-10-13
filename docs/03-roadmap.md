@@ -15,8 +15,8 @@ Il reste 5 jours. Le jour J, ce qui compte est **le contenu** (nos pays, nos pho
 | Dim 11 → Lun 12 oct | Claude Code + moi | ✅ code (dim. soir) · **ORDRE-006 — Palmarès** : 🌅 vue, 🍽️ assiette, 😂 drôle, 💗 préféré de chacun, animation « même moment » ; mêmes droits pour Max et Roxane, code secret pour Roxane. Moi : créer le compte de Roxane, lancer la migration SQL, faire mes choix |
 | Lun 12 oct (00 h 30) | Moi | ✅ Tests Supabase réussis (migration, vérification des droits, code secret) |
 | Lun 12 oct | Claude Code + moi | ✅ ORDRE-007 partie A (audit, 152 tests, tag `v1.0-anniversaire`) · ✅ palmarès testé en vrai |
-| Lun 12 oct | Claude Code + moi | **ORDRE-009 — Destinations en commun** (avancé avant le 14 à ma demande) : « Tinder des voyages » + tirage du prochain voyage. Moi : migration 003, mes réponses, tag `v1.1-anniversaire` |
-| Mar 13 oct (soir) | — | **Gel définitif du code** : plus aucune modification, sauf bug bloquant (repli possible sur `v1.0-anniversaire`) |
+| Lun 12 → Mar 13 oct | Claude Code + moi | ✅ **ORDRE-009 — Destinations en commun** (avancé avant le 14 à ma demande) : « Tinder des voyages » + tirage du prochain voyage. Migration 003 ✅, vérification des droits 6/6 ✅, secret vérifié ✅, tag `v1.1-anniversaire` ✅ |
+| Mar 13 oct (soir) | — | **Gel définitif du code** : plus aucune modification, sauf bug bloquant (repli possible sur `v1.1-anniversaire` avec le jeu, ou `v1.0-anniversaire` sans) |
 | Mar 13 oct | Claude Code + moi | **ORDRE-007 — Recette finale** : test complet sur iPhone (accueil, carte, chaque fiche, photos, liste), suppression du contenu de test, vérification de la vitesse avec toutes les photos, test de l'installation sur l'écran d'accueil |
 | Mer 14 oct | Moi | **Offrir** 🎁 |
 
