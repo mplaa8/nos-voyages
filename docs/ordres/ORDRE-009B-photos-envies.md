@@ -1,6 +1,6 @@
 # ORDRE-009B — Des photos de présentation dans le jeu des envies
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : à faire
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait (validation sur iPhone et tag `v1.2-anniversaire` par l'utilisateur)
 **Échéance stricte** : mardi 13 octobre 2026, **avant 19 h** (gel définitif du code ce soir, anniversaire demain)
 **Prérequis côté utilisateur** : aucun (pas de migration, pas de Supabase)
 
@@ -54,10 +54,51 @@ Ton environnement ne peut probablement pas joindre Wikimedia : **simule les rép
 3. Une fois validé : créer le tag de repli **`v1.2-anniversaire`** sur GitHub (comme `v1.1`).
 
 ## Critères de fin
-- [ ] 2 à 3 photos par carte quand elles existent, crédits affichés, repli silhouette garanti
-- [ ] Chargement limité à la carte courante + la suivante, rien dans le cache du service worker
-- [ ] Interrupteur `PHOTOS_ENVIES`, cache `v9`
-- [ ] Tests passés (avec réponses simulées), captures dans `docs/captures/`, état du projet à jour
-- [ ] Commit et push sur `main` avant 19 h, résumé de 5 lignes + ce que l'utilisateur doit vérifier
+- [x] 2 à 3 photos par carte quand elles existent, crédits affichés, repli silhouette garanti
+- [x] Chargement limité à la carte courante + la suivante, rien dans le cache du service worker
+- [x] Interrupteur `PHOTOS_ENVIES`, cache `v9`
+- [x] Tests passés (avec réponses simulées), captures dans `docs/captures/`, état du projet à jour
+- [x] Commit et push sur `main` avant 19 h, résumé de 5 lignes + ce que l'utilisateur doit vérifier
 
 ## Compte rendu (à remplir par Claude Code)
+
+**Fait — 13 octobre 2026**
+
+**Source et requêtes** (lectures publiques, sans clé, `origin=*`). Pour chaque carte :
+1. Wikidata `wbgetclaims` sur **P948** (bannière Wikivoyage ; rang « preferred » d'abord, « deprecated » ignoré) et `wbgetentities` réduit au lien `frwiki`, en parallèle. **Écart justifié** : l'ordre prévoyait `wbgetentities` avec `claims`, mais cela renvoie toute la fiche du pays, plusieurs centaines de Ko sur mobile ; ces deux requêtes ne pèsent que quelques Ko.
+2. Wikipédia `page/media-list`. Filtre : JPG seulement, et exclusion (sans accents ni casse) de flag, drapeau, map, carte, locator, location, orthographic, coat, blason, armoiries, emblem, logo, seal, sceau, graph, chart, diagram, population, portrait, président, signature. Les 2 premières photos restantes sont gardées.
+3. Une seule requête Commons `imageinfo` pour 3 fichiers au plus. Elle donne l'adresse de la vignette, la taille, l'auteur, et confirme que le fichier est bien sur Commons (un fichier local à Wikipédia est écarté).
+
+L'identifiant Wikidata vient de `WIKIDATAID` (Natural Earth). Les territoires séparés ont leur propre correspondance : GUF Q3769, GLP Q17012, MTQ Q17054, REU Q17070, MYT Q17063, BES Q27561, SJM → Q25231 (Svalbard).
+
+**Taille des images.** Photos en **960 px** de large : une taille standard des vignettes Wikimedia, au lieu de 800, et à peine plus lourde. **Bannières en 1920 px** (ou l'original s'il est plus petit) : ce sont des panoramas d'environ 7:1. En 800 px, une bannière ne fait qu'environ 115 px de haut, et recadrée sur 60 % de la carte elle serait agrandie environ 6 fois sur un écran Retina, donc floue.
+
+**Crédits** : « Photo : {auteur} · Wikimedia Commons », ou « Photo : Wikimedia Commons » sans auteur. Le texte de l'auteur, modifiable par n'importe qui sur Commons, est converti en texte brut par un `DOMParser` inerte : aucun code n'est exécuté, c'est testé avec un `onerror` piégé. Il est tronqué à 40 caractères.
+
+**Repli et performance.**
+- Une carte s'affiche d'abord avec sa silhouette. Elle ne passe en photos que si la **1re photo est déjà chargée** dans les 4 s ; sinon elle reste sur la silhouette, sans aucun message.
+- Une image introuvable est sautée, et retirée si elle échoue plus tard. S'il ne reste aucune image, retour à la silhouette.
+- Seules la carte affichée et la suivante sont chargées ; la suivante est préchargée et arrive directement avec ses photos.
+- Les listes de photos par pays sont gardées en mémoire et dans `localStorage` (`nos-voyages-photos-v1`, try/catch) : pas de nouvelle requête à la partie suivante.
+- `sw.js` ne met pas en cache `wikidata.org`, `wikipedia.org` ni `wikimedia.org`. Cache passé en `nos-voyages-v9`.
+
+**Présentation.**
+- Photo sur 60 % du haut de la carte, recadrée en `cover`, avec un dégradé vers le papier.
+- Drapeau, nom et petite silhouette rose sur une ligne, puis le continent et le crédit.
+- Barres de progression façon « stories ». Un simple toucher (déplacement de moins de 8 px) à gauche ou à droite change de photo ; un glissement de plus de 100 px reste ❤️ / ✖️.
+- Fondu à l'apparition (`prefers-reduced-motion` respecté). Les tampons sont sur fond papier par-dessus la photo.
+
+**`PHOTOS_ENVIES = false`** : cartes identiques à l'ORDRE-009, et aucune requête externe (vérifié).
+
+**Tests** (webapp-testing, 390 × 844, Wikimedia **simulé**, inaccessible depuis l'environnement de Claude Code) : `tests/test_ordre009b_photos.py` **26/26**. Points couverts :
+- bannière « preferred » en 1920 px et 2 photos en 960 px, barres, crédits ;
+- toucher à droite puis à gauche, nettoyage du crédit ;
+- filtrage (SVG, PNG, GIF, drapeau, carte, blason, portrait, emblème, localisateur écartés) ;
+- 2 pays interrogés à l'ouverture, puis 1 de plus par réponse ; aucune requête avant d'ouvrir le jeu, ni au retour sur des pays déjà vus ;
+- glisser, « Annuler » et « Destination en commun » sur une carte avec photos ;
+- replis : pas de bannière, pas de photos complémentaires, rien du tout, service lent (le geste reste immédiat, silhouette au-delà de 4 s), service en erreur, bannière introuvable (la carte passe aux 2 autres photos) ;
+- photos désactivées.
+
+Non-régression : ORDRE-002 14/14, 003 18/18, 004 18/18, 005 41/41, 006 47/47 et 15/15, 009 36/36. **Total 215/215.** Seules erreurs console : les 404, 400 et 500 volontaires des tests de secours, de mauvais code et de service en erreur. Captures : `docs/captures/ordre009b-*.png`.
+
+**Non testé ici** : le vrai Wikimedia (formats d'API respectés d'après leur documentation publique, mais non confrontés au service réel). C'est la vérification sur iPhone qui fera foi.

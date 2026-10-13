@@ -24,6 +24,9 @@ def setup(ctx, break_maplibre=False):
     for url in ["https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.js", "https://unpkg.com/maplibre-gl@5.24.0/dist/maplibre-gl.js"]:
         if break_maplibre: ctx.route(url, lambda r: r.fulfill(status=404, body=""))
         else: ctx.route(url, lambda r: r.fulfill(path=MLJS, content_type="application/javascript"))
+    # Wikimedia simulé « sans photo » (inaccessible depuis l'environnement de test) : les cartes gardent leur silhouette
+    for pat in ("https://www.wikidata.org/**", "https://fr.wikipedia.org/**", "https://commons.wikimedia.org/**"):
+        ctx.route(pat, lambda r: r.fulfill(status=200, headers={"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"}, body='{"claims": {}, "entities": {}}'))
     ctx.route("**/ne_50m_admin_0_countries.geojson", lambda r: r.fulfill(path=L + "/ne50.geojson", content_type="application/json", headers={"Access-Control-Allow-Origin": "*"}))
 def page(b, tag, seed=None, init=None, **kw):
     ctx = b.new_context(viewport={"width": 390, "height": 844}, device_scale_factor=2, is_mobile=True, has_touch=True, service_workers="block")
