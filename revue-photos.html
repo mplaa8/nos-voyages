@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revue des photos</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#161b33">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,400;1,9..144,500&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Page de travail pour Maxime (ORDRE-009E) : non liée depuis l'app, jamais mise en cache par sw.js.
+     Les photos sont choisies par le code même du jeu, relu dans index.html (entre les repères « SÉLECTION PHOTOS »). -->
+<style>
+:root{
+  --night:#161b33; --night-2:#1f2545; --land:#2c3358; --land-line:#3a4270;
+  --glow:#ff7a8a; --glow-d:#e2566a; --paper:#fff7f5; --ink:#262238; --muted:#a39cba;
+  --serif:'Fraunces',Georgia,serif; --sans:'Karla',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --st:env(safe-area-inset-top,0px); --sb:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--night);color:var(--paper);font-family:var(--sans);-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--glow);outline-offset:2px}
+
+.top{padding:calc(var(--st) + 14px) 16px 0}
+.top h1{margin:0;font-family:var(--serif);font-style:italic;font-weight:500;font-size:clamp(26px,6vw,34px);line-height:1.1}
+.top p{margin:6px 0 12px;max-width:62ch;color:var(--muted);font-size:15px;line-height:1.45}
+.chips{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:calc(var(--st) + 8px) 16px 12px;background:linear-gradient(var(--night) 80%,rgba(22,27,51,0))}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;min-height:44px;padding:0 18px;border:0;border-radius:22px;background:var(--night-2);font-weight:700;font-size:15px}
+.chips button[aria-pressed=true]{background:var(--paper);color:var(--ink)}
+
+main{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,360px),1fr));gap:28px 32px;padding:4px 16px calc(var(--sb) + 110px);max-width:1500px;margin:0 auto}
+.pays{min-width:0}
+.pays h2{display:flex;align-items:baseline;gap:8px;margin:0 0 10px;font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.2}
+.pays h2 .flag{font-size:20px}
+.pays h2 span:nth-child(2){min-width:0;overflow-wrap:anywhere}
+.pays h2 small{margin-left:auto;font-family:var(--sans);font-weight:500;font-size:13px;color:var(--muted);white-space:nowrap}
+.planche{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.vide{grid-column:1/-1;margin:0;padding:14px;border:1px dashed var(--land-line);border-radius:10px;color:var(--muted);font-size:14px;line-height:1.4}
+.vide button{margin-left:6px;min-height:44px;padding:0 12px;border:1px solid var(--land-line);border-radius:8px;background:none}
+
+/* Chaque photo est un tirage posé sur la table : marge blanche, légende en dessous. Refusée : barrée au crayon rose. */
+.tirage{position:relative;display:block;width:100%;padding:5px 5px 0;border:0;border-radius:3px;background:var(--paper);color:var(--ink);text-align:left;
+  transform:rotate(var(--r,0deg));box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .18s,opacity .18s}
+.tirage img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;background:var(--land)}
+.tirage span{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;height:calc(2.6em + 12px);padding:5px 2px 7px;font-size:12.5px;line-height:1.3;overflow:hidden;overflow-wrap:anywhere}
+.tirage .ban{font-style:italic;color:#7c7590}
+.tirage::after{content:'✖ refusée';position:absolute;inset:5px 5px auto;aspect-ratio:3/2;display:none;place-items:center;
+  font-family:var(--serif);font-style:italic;font-weight:500;font-size:18px;color:#fff;background:rgba(226,86,106,.62);border:3px solid var(--glow)}
+.tirage.refus{transform:rotate(0) scale(.96)}
+.tirage.refus img{filter:grayscale(1)}
+.tirage.refus::after{display:grid}
+.attente{aspect-ratio:3/2;border-radius:3px;background:var(--night-2);animation:respire 1.4s ease-in-out infinite alternate}
+@keyframes respire{to{background:var(--land)}}
+
+.bas{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;align-items:center;gap:12px;padding:12px 16px calc(var(--sb) + 12px);
+  background:rgba(31,37,69,.96);border-top:1px solid var(--land-line)}
+.bas #compte{flex:1;font-size:15px;color:var(--muted)}
+.bas #compte b{color:var(--paper)}
+#copier{min-height:48px;padding:0 20px;border:0;border-radius:24px;background:var(--glow);color:#2a0f17;font-weight:700;font-size:16px}
+#copier:disabled{opacity:.45;cursor:default}
+#toast{position:fixed;left:50%;bottom:calc(var(--sb) + 86px);transform:translate(-50%,20px);opacity:0;padding:10px 16px;border-radius:20px;background:var(--paper);color:var(--ink);font-weight:700;transition:.25s;pointer-events:none}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#secours{position:fixed;inset:0;z-index:9;display:none;place-items:center;padding:16px;background:rgba(10,12,26,.8)}
+#secours.show{display:grid}
+#secours div{width:min(100%,560px);padding:18px;border-radius:14px;background:var(--paper);color:var(--ink)}
+#secours textarea{width:100%;height:140px;font-size:16px;font-family:var(--sans)}
+#secours button{min-height:44px;margin-top:10px;padding:0 18px;border:0;border-radius:22px;background:var(--ink);color:var(--paper);font-weight:700}
+#etat{grid-column:1/-1;margin:20px 0;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.tirage,.attente,#toast{transition:none;animation:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Revue des photos du jeu</h1>
+  <p>Chaque pays montre les photos telles que le jeu les choisira. Touche une photo pour la refuser, retouche-la pour annuler. Quand tu as fini, copie la liste des refus et colle-la à Claude Code.</p>
+</header>
+<div class="chips" id="chips" role="group" aria-label="Continent"></div>
+<main id="liste"><p id="etat">Chargement des pays…</p></main>
+<div class="bas">
+  <span id="compte"><b>0</b> photo refusée</span>
+  <button id="copier" disabled>Copier la liste des refus</button>
+</div>
+<div id="toast" role="status"></div>
+<div id="secours" role="dialog" aria-label="Liste des refus"><div>
+  <p>La copie automatique n'a pas marché : sélectionne ce texte et copie-le.</p>
+  <textarea id="secoursTexte" readonly></textarea>
+  <button id="secoursFermer">Fermer</button>
+</div></div>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const CLE_REFUS = 'nos-voyages-revue-refus';
+let refus = [];
+try { refus = JSON.parse(localStorage.getItem(CLE_REFUS)) || []; } catch {}
+const garder = () => { try { localStorage.setItem(CLE_REFUS, JSON.stringify(refus)); } catch {} };
+let toastT;
+const toast = t => { $('toast').textContent = t; $('toast').classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => $('toast').classList.remove('show'), 2200); };
+const flag = iso2 => /^[A-Z]{2}$/.test(iso2 || '') ? String.fromCodePoint(...[...iso2].map(c => 0x1F1A5 + c.charCodeAt(0))) : '🏳️';
+
+// Le code de l'app, relu dans index.html : même sélection de photos, mêmes listes de pays et de continents
+const extrait = (src, nom) => { const m = new RegExp(`^const ${nom} = [\\s\\S]*?;(\\s*//.*)?$`, 'm').exec(src); if (!m) throw new Error('introuvable : ' + nom); return m[0]; };
+async function codeDeLApp(){
+  const src = await (await fetch('index.html', { cache: 'no-store' })).text();
+  const a = src.indexOf('/* ===== DÉBUT SÉLECTION PHOTOS'), z = src.indexOf('/* ===== FIN SÉLECTION PHOTOS');
+  if (a < 0 || z < 0) throw new Error('repères de sélection introuvables');
+  const consts = ['norm', 'GEO_URLS', 'NOMS', 'CONTINENTS', 'TERRITOIRES', 'EXCLUS_ENVIES', 'WIKIDATA_TERRITOIRES'].map(n => extrait(src, n)).join('\n');
+  const state = { wikidata: {} };
+  const app = new Function('state', `'use strict';\n${consts}\n${src.slice(a, z)}\nreturn { fetchPhotos, GEO_URLS, NOMS, CONTINENTS, TERRITOIRES, EXCLUS_ENVIES, WIKIDATA_TERRITOIRES, norm };`)(state);
+  app.state = state;
+  return app;
+}
+async function chargeGeo(urls){
+  for (const u of urls){ try { const r = await fetch(u); if (r.ok) return await r.json(); } catch {} }
+  throw new Error('carte du monde introuvable');
+}
+
+let app, pays = [], filtre = '';
+const resultats = new Map();     // code -> Promise<photos>
+let enCours = 0; const file = [];
+const lance = () => { while (enCours < 4 && file.length){ const f = file.shift(); enCours++; f().finally(() => { enCours--; lance(); }); } };
+const photosDe = code => {
+  if (!resultats.has(code)) resultats.set(code, new Promise((ok, ko) => { file.push(() => app.fetchPhotos(code).then(ok, ko)); lance(); }));
+  return resultats.get(code);
+};
+
+function compte(){
+  const n = refus.length;
+  $('compte').innerHTML = `<b>${n}</b> photo${n > 1 ? 's' : ''} refusée${n > 1 ? 's' : ''}`;
+  $('copier').disabled = !n;
+}
+function tirage(code, p, i){
+  const cle = `${code}|${p.k}`;
+  const b = document.createElement('button');
+  b.className = 'tirage' + (refus.includes(cle) ? ' refus' : '');
+  b.style.setProperty('--r', ['-1.2deg', '.8deg', '-.5deg'][i % 3]);
+  b.setAttribute('aria-pressed', refus.includes(cle));
+  const img = document.createElement('img');
+  img.loading = 'lazy'; img.alt = '';
+  img.src = p.u.replace('/1920px-', '/960px-');      // vignette : la bannière suffit en 960 px ici
+  const s = document.createElement('span');
+  if (p.t) s.textContent = '📍 ' + p.t; else { s.textContent = 'Bannière du pays'; s.className = 'ban'; }
+  b.title = p.k;
+  b.append(img, s);
+  b.addEventListener('click', () => {
+    const j = refus.indexOf(cle);
+    if (j < 0) refus.push(cle); else refus.splice(j, 1);
+    garder(); b.classList.toggle('refus', j < 0); b.setAttribute('aria-pressed', j < 0); compte();
+  });
+  return b;
+}
+async function remplir(sec){
+  const code = sec.dataset.code, planche = sec.querySelector('.planche'), info = sec.querySelector('small');
+  planche.innerHTML = '<div class="attente"></div><div class="attente"></div><div class="attente"></div>';
+  try {
+    const ph = await photosDe(code);
+    planche.replaceChildren(...ph.map((p, i) => tirage(code, p, i)));
+    info.textContent = ph.length ? `${ph.length} photo${ph.length > 1 ? 's' : ''}` : 'silhouette';
+    if (!ph.length) planche.innerHTML = '<p class="vide">Aucune photo retenue : le jeu montrera la silhouette du pays.</p>';
+  } catch {
+    resultats.delete(code); info.textContent = '';
+    planche.innerHTML = '<p class="vide">Wikipédia n\'a pas répondu.<button>Réessayer</button></p>';
+    planche.querySelector('button').onclick = () => remplir(sec);
+  }
+}
+const vu = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ vu.unobserve(e.target); remplir(e.target); } }), { rootMargin: '600px 0px' });
+function afficher(){
+  $('chips').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.r === filtre));
+  const liste = pays.filter(p => !filtre || p.region === filtre);
+  vu.disconnect();
+  $('liste').replaceChildren(...liste.map(p => {
+    const sec = document.createElement('section');
+    sec.className = 'pays'; sec.dataset.code = p.code;
+    const h = document.createElement('h2');
+    const f = document.createElement('span'); f.className = 'flag'; f.textContent = flag(p.iso2);
+    const n = document.createElement('span'); n.textContent = p.nom;
+    h.append(f, n, document.createElement('small'));
+    const pl = document.createElement('div'); pl.className = 'planche';
+    sec.append(h, pl); vu.observe(sec);
+    return sec;
+  }));
+}
+async function demarrer(){
+  try {
+    app = await codeDeLApp();
+    const geo = await chargeGeo(app.GEO_URLS);
+    const vus = new Set();
+    const ajoute = (code, nom, iso2, cont, q) => {
+      if (vus.has(code) || app.EXCLUS_ENVIES.has(code)) return;
+      vus.add(code); app.state.wikidata[code] = q;
+      pays.push({ code, nom, iso2, region: cont });
+    };
+    for (const f of geo.features){
+      const p = f.properties, code = p.ADM0_A3;
+      const region = app.CONTINENTS[p.CONTINENT] || app.CONTINENTS[p.REGION_UN] || (p.REGION_UN === 'Americas' ? 'Amérique du Sud' : '');
+      ajoute(code, app.NOMS[code] || p.NAME_FR || p.NAME, (p.ISO_A2_EH && p.ISO_A2_EH !== '-99') ? p.ISO_A2_EH : p.ISO_A2, region, app.WIKIDATA_TERRITOIRES[code] || p.WIKIDATAID);
+    }
+    for (const t of app.TERRITOIRES) ajoute(t.code, t.nom, t.iso2, app.CONTINENTS[t.continent], app.WIKIDATA_TERRITOIRES[t.code]);
+    pays.sort((a, b) => a.nom.localeCompare(b.nom, 'fr'));
+    const regions = [...new Set(Object.values(app.CONTINENTS))];
+    $('chips').innerHTML = ['', ...regions].map(r => `<button data-r="${r}">${r || 'Tous'}</button>`).join('');
+    $('chips').addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b){ filtre = b.dataset.r; afficher(); window.scrollTo(0, 0); } });
+    afficher(); compte();
+  } catch (e) {
+    $('etat').textContent = 'Impossible de préparer la revue (' + e.message + '). Recharge la page.';
+  }
+}
+$('copier').addEventListener('click', async () => {
+  const texte = 'REFUS: ' + refus.join(', ');
+  try { await navigator.clipboard.writeText(texte); toast('Liste copiée : colle-la à Claude Code'); }
+  catch { $('secoursTexte').value = texte; $('secours').classList.add('show'); $('secoursTexte').select(); }
+});
+$('secoursFermer').addEventListener('click', () => $('secours').classList.remove('show'));
+demarrer();
+})();
+</script>
+</body>
+</html>
