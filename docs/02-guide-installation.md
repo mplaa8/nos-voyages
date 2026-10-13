@@ -63,18 +63,18 @@ Pour une base installée avant cette date (sinon, rien à faire : `setup.sql` co
 
 Dans l'app : ☰ → « 💞 Nos envies de voyage » → **Jouer**. Pour masquer le jeu sans toucher à la base : `DESTINATIONS_ACTIF = false` dans `index.html`.
 
-## En cas de souci : revenir à la version du jour J (`v1.0-anniversaire`)
-La version vérifiée avant l'anniversaire est mise de côté sous le nom **`v1.0-anniversaire`**. Si une évolution future pose problème, on peut y revenir à tout moment.
+## En cas de souci : revenir à une version de référence
+Deux versions vérifiées sont mises de côté : **`v1.1-anniversaire`** (la version du jour J, avec le jeu des envies) et **`v1.0-anniversaire`** (sans le jeu). Si une évolution future pose problème, on peut y revenir à tout moment.
 
-**Ce que tu fais** : dis simplement à Claude Code « Reviens à la version v1.0-anniversaire ». Une à deux minutes après, le site est revenu à cette version ; ferme complètement l'app sur les iPhone puis rouvre-la. **Les données ne bougent pas** : pays, photos, souvenirs et choix du palmarès sont dans Supabase et restent intacts.
+**Ce que tu fais** : dis simplement à Claude Code « Reviens à la version v1.1-anniversaire » (ou v1.0). Une à deux minutes après, le site est revenu à cette version ; ferme complètement l'app sur les iPhone puis rouvre-la. **Les données ne bougent pas** : pays, photos, souvenirs et choix du palmarès sont dans Supabase et restent intacts.
 
 **Pour Claude Code** (sans réécrire l'historique) :
 ```
 git fetch origin --tags && git checkout main && git pull origin main
-git restore --source=v1.0-anniversaire --staged --worktree :/
+git restore --source=v1.1-anniversaire --staged --worktree :/     # ou v1.0-anniversaire
 # puis, dans sw.js, passer CACHE à un numéro PLUS GRAND que le dernier utilisé
 # (sinon les iPhone garderaient en cache la version plus récente)
-git commit -am "Retour à la version v1.0-anniversaire" && git push origin main
+git commit -am "Retour à la version v1.1-anniversaire" && git push origin main
 ```
 Si une migration SQL a été appliquée après le jour J, vérifier qu'elle reste compatible avec cette version (les migrations ajoutent sans supprimer, mais à contrôler).
 

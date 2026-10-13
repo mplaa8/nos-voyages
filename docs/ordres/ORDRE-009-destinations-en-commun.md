@@ -1,6 +1,6 @@
 # ORDRE-009 — Destinations en commun (le « Tinder des voyages ») et tirage du prochain voyage
 
-**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait (côté code ; il reste les étapes Supabase de l'utilisateur)
+**Émis par** : l'architecte · **Exécutant** : Claude Code · **Statut** : fait
 **Échéance stricte** : lundi 12 octobre 2026 au soir (l'anniversaire est le **mercredi 14**, deadline absolue)
 **Prérequis côté utilisateur** : exécuter `migration-003-destinations.sql` dans Supabase (expliqué à la fin)
 
@@ -134,4 +134,9 @@ Maxime fera ses réponses avant le 14 : le jour J, Roxane découvrira les corres
 
 **Non testé ici** : le vrai Supabase et le glisser au vrai doigt sur iPhone (simulé à la souris : mêmes événements « pointer »).
 
-**Reste à faire par l'utilisateur** : migration 003, vérification, ses réponses, puis le tag `v1.1-anniversaire` (voir la marche à suivre).
+**Étapes de l'utilisateur — 13 octobre 2026, toutes faites :**
+- migration 003 lancée : « Success » ;
+- `verification-droits.sql` : 6 lignes ✅ (lancé depuis l'iPhone) ;
+- ses réponses commencées dans le jeu, tout fonctionne ;
+- vérification en navigation privée avec le code de Roxane : aucune réponse de Maxime visible, paquet vierge, puis déconnexion ;
+- tag de repli **`v1.1-anniversaire`** créé sur GitHub (release « Version du jour J + envies de voyage »), sur le commit `602e66d`. Vérifié depuis Claude Code avec `git ls-remote --tags`.

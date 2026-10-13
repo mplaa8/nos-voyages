@@ -59,7 +59,7 @@ Le cahier des charges complet est dans `01-cahier-des-charges.md`.
 - [x] Petits pays et îles touchables et visibles, recherche de pays dans « Nos pays » (ORDRE-005)
 - [x] Nos deux téléphones et le palmarès (ORDRE-006) : Roxane se connecte par code secret et a les mêmes droits que Maxime ; palmarès 🌅 🍽️ 😂 💗 avec règle du secret et animation « même moment » — **à activer dans Supabase** (`migration-002-palmares.sql`, voir le guide)
 - [x] Recette finale côté code (ORDRE-007) : audit OK, 152 vérifications automatiques OK, version de référence **`v1.0-anniversaire`** (retour arrière : voir le guide)
-- [x] Nos envies de voyage (ORDRE-009) : jeu à glisser « j'ai envie / bof » en secret, destinations en commun animées (et passées en « Un jour »), tirage du prochain voyage — **à activer dans Supabase** (`migration-003-destinations.sql`), puis tag `v1.1-anniversaire`
+- [x] Nos envies de voyage (ORDRE-009) : jeu à glisser « j'ai envie / bof » en secret, destinations en commun animées (et passées en « Un jour »), tirage du prochain voyage — activé dans Supabase le 13 octobre ; version de repli **`v1.1-anniversaire`**
 - [ ] Recette sur iPhone par Maxime (check-list partie B de l'ORDRE-007)
 - [ ] Carte remplie (pays, photos, souvenirs)
 - [ ] Testée sur iPhone, puis offerte 🎁
