@@ -242,6 +242,21 @@ textarea{width:100%;min-height:96px;padding:12px 14px;border-radius:14px;border:
 .game-end p{margin:0 0 6px;color:#d6d0ea;font-size:16px;line-height:1.5}
 .game-end .game-end-title{font-family:var(--serif);font-style:italic;font-size:26px;color:#fbf3f6;line-height:1.2;margin-bottom:10px}
 .game-end .open-btn{opacity:1;animation:none;margin-top:18px}
+.swipe.has-photo{padding:0;justify-content:flex-start;overflow:hidden}
+.sw-photo{position:relative;flex:none;width:100%;height:60%;background:#2c3358}
+.sw-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s;pointer-events:none;-webkit-user-drag:none}
+.sw-photo img.on{opacity:1}
+.sw-photo::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:30%;background:linear-gradient(rgba(255,247,245,0),var(--paper));pointer-events:none}
+.sw-bars{position:absolute;z-index:1;top:10px;left:14px;right:14px;display:flex;gap:4px}
+.sw-bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.45);box-shadow:0 0 3px rgba(0,0,0,.3)}
+.sw-bars i.on{background:#fff}
+.sw-body{flex:1;width:100%;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 18px 12px}
+.swipe.has-photo h2{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 0 4px}
+.swipe.has-photo h2 .sil{flex:none;width:30px;height:30px}
+.sw-flag{font-size:28px;line-height:1}
+.sw-credit{display:block;max-width:100%;margin-top:8px;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.swipe .stamp{z-index:2}
+.swipe.has-photo .stamp{background:rgba(255,247,245,.92)}
 .match-dest{position:relative;padding:20px 0 6px}
 .match-dest .sil{width:72%;height:auto;max-height:28vh}
 .match-flag{position:absolute;left:4px;top:4px;font-size:40px;line-height:1}
@@ -417,6 +432,10 @@ const PALMARES_ACTIF = true;
    Mettre false masque toute la fonctionnalité, sans toucher à la base de données. */
 const DESTINATIONS_ACTIF = true;
 
+/* 📷  PHOTOS DES ENVIES — 2 à 3 photos par pays dans le jeu (Wikimedia : bannière Wikivoyage + photos de l'article Wikipédia).
+   Mettre false : cartes avec la seule silhouette, sans aucune requête externe. */
+const PHOTOS_ENVIES = true;
+
 const GEO_URLS = [
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@v5.1.2/geojson/ne_50m_admin_0_countries.geojson",
   "https://cdn.jsdelivr.net/gh/nvkelso/natural-earth-vector@master/geojson/ne_50m_admin_0_countries.geojson"
@@ -535,7 +554,7 @@ const Store = REMOTE ? RemoteStore : LocalStore;
 /* =========================================================
    ÉTAT
    ========================================================= */
-const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, user:null, members:null, picks:[], palmares:false, wishes:[], destinations:false, region:{}, admin:false, current:null, mode:null, editing:null, busy:false };
+const state = { countries:{}, memories:{}, photos:{}, names:{}, iso2:{}, continent:{}, user:null, members:null, picks:[], palmares:false, wishes:[], destinations:false, region:{}, wikidata:{}, admin:false, current:null, mode:null, editing:null, busy:false };
 
 function ingest(data){
   state.countries = {}; state.memories = {}; state.photos = {};
@@ -1059,6 +1078,105 @@ function silhouette(code){
   }
   return `<svg class="sil" viewBox="0 0 100 100" aria-hidden="true"><path d="${d}" fill-rule="evenodd"/></svg>`;
 }
+/* ---------- Photos de présentation (Wikimedia, gratuit, sans clé, lectures publiques uniquement) ----------
+   Repli permanent sur la silhouette : rien n'est affiché tant que la 1re photo n'est pas chargée, et rien après 4 s. */
+const WIKIDATA_TERRITOIRES = { GUF: 'Q3769', GLP: 'Q17012', MTQ: 'Q17054', REU: 'Q17070', MYT: 'Q17063', BES: 'Q27561', SJM: 'Q25231' };
+const PHOTO_EXCLUS = /flag|drapeau|map|carte|locator|location|orthographic|coat|blason|armoiries|emblem|logo|seal|sceau|graph|chart|diagram|population|portrait|president|signature/;
+const PHOTOS_KEY = 'nos-voyages-photos-v1';
+const photoMem = new Map(), photoOk = new Set();      // requêtes de la session ; images déjà chargées
+let photoStore = {};
+try { photoStore = JSON.parse(lsGet(PHOTOS_KEY)) || {}; } catch {}
+const fileKey = f => norm(String(f).replace(/^[^:]+:/, '').replace(/_/g, ' '));
+async function getJSON(url){ const r = await fetch(url); if (!r.ok) throw new Error(r.status); return r.json(); }
+const texteBrut = html => { try { return new DOMParser().parseFromString(String(html || ''), 'text/html').body.textContent.replace(/\s+/g, ' ').trim(); } catch { return ''; } };
+async function fetchPhotos(code){
+  const q = state.wikidata[code]; if (!/^Q\d+$/.test(q || '')) return [];
+  const W = 'https://www.wikidata.org/w/api.php?format=json&origin=*';
+  const [cl, sl] = await Promise.all([
+    getJSON(`${W}&action=wbgetclaims&entity=${q}&property=P948`).catch(() => null),                 // bannière Wikivoyage
+    getJSON(`${W}&action=wbgetentities&ids=${q}&props=sitelinks&sitefilter=frwiki`).catch(() => null) // article Wikipédia en français
+  ]);
+  const banners = (cl?.claims?.P948 || []).filter(c => c.rank !== 'deprecated' && typeof c.mainsnak?.datavalue?.value === 'string')
+    .sort((a, b) => (b.rank === 'preferred') - (a.rank === 'preferred'));
+  const files = banners.length ? [banners[0].mainsnak.datavalue.value] : [];
+  const title = sl?.entities?.[q]?.sitelinks?.frwiki?.title;
+  if (title){
+    const ml = await getJSON(`https://fr.wikipedia.org/api/rest_v1/page/media-list/${encodeURIComponent(title.replace(/ /g, '_'))}`).catch(() => null);
+    const extra = (ml?.items || []).filter(it => it.type === 'image' && typeof it.title === 'string').map(it => it.title.replace(/^[^:]+:/, ''))
+      .filter(f => /\.jpe?g$/i.test(f) && !PHOTO_EXCLUS.test(norm(f)) && !files.some(x => fileKey(x) === fileKey(f)));
+    files.push(...extra.slice(0, 2));
+  }
+  if (!files.length) return [];
+  const C = 'https://commons.wikimedia.org/w/api.php?format=json&origin=*&action=query&prop=imageinfo&iiprop=url%7Csize%7Cextmetadata&iiextmetadatafilter=Artist&iiurlwidth=960';
+  const info = await getJSON(`${C}&titles=${files.map(f => encodeURIComponent('File:' + f)).join('%7C')}`);
+  const byKey = {};
+  Object.values(info?.query?.pages || {}).forEach(pg => { const ii = pg.imageinfo?.[0]; if (ii && /^https:\/\/upload\.wikimedia\.org\//.test(ii.thumburl || '')) byKey[fileKey(pg.title)] = ii; });
+  return files.map(f => byKey[fileKey(f)]).filter(Boolean).map(ii => {
+    let a = texteBrut(ii.extmetadata?.Artist?.value);
+    if (a.length > 42) a = a.slice(0, 40).trim() + '…';
+    // Bannière panoramique (≈ 7:1) : en 960 px elle serait floue une fois recadrée → 1920 px, ou l'original s'il est plus petit
+    let u = ii.thumburl;
+    if (ii.width && ii.height && ii.width / ii.height > 2.5)
+      u = ii.width <= 1920 && /^https:\/\/upload\.wikimedia\.org\//.test(ii.url || '') ? ii.url : ii.thumburl.replace(/\/960px-/, '/1920px-');
+    return { u, a };
+  });
+}
+function photosOf(code){
+  if (!PHOTOS_ENVIES || !code) return Promise.resolve([]);
+  if (photoStore[code]) return Promise.resolve(photoStore[code]);
+  if (!photoMem.has(code)) photoMem.set(code, fetchPhotos(code)
+    .then(list => { photoStore[code] = list; lsSet(PHOTOS_KEY, JSON.stringify(photoStore)); return list; })
+    .catch(() => { photoMem.delete(code); return []; }));     // erreur : on réessaiera à la prochaine partie
+  return photoMem.get(code);
+}
+const preload = url => photoOk.has(url) ? Promise.resolve(true) : new Promise(res => {
+  const im = new Image(); im.onload = () => { photoOk.add(url); res(true); }; im.onerror = () => res(false); im.src = url;
+});
+// Photos d'une carte : affichées seulement si la 1re image est chargée dans les 4 s
+async function readyPhotos(code, timeout = 4000){
+  const t0 = Date.now(), reste = () => wait(Math.max(0, timeout - (Date.now() - t0))).then(() => 'délai');
+  const list = await Promise.race([photosOf(code), wait(timeout).then(() => null)]);
+  for (let i = 0; list && i < list.length; i++){          // la 1re photo qui se charge (une image introuvable est sautée)
+    const ok = await Promise.race([preload(list[i].u), reste()]);
+    if (ok === 'délai') return null;
+    if (ok) return list.slice(i);
+  }
+  return null;
+}
+const creditOf = p => `Photo : ${p.a ? esc(p.a) + ' · ' : ''}Wikimedia Commons`;
+function photoCard(c, cls, photos){
+  return `<article class="swipe has-photo ${cls}" data-code="${esc(c)}"${cls === 'top' ? ' aria-label="' + esc(nameOf(c)) + '"' : ''}>
+      <span class="stamp yes">❤️ J’ai envie</span><span class="stamp no">✖️ Bof</span>
+      <div class="sw-photo">${photos.map((p, i) => `<img src="${esc(p.u)}" alt="" draggable="false" decoding="async" data-credit="${creditOf(p)}"${i === 0 ? ' class="on"' : ''}>`).join('')}
+        ${photos.length > 1 ? `<div class="sw-bars">${photos.map((_, i) => `<i${i === 0 ? ' class="on"' : ''}></i>`).join('')}</div>` : ''}</div>
+      <div class="sw-body"><h2><span class="sw-flag">${flag(state.iso2[c])}</span>${esc(nameOf(c))}${silhouette(c)}</h2>
+        <p>${esc(state.region[c] || '')}${statusOf(c) === 'dream' ? ' · ✨ Un jour…' : ''}</p><small class="sw-credit">${creditOf(photos[0])}</small></div></article>`;
+}
+// Toucher la photo à gauche / à droite : photo précédente / suivante
+function photoNav(card, clientX){
+  const imgs = [...card.querySelectorAll('.sw-photo img')]; if (imgs.length < 2) return;
+  const r = card.getBoundingClientRect(), i = imgs.findIndex(im => im.classList.contains('on'));
+  const j = Math.max(0, Math.min(imgs.length - 1, i + (clientX - r.left < r.width / 2 ? -1 : 1)));
+  if (j === i) return;
+  imgs.forEach((im, k) => im.classList.toggle('on', k === j));
+  card.querySelectorAll('.sw-bars i').forEach((b, k) => b.classList.toggle('on', k === j));
+  card.querySelector('.sw-credit').textContent = texteBrut(imgs[j].dataset.credit);
+}
+// Une image qui ne se charge pas est retirée ; s'il n'en reste aucune, retour à la silhouette
+$('gameStack').addEventListener('error', e => {
+  if (e.target.tagName !== 'IMG') return;
+  const card = e.target.closest('.swipe'); if (!card) return;
+  const imgs = [...card.querySelectorAll('.sw-photo img')], k = imgs.indexOf(e.target);
+  if (imgs.length < 2){ card.outerHTML = silCard(card.dataset.code, card.classList.contains('top') ? 'top' : 'next'); return; }
+  const etaitVisible = e.target.classList.contains('on');
+  card.querySelectorAll('.sw-bars i')[k]?.remove(); e.target.remove();
+  if (card.querySelectorAll('.sw-bars i').length < 2) card.querySelector('.sw-bars')?.remove();
+  if (etaitVisible){
+    const im = card.querySelector('.sw-photo img'); im.classList.add('on'); card.querySelector('.sw-bars i')?.classList.add('on');
+    card.querySelector('.sw-credit').textContent = texteBrut(im.dataset.credit);
+  }
+}, true);
+
 // Ordre aléatoire mais stable pour chaque personne
 const hashStr = str => { let h = 2166136261; for (const ch of str){ h ^= ch.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; };
 const deckOf = region => Object.keys(state.names)
@@ -1112,10 +1230,7 @@ function renderGame(){
   const all = deckOf(game.region), reste = all.filter(c => !myWish(c));
   $('gameCount').textContent = `${all.length - reste.length} / ${all.length}`;
   $('gameFilters').innerHTML = ['', ...REGIONS].map(r => `<button data-region="${r}" class="${r === game.region ? 'on' : ''}" aria-pressed="${r === game.region}">${r || 'Tous'}</button>`).join('');
-  const card = (c, cls) => `<article class="swipe ${cls}" data-code="${esc(c)}"${cls === 'top' ? ' aria-label="' + esc(nameOf(c)) + '"' : ''}>
-      <span class="stamp yes">❤️ J’ai envie</span><span class="stamp no">✖️ Bof</span>
-      <span class="swipe-flag">${flag(state.iso2[c])}</span>${silhouette(c)}
-      <h2>${esc(nameOf(c))}</h2><p>${esc(state.region[c] || '')}${statusOf(c) === 'dream' ? ' · ✨ Un jour…' : ''}</p></article>`;
+  const card = (c, cls) => { const ph = PHOTOS_ENVIES && photoStore[c]; return ph?.length && photoOk.has(ph[0].u) ? photoCard(c, cls, ph) : silCard(c, cls); };
   $('gameStack').innerHTML = reste.length
     ? (reste[1] ? card(reste[1], 'next') : '') + card(reste[0], 'top')
     : `<div class="game-end"><p class="game-end-title">${game.region ? `Plus aucun pays à découvrir ici 🌍` : 'Tu as fait le tour du monde 🌍'}</p>
@@ -1123,6 +1238,24 @@ function renderGame(){
         ${game.region ? '<button class="open-btn" data-game="tous">Tous les continents</button>' : '<button class="open-btn" data-game="voir">Voir nos destinations en commun</button>'}</div>`;
   $('gameNo').disabled = $('gameYes').disabled = !reste.length;
   $('gameUndo').disabled = !game.history.length;
+  // Photos : seulement la carte affichée, et la suivante en préchargement (jamais tout le paquet)
+  if (PHOTOS_ENVIES && reste.length){
+    const c = reste[0];
+    if (!$('gameStack').querySelector('.swipe.top.has-photo')) readyPhotos(c).then(list => {
+      const top = $('gameStack').querySelector('.swipe.top');
+      if (!list || !top || top.dataset.code !== c || top.classList.contains('has-photo') || drag?.card === top || !gameOpen()) return;
+      top.outerHTML = photoCard(c, 'top', list);
+      const im = $('gameStack').querySelector('.swipe.top .sw-photo img.on');
+      if (im){ im.classList.remove('on'); requestAnimationFrame(() => requestAnimationFrame(() => im.classList.add('on'))); }   // fondu
+    });
+    if (reste[1]) photosOf(reste[1]).then(list => list?.length && preload(list[0].u));
+  }
+}
+function silCard(c, cls){
+  return `<article class="swipe ${cls}" data-code="${esc(c)}"${cls === 'top' ? ' aria-label="' + esc(nameOf(c)) + '"' : ''}>
+      <span class="stamp yes">❤️ J’ai envie</span><span class="stamp no">✖️ Bof</span>
+      <span class="swipe-flag">${flag(state.iso2[c])}</span>${silhouette(c)}
+      <h2>${esc(nameOf(c))}</h2><p>${esc(state.region[c] || '')}${statusOf(c) === 'dream' ? ' · ✨ Un jour…' : ''}</p></article>`;
 }
 async function answer(ans){
   const card = $('gameStack').querySelector('.swipe.top'); if (!card || game.busy) return;
@@ -1158,20 +1291,21 @@ document.addEventListener('keydown', e => { if (!gameOpen() || $('match').classL
 let drag = null;
 $('gameStack').addEventListener('pointerdown', e => {
   const card = e.target.closest('.swipe.top'); if (!card || game.busy) return;
-  drag = { card, id: e.pointerId, x0: e.clientX, y0: e.clientY, dx: 0 };
+  drag = { card, id: e.pointerId, x0: e.clientX, y0: e.clientY, dx: 0, dy: 0 };
   card.setPointerCapture(e.pointerId); card.style.transition = 'none';
 });
 $('gameStack').addEventListener('pointermove', e => {
   if (!drag || e.pointerId !== drag.id) return;
-  drag.dx = e.clientX - drag.x0; const dy = e.clientY - drag.y0;
+  drag.dx = e.clientX - drag.x0; const dy = drag.dy = e.clientY - drag.y0;
   drag.card.style.transform = `translate(${drag.dx}px, ${dy * .3}px) rotate(${drag.dx * .06}deg)`;
   drag.card.querySelector('.stamp.yes').style.opacity = Math.max(0, Math.min(1, drag.dx / 100));
   drag.card.querySelector('.stamp.no').style.opacity = Math.max(0, Math.min(1, -drag.dx / 100));
 });
 const endDrag = e => {
   if (!drag || e.pointerId !== drag.id) return;
-  const { card, dx } = drag; drag = null;
+  const { card, dx, dy } = drag; drag = null;
   if (Math.abs(dx) > 100) return answer(dx > 0 ? 'oui' : 'non');
+  if (Math.abs(dx) < 8 && Math.abs(dy) < 8 && e.type === 'pointerup') photoNav(card, e.clientX);   // simple toucher
   card.style.transition = ''; card.style.transform = '';
   card.querySelectorAll('.stamp').forEach(s => s.style.opacity = 0);
 };
@@ -1536,6 +1670,7 @@ $('letterBtn').addEventListener('click', hideLetter);
       if (CONTINENTS[p.CONTINENT]) state.continent[code] = CONTINENTS[p.CONTINENT];
       // Continent pour le jeu des envies : les îles « en pleine mer » (Maldives, Seychelles…) prennent leur région
       state.region[code] = CONTINENTS[p.CONTINENT] || CONTINENTS[p.REGION_UN] || (p.REGION_UN === 'Americas' ? 'Amérique du Sud' : '');
+      state.wikidata[code] = WIKIDATA_TERRITOIRES[code] || p.WIKIDATAID;   // les territoires séparés ont leur propre fiche
     });
     await startMap(geo);
     $('mapLoading').remove();
